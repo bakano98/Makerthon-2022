@@ -233,10 +233,13 @@ const Mood = ({ navigation, route, props }) => {
     const differenceInDays =
       lastPromptedDay === new Date(1970, 1, 0, 0, 0, 0) // edge case, because when user starts for the very first time, lastPromptedDay === new Date(1970, 1, 0, 0, 0, 0), we have to do this until they have been prompted at least once throughout the app's lifetime
         ? 3
-        : dateFn.differenceInCalendarDays(todayDate, lastPromptedDay);
+        : dateFn.differenceInCalendarDays(
+            todayDate,
+            dateFn.parseISO(lastPromptedDay)
+          );
     if (
       shouldPrompt &&
-      differenceInDays === 3 // so if the last prompt was 3 days ago, then prompt again
+      differenceInDays >= 3 // so if the last prompt was 3 days ago, then prompt again
     ) {
       setLastPromptedDay(todayDate);
       customAlert(
