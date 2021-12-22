@@ -12,7 +12,6 @@ import {
   BookingTest,
   FlatListMoods,
   EmailTest,
-  QuestionnaireRefactor,
 } from "./screens"; // this entire line will be used for testing components and other functionalities
 
 // Navigation stuff
@@ -113,11 +112,6 @@ const TestingStack = () => {
       <Stack.Screen
         component={EmailTest}
         name="EmailTest"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={QuestionnaireRefactor}
-        name="QuestionnaireRefactor"
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

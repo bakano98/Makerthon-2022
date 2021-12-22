@@ -18,4 +18,3 @@ export { default as MoodTest } from "./TestingScreens/MoodTest";
 export { default as BookingTest } from "./TestingScreens/BookingTest";
 export { default as FlatListMoods } from "./TestingScreens/FlatListMoods";
 export { default as EmailTest } from "./TestingScreens/EmailTest";
-export { default as QuestionnaireRefactor } from "./TestingScreens/QuestionnaireRefactor";
