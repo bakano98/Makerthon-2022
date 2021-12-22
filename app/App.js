@@ -1,8 +1,7 @@
+// Normal stuff
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Image, SafeAreaView, Text } from "react-native";
+import { StyleSheet, Image, SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import AppLoading from "expo-app-loading";
-import { useFonts } from "expo-font";
 
 // To be removed
 import {
@@ -11,7 +10,6 @@ import {
   MoodTest,
   BookingTest,
   FlatListMoods,
-  EmailTest,
 } from "./screens"; // this entire line will be used for testing components and other functionalities
 
 // Navigation stuff
@@ -43,6 +41,7 @@ import {
   Questionnaire,
   FormDetails,
 } from "./screens";
+
 
 const icons = require("./icons/icons.js"); // use icons['name'] to get the icon!
 
@@ -109,11 +108,6 @@ const TestingStack = () => {
         name="FlatListMoods"
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        component={EmailTest}
-        name="EmailTest"
-        options={{ headerShown: false }}
-      />
     </Stack.Navigator>
   );
 };
@@ -127,7 +121,7 @@ const SubMoodStack = () => {
     try {
       await AsyncStorage.setItem(CONTENT_KEY, JSON.stringify(content));
     } catch (e) {
-      // console.log(e);
+      console.log(e);
     }
   };
 
@@ -138,7 +132,7 @@ const SubMoodStack = () => {
         setContent(JSON.parse(res));
       }
     } catch (e) {
-      // console.log("Error caught: " + e);
+      console.log("Error caught: " + e);
     }
   };
 
@@ -156,12 +150,12 @@ const SubMoodStack = () => {
         <Stack.Screen
           component={Mood}
           name="Mood"
-          options={{ title: "My Moodal", headerShown: false }}
+          options={{ title: "Mood Journal"}}
         />
         <Stack.Screen
           component={MoodSelector}
           name="MoodSelector"
-          options={{ title: "Select mood", headerShown: false }}
+          options={{ title: "Select mood"}}
         />
       </Stack.Navigator>
     </contentContext.Provider>
@@ -185,16 +179,8 @@ const Resources = () => {
 const ServicesStack = () => {
   return (
     <Stack.Navigator initialRouteName="ServicesScreen">
-      <Stack.Screen
-        component={Services}
-        name="Services"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={Helplines}
-        name="Helplines"
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen component={Services} name="Services" />
+      <Stack.Screen component={Helplines} name="Helplines" />
     </Stack.Navigator>
   );
 };
@@ -205,15 +191,12 @@ const Bottoms = () => {
   const [done, setDone] = useState(false);
   const [todayMood, setTodayMood] = useState(false);
   const [loading, setLoading] = useState(true);
-  let [fontsLoaded] = useFonts({
-    Itim: require("./assets/fonts/Itim.ttf"),
-  });
 
   const saveDone = async () => {
     try {
       await AsyncStorage.setItem(DAILY_KEY, JSON.stringify(done));
     } catch (e) {
-      // console.log(e);
+      console.log(e);
     }
   };
 
@@ -224,7 +207,7 @@ const Bottoms = () => {
         setDone(JSON.parse(res));
       }
     } catch (e) {
-      // console.log(e);
+      console.log(e);
     }
     setLoading(false);
   };
@@ -238,13 +221,15 @@ const Bottoms = () => {
   }, [done]);
 
   // console.log("From app: " + done);
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
+
   if (loading) {
     // just a dummy. Set a loading screen so that nothing is rendered while fetching from AsyncStorage
     // This step can take quite long depending on the user's device (I guess), so best to have a loading page.
-    return <AppLoading />;
+    return (
+    <SafeAreaView style={{flex: 1, height: '100%', width: '100%'}}>
+      <Image source={icons["loading_screen"]}></Image>
+    </SafeAreaView>
+    );
   } else {
     return (
       <Provider store={store}>
@@ -299,10 +284,7 @@ const Bottoms = () => {
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        barStyle={{ backgroundColor: "#694fad" }}
-        options={{ headerShown: false }}
-      >
+      <Stack.Navigator barStyle={{ backgroundColor: "#694fad" }}>
         <Stack.Screen
           component={Bottoms}
           name="Bottoms"
@@ -315,8 +297,8 @@ const App = () => {
           component={Questionnaire}
           name="Questionnaire"
           options={{
-            headerShown: false,
-          }}
+            headerShown: true,
+          }} /*  Set to false later, because users should not be able to go back from this. */
         />
         <Stack.Screen
           component={About}
@@ -345,22 +327,7 @@ const styles = StyleSheet.create({
 // all the screen styles' options
 const screenStyles = {
   resourcesOptions: {
-    headerShown: false,
-    tabBarLabel: ({ focused, color }) => {
-      if (focused) {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "#e09000" }}>
-            Resources
-          </Text>
-        );
-      } else {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "grey" }}>
-            Resources
-          </Text>
-        );
-      }
-    },
+    title: "Resources",
     unmountOnBlur: true,
     tabBarIcon: ({ size, focused, color }) => {
       if (focused) {
@@ -382,21 +349,7 @@ const screenStyles = {
   },
 
   subMoodOptions: {
-    tabBarLabel: ({ focused, color }) => {
-      if (focused) {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "#e09000" }}>
-            My Moodal
-          </Text>
-        );
-      } else {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "grey" }}>
-            My Moodal
-          </Text>
-        );
-      }
-    },
+    title: "Mood Journal",
     headerShown: false,
     tabBarIcon: ({ size, focused, color }) => {
       if (focused) {
@@ -419,22 +372,6 @@ const screenStyles = {
 
   dashboardOptions: {
     unmountOnBlur: true,
-    headerShown: false,
-    tabBarLabel: ({ focused, color }) => {
-      if (focused) {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "#e09000" }}>
-            Dashboard
-          </Text>
-        );
-      } else {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "grey" }}>
-            Dashboard
-          </Text>
-        );
-      }
-    },
     tabBarIcon: ({ size, focused, color }) => {
       if (focused) {
         return (
@@ -455,21 +392,7 @@ const screenStyles = {
   },
 
   servicesOptions: {
-    tabBarLabel: ({ focused, color }) => {
-      if (focused) {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "#e09000" }}>
-            Services
-          </Text>
-        );
-      } else {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "grey" }}>
-            Services
-          </Text>
-        );
-      }
-    },
+    title: "Services",
     unmountOnBlur: true,
     headerShown: false,
     tabBarIcon: ({ size, focused, color }) => {
@@ -492,21 +415,7 @@ const screenStyles = {
   },
 
   settingsOptions: {
-    tabBarLabel: ({ focused, color }) => {
-      if (focused) {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "#e09000" }}>
-            Settings
-          </Text>
-        );
-      } else {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "grey" }}>
-            Settings
-          </Text>
-        );
-      }
-    },
+    title: "Settings",
     unmountOnBlur: true,
     headerShown: false,
     tabBarIcon: ({ size, focused, color }) => {
