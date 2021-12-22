@@ -227,16 +227,12 @@ const Mood = ({ navigation, route, props }) => {
 
   // <-------------------------------- Prompt Handling Stuff --------------------------------->
   let shouldPrompt = moodyDays >= 5;
-  // console.log(shouldPrompt);
-  // needs to add more logic here.
   const prompter = () => {
     const differenceInDays =
       lastPromptedDay === new Date(1970, 1, 0, 0, 0, 0) // edge case, because when user starts for the very first time, lastPromptedDay === new Date(1970, 1, 0, 0, 0, 0), we have to do this until they have been prompted at least once throughout the app's lifetime
         ? 3
-        : dateFn.differenceInCalendarDays(
-            todayDate,
-            dateFn.parseISO(lastPromptedDay)
-          );
+        : dateFn.differenceInCalendarDays(todayDate, lastPromptedDay);
+
     if (
       shouldPrompt &&
       differenceInDays >= 3 // so if the last prompt was 3 days ago, then prompt again
