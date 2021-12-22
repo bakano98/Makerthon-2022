@@ -99,7 +99,9 @@ const Mood = ({ navigation, route, props }) => {
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   const nDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  // function to populate your array with the dates
+  // function to populate your array with the dates. Note that dates are rendered "on demand", i.e. if you are on December, then you would not be aware of
+  // November's state unless you save it somewhere, to use and manipulate another time. Hence, why we would need to maintain some sort of reference to
+  // today's date in order to make use of the floating action button properly.
   const generateMatrix = () => {
     let matrix = [];
     // Create header
@@ -371,6 +373,7 @@ const Mood = ({ navigation, route, props }) => {
     return null;
   };
 
+  // Setting the reference to today's items. A hacky solution.
   if (x === 0) {
     setPersistentItem(retrieveItem());
     x++;

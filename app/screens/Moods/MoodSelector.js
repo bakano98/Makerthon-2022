@@ -80,6 +80,7 @@ const possible_themes = {
 // This is used to render out the names within a Picker.
 const all_content = ["normal", "sunglasses", "moustache"];
 
+// Customisable alert
 const customAlert = (title, msg, accept, decline) => {
   Alert.alert(title, msg, [
     {
@@ -104,7 +105,9 @@ const MoodSelector = ({ navigation, route }) => {
   const addedMoods = user_state.data; // get the array of added moods, aka our state array
   const logPoints = user_state.logPoints;
   // just store the content, additional icons as an array, and just read from the array if we want to check if user has access to it
+
   const isFocused = useIsFocused();
+  // This is to ensure that persistentItem in Moods will always have a reference to the current day.
   if (!isFocused) {
     navigation.goBack();
   }
@@ -313,11 +316,12 @@ const MoodSelector = ({ navigation, route }) => {
       break;
   }
 
-  // if (content.some((x) => x === selectedValue)) {
-  //   console.log("User has access to " + selectedValue);
-  // } else {
-  //   console.log("User does not have access to " + selectedValue);
-  // }
+  // Logs to check whether a user has access to a particular theme.
+  /*if (content.some((x) => x === selectedValue)) {
+    console.log("User has access to " + selectedValue);
+  } else {
+    console.log("User does not have access to " + selectedValue);
+  }*/
 
   return (
     <ImageBackground style={styles.container} source={icons["BG_pic"]}>

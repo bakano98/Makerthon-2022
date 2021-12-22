@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Image, SafeAreaView, Text, LogBox } from "react-native";
+import { Image, Text, LogBox } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
 
-LogBox.ignoreAllLogs(true);
+LogBox.ignoreAllLogs(true); // enable this when debugging
 // To be removed
 import {
   TestingScreen,
@@ -127,9 +127,7 @@ const SubMoodStack = () => {
   const saveContent = async () => {
     try {
       await AsyncStorage.setItem(CONTENT_KEY, JSON.stringify(content));
-    } catch (e) {
-      // console.log(e);
-    }
+    } catch (e) {}
   };
 
   const readContent = async () => {
@@ -138,9 +136,7 @@ const SubMoodStack = () => {
       if (res !== null) {
         setContent(JSON.parse(res));
       }
-    } catch (e) {
-      // console.log("Error caught: " + e);
-    }
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -202,6 +198,9 @@ const ServicesStack = () => {
 
 const DAILY_KEY = "@daily_key";
 // Entire thing is wrapped with mood store, so Dashboard can have access to the mood object
+// Furthermore, we also pass down a dailyContext which tells us whether today's mood has been inputted.
+// If it has, the value is set to true, which will then set out initialRoute to Dashboard.
+// In order to ensure that the value is still true upon app restart on the same day, we have to store this in AsyncStorage, and fetch it.
 const Bottoms = () => {
   const [done, setDone] = useState(false);
   const [todayMood, setTodayMood] = useState(false);
@@ -213,9 +212,7 @@ const Bottoms = () => {
   const saveDone = async () => {
     try {
       await AsyncStorage.setItem(DAILY_KEY, JSON.stringify(done));
-    } catch (e) {
-      // console.log(e);
-    }
+    } catch (e) {}
   };
 
   const readDone = async () => {
@@ -224,9 +221,7 @@ const Bottoms = () => {
       if (res !== null) {
         setDone(JSON.parse(res));
       }
-    } catch (e) {
-      // console.log(e);
-    }
+    } catch (e) {}
     setLoading(false);
   };
 
@@ -333,15 +328,6 @@ const App = () => {
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
 
 // all the screen styles' options
 const screenStyles = {
