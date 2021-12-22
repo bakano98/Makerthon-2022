@@ -10,16 +10,7 @@ import {
   FlatList,
 } from "react-native";
 
-// Services will link to this
-
-/**
- * To do:
- * 1) Change to actual proper helplines, complete with logos.
- */
-
 const icons = require("../../icons/icons.js");
-
-// Note: Linking.openURL(`tel ${number}`) where number is in the form of +6512345678...
 
 // Array of objects. Each object contains the details of a particular hotline
 const data = [
