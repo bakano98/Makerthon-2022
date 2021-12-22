@@ -512,7 +512,6 @@ const FormDetails = ({ navigation, route }) => {
   const updateArray = (index, text) => {
     let newArr = [...details]; // First, copy the array
     newArr[index] = text; // Set the correct field to the new text value
-    console.log(newArr[index]); // Checking. Can remove this statement
     setDetails(newArr);
   };
 
