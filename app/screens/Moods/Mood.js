@@ -42,7 +42,9 @@ const PROMPT_KEY = "@prompt_key";
 const Mood = ({ navigation, route, props }) => {
   const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
-  const [lastPromptedDay, setLastPromptedDay] = useState("");
+  const [lastPromptedDay, setLastPromptedDay] = useState(
+    new Date(1970, 1, 0, 0, 0, 0)
+  );
   const [persistentItem, setPersistentItem] = useState("");
 
   // addedMoods stores all the moods that have been added
@@ -185,28 +187,28 @@ const Mood = ({ navigation, route, props }) => {
   // from Redux state, we know which dates are occupied.
   // so, we use that information to update our calendar on every render
   const updateMatrix = (moods, matrix) => {
-    const daysToSkip = moods.length - 7;
-    let i = 0;
+    // const daysToSkip = moods.length - 7;
     moods.forEach((moodObject) => {
       const row = moodObject.row;
       const col = moodObject.col;
       const mood = moodObject.mood;
       const year = moodObject.year;
       const month = moodObject.month;
-      const moodValue = moodObject.moodValue;
-      if (i >= daysToSkip) {
-        if (month === todayDate.getMonth() && moodValue >= 4) {
-          moodyDays++;
-        }
-      }
       if (matrix[row][col].year === year && matrix[row][col].month === month) {
         matrix[row][col].img = mood; // now a string
       }
-      i++;
     });
   };
 
-  // console.log(moodyDays);
+  if (addedMoods.length >= 7) {
+    // Get the last 7 items in the array
+    const temp = addedMoods.slice(addedMoods.length - 7);
+    temp.forEach((moodObject) => {
+      if (moodObject.moodValue >= 4) {
+        moodyDays++;
+      }
+    });
+  }
 
   // update matrix before each re-render
   updateMatrix(addedMoods, matrix);
@@ -225,16 +227,16 @@ const Mood = ({ navigation, route, props }) => {
 
   // <-------------------------------- Prompt Handling Stuff --------------------------------->
   let shouldPrompt = moodyDays >= 5;
-  console.log(shouldPrompt);
+  // console.log(shouldPrompt);
   // needs to add more logic here.
   const prompter = () => {
     const differenceInDays =
-      lastPromptedDay === "" // edge case, because when user starts for the very first time, lastPromptedDay === "", we have to do this until they have been prompted at least once throughout the app's lifetime
-        ? 2
+      lastPromptedDay === new Date(1970, 1, 0, 0, 0, 0) // edge case, because when user starts for the very first time, lastPromptedDay === new Date(1970, 1, 0, 0, 0, 0), we have to do this until they have been prompted at least once throughout the app's lifetime
+        ? 3
         : dateFn.differenceInCalendarDays(todayDate, lastPromptedDay);
     if (
       shouldPrompt &&
-      differenceInDays === 2 // so if the last prompt was 2 days ago, then prompt again
+      differenceInDays === 3 // so if the last prompt was 3 days ago, then prompt again
     ) {
       setLastPromptedDay(todayDate);
       customAlert(
