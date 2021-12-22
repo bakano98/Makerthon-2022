@@ -52,6 +52,12 @@ const TestingScreen = ({ navigation }) => {
         >
           <Text> Email Test</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("QuestionnaireRefactor")}
+        >
+          <Text> Questionnaire Refactor Test</Text>
+        </TouchableOpacity>
       </ImageBackground>
     </SafeAreaView>
   );
