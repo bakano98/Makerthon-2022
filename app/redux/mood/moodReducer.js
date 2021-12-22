@@ -16,14 +16,13 @@ const currentDate = new Date();
 
 const comp = (x, y) => {
   if (x.year !== y.year) {
-    return x.year > y.year ? 1 : -1
+    return x.year > y.year ? 1 : -1;
   } else if (x.month !== y.month) {
-    return x.month > y.month ? 1 : -1
+    return x.month > y.month ? 1 : -1;
   } else {
-    return x.day > y.day ? 1 : -1
+    return x.day > y.day ? 1 : -1;
   }
-}
-
+};
 
 // reducers take in a state, and an action
 const moodReducer = (state = initialState, action) => {
@@ -53,9 +52,9 @@ const moodReducer = (state = initialState, action) => {
       if (itemDay === currDay && itemMonth === currMonth) {
         initialState.logPoints++; // if you log on that day itself, you get 1 point
       }
-      (initialState.data).sort(comp);
+      initialState.data.sort(comp);
       // return the object to moodReducer
-      return { ...initialState, ADD_MOOD: action.payload };
+      return { ...initialState };
     // just return itself by default
     case MODIFY_MOOD:
       console.log("Modifying");
@@ -81,7 +80,7 @@ const moodReducer = (state = initialState, action) => {
         "Success",
         `You have unlocked the ${action.payload.seriesName} series!`
       );
-      return { ...initialState, SPEND_POINTS: action.payload };
+      return { ...initialState };
     case REHYDRATE:
       // some error handling, for initial startup where there's no payload
       if (action.payload === undefined) {
@@ -95,7 +94,7 @@ const moodReducer = (state = initialState, action) => {
       }
       initialState.logPoints = action.payload.logPoints; // getting back the rehydrated logPoints
       // return the merged state
-      return { ...initialState, REHYDRATE: action.payload };
+      return { ...initialState };
     default:
       return state;
   }
