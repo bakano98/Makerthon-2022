@@ -44,6 +44,13 @@ const icons = {
   icon_survey: require("./icon_survey.png"),
   icon_notifs: require("./icon_notifs.png"),
 
+  // skins stuff
+  skin1_unlocked: require("./Skins/Skin1_unlocked.png"),
+  skin2_unlocked: require("./Skins/Skin2_unlocked.png"),
+  skin3_unlocked: require("./Skins/Skin3_unlocked.png"),
+  skin2_locked: require("./Skins/Skin2_locked.png"),
+  skin3_locked: require("./Skins/Skin3_locked.png"),
+
   // the alternates!
   mood_sad_sunglasses: require("./Moods2/mood_sad_sunglasses.png"),
   mood_stressed_sunglasses: require("./Moods2/mood_stressed_sunglasses.png"),

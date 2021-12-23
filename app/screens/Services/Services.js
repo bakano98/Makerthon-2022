@@ -40,7 +40,7 @@ const Services = ({ navigation }) => {
         >
           <Image
             style={styles.touchableContainerImage}
-            source={icons["placeholder"]}
+            source={icons["icon_emergency"]}
           />
           <Text style={styles.touchableContainerText}> Helplines </Text>
         </TouchableOpacity>
@@ -56,11 +56,11 @@ const Services = ({ navigation }) => {
           }
         >
           <Image
-            style={styles.touchableContainerImage}
-            source={icons["placeholder"]}
+            style={[styles.touchableContainerImage]}
+            source={icons["icon_PFA"]}
           />
           <Text style={styles.touchableContainerText}>
-            Talk to a PFA Personnel
+            Talk to a {"\n"}PFA Personnel
           </Text>
         </TouchableOpacity>
       </SafeAreaView>
@@ -70,7 +70,7 @@ const Services = ({ navigation }) => {
       >
         <Image
           style={styles.touchableContainerImage}
-          source={icons["placeholder"]}
+          source={icons["icon_survey"]}
         />
         <Text style={styles.touchableContainerText}>Mental Health Survey</Text>
       </TouchableOpacity>
@@ -103,13 +103,14 @@ const styles = StyleSheet.create({
 
   touchableContainerText: {
     fontSize: 16,
+    marginTop: 10,
     textAlign: "center",
     fontFamily: "Itim",
   },
 
   touchableContainerImage: {
-    height: "70%",
-    width: "70%",
+    height: "50%",
+    width: "50%",
   },
 
   imageBg: {
