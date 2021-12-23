@@ -34,12 +34,26 @@ const customAlert = (title, msg, accept, decline) => {
   ]);
 };
 
+// Remove next
+const manualPrompt = () => {
+  customAlert(
+    "Important",
+    "Hey, we noticed you haven't been feeling the best lately, please help us to answer some questions so we know how we can help :)",
+    () => {
+      acceptHandler();
+    },
+    () => {
+      declineHandler(navigation.navigate("Resources"));
+    }
+  );
+};
+
 const todayDate = new Date(); // to be used for handling calendar back/front
 let x = 0;
 // AsyncStorage keys
 const PROMPT_KEY = "@prompt_key";
 // Main body
-const Mood = ({ navigation, route, props }) => {
+const Mood = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const [lastPromptedDay, setLastPromptedDay] = useState(
@@ -50,14 +64,6 @@ const Mood = ({ navigation, route, props }) => {
   // addedMoods stores all the moods that have been added
   const user_state = useSelector((state) => state);
   const addedMoods = user_state.data;
-  // console.log(addedMoods);
-  useEffect(() => {
-    readLastPromptedDay();
-  }, []);
-
-  useEffect(() => {
-    saveLastPromptedDay();
-  }, [lastPromptedDay, persistentItem]);
 
   // <-------------------------------- AsyncStorage Stuff -------------------------------->
   const saveLastPromptedDay = async () => {
@@ -79,6 +85,14 @@ const Mood = ({ navigation, route, props }) => {
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    readLastPromptedDay();
+  }, []);
+
+  useEffect(() => {
+    saveLastPromptedDay();
+  }, [lastPromptedDay, persistentItem]);
 
   // the months in the year
   const months = [
@@ -189,7 +203,6 @@ const Mood = ({ navigation, route, props }) => {
   // from Redux state, we know which dates are occupied.
   // so, we use that information to update our calendar on every render
   const updateMatrix = (moods, matrix) => {
-    // const daysToSkip = moods.length - 7;
     moods.forEach((moodObject) => {
       const row = moodObject.row;
       const col = moodObject.col;
@@ -197,7 +210,7 @@ const Mood = ({ navigation, route, props }) => {
       const year = moodObject.year;
       const month = moodObject.month;
       if (matrix[row][col].year === year && matrix[row][col].month === month) {
-        matrix[row][col].img = mood; // now a string
+        matrix[row][col].img = mood;
       }
     });
   };
@@ -207,11 +220,18 @@ const Mood = ({ navigation, route, props }) => {
     const temp = addedMoods.slice(addedMoods.length - 7);
     temp.forEach((moodObject) => {
       if (moodObject.moodValue >= 4) {
-        moodyDays++;
+        if (
+          todayDate.getMonth() === moodObject.month &&
+          todayDate.getFullYear() === moodObject.year &&
+          todayDate.getDate() - moodObject.day < 7
+        ) {
+          moodyDays++;
+        }
       }
     });
   }
-
+  console.log(moodyDays);
+  console.log(lastPromptedDay);
   // update matrix before each re-render
   updateMatrix(addedMoods, matrix);
   // console.log(addedMoods);
@@ -254,19 +274,6 @@ const Mood = ({ navigation, route, props }) => {
     }
   };
 
-  const manualPrompt = () => {
-    customAlert(
-      "Important",
-      "Hey, we noticed you haven't been feeling the best lately, please help us to answer some questions so we know how we can help :)",
-      () => {
-        acceptHandler();
-      },
-      () => {
-        declineHandler(navigation.navigate("Resources"));
-      }
-    );
-  };
-
   // conditionally render the icons
   const _renderIcons = (item, rowIndex) => {
     if (item.day !== -1 && rowIndex !== 0) {
@@ -305,12 +312,8 @@ const Mood = ({ navigation, route, props }) => {
             fontSize: 18,
           }}
           onPress={() =>
-            rowIndex === 0 ||
-            item.day === -1 ||
-            (item.day > todayDate.getDate() &&
-              item.month === todayDate.getMonth() &&
-              item.year === todayDate.getFullYear())
-              ? ""
+            rowIndex === 0 || item.day === -1 || item.day > todayDate.getDate() // since we already don't allow forward navigation
+              ? console.log("Haha nothing") // Change to "" before sending for test
               : navigation.navigate("MoodSelector", {
                   item: item,
                 })
@@ -321,10 +324,7 @@ const Mood = ({ navigation, route, props }) => {
           <Text
             style={{
               fontFamily: "Itim",
-              color:
-                (colIndex === 0 || colIndex === 6)
-                  ? "#e09000"
-                  : "#000",
+              color: colIndex === 0 || colIndex === 6 ? "#e09000" : "#000",
             }}
           >
             {rowIndex === 0 // if its row 0, which are the days
@@ -355,6 +355,7 @@ const Mood = ({ navigation, route, props }) => {
       dateFn.lightFormat(curr, "yyyy-MM-dd") >
       dateFn.lightFormat(comparator, "yyyy-MM-dd")
     ) {
+      console.log("Nice try");
       return;
     }
     setDate(curr);
