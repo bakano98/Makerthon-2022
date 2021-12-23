@@ -24,7 +24,7 @@ const icons = require("../../icons/icons.js");
 // Array of objects. Each object contains the details of a particular hotline
 const data = [
   {
-    name: "National CARE Hotline",
+    name: "\nNational CARE Hotline",
     number: "1800-202-6868",
     desc: "For COVID-19 related mental health distress",
     linking_number: "18002026868",
@@ -81,7 +81,7 @@ const Helplines = () => {
     <ImageBackground style={styles.container} source={icons["BG_pic"]}>
       <SafeAreaView
         style={{
-          flex: 0.2,
+          flex: 0.25,
           borderBottomColor: "black",
           borderBottomWidth: 2,
           marginTop: 40,
@@ -93,12 +93,13 @@ const Helplines = () => {
           ear, these helplines are available
         </Text>
       </SafeAreaView>
-      <FlatList
-        style={{ flex: 0.8, marginTop: 30 }}
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.name}
-      />
+      <SafeAreaView style={{ flex: 1 }}>
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.name}
+        />
+      </SafeAreaView>
     </ImageBackground>
   );
 };
@@ -129,14 +130,6 @@ const styles = StyleSheet.create({
     fontFamily: "Itim",
     paddingLeft: 20,
     paddingRight: 20,
-  },
-
-  helplines_container: {
-    borderRadius: 15,
-    marginBottom: 20,
-    height: "100%",
-    width: "95%",
-    justifyContent: "center",
   },
 
   helpline_text: {

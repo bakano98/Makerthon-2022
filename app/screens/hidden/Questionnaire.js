@@ -18,15 +18,15 @@ import store from "../../redux/questionnaire/store";
 
 // [question, question number]. K10 scale. Note, this is reusable so we can change this to GHQ-12 as well.
 const questions = [
-  ["Did you feel tired out for no good reason?", 0],
+  ["Did you feel tired out for no\ngood reason?", 0],
   ["Did you feel nervous?", 1],
-  ["Did you feel so nervous that nothing\n     could calm you down?", 2],
+  ["Did you feel so nervous that\nnothing could calm you down?", 2],
   ["Did you feel hopeless?", 3],
   ["Did you feel restless or fidgety?", 4],
-  ["Did you feel so restless that you could not\n     sit still?", 5],
+  ["Did you feel so restless that you could not sit still?", 5],
   ["Did you feel depressed?", 6],
-  ["Did you feel that everything was an effort?", 7],
-  ["Did you feel so sad that nothing could cheer\n     you up?", 8],
+  ["Did you feel that everything was\nan effort?", 7],
+  ["Did you feel so sad that nothing\ncould cheer you up?", 8],
   ["Did you feel worthless?", 9],
 ];
 
@@ -171,7 +171,7 @@ const Questionnaire = ({ navigation }) => {
         style: "cancel",
       },
       {
-        text: "Anonymously talk to counsellor",
+        text: "Anonymous Counselling",
         onPress: () =>
           choice === "PFA"
             ? referToPFA(() => navigation.goBack()) // takes an action

@@ -10,6 +10,7 @@ import {
   View,
   TouchableOpacity,
   Image,
+  KeyboardAvoidingView,
 } from "react-native";
 
 // Import from Firebase to utilise cloud functions
@@ -287,7 +288,7 @@ const FormDetails = ({ navigation, route }) => {
   // To render the entire calendar
   const _renderCalendar = (height, width) => {
     return (
-      <SafeAreaView style={{ marginTop: 25, height: height, width: width }}>
+      <SafeAreaView style={{ bottom: 10, height: height, width: width }}>
         <SafeAreaView
           style={{
             flexDirection: "row",
@@ -328,18 +329,8 @@ const FormDetails = ({ navigation, route }) => {
         <Modal animationType="fade" transparent={true} visible={modalVisible}>
           <View>
             <View style={styles.modalView}>
-              <Text
-                style={{
-                  fontSize: 32,
-                  fontFamily: "Itim",
-                  textDecorationLine: "underline",
-                }}
-              >
-                Pick an appointment date
-              </Text>
-              {_renderCalendar("80%", "100%")}
+              {_renderCalendar("95%", "120%")}
               <TouchableOpacity
-                style={{ position: "absolute", bottom: 0, margin: 20 }}
                 onPress={() => {
                   setModalVisible(!modalVisible);
                   showTimePicker();
@@ -688,7 +679,7 @@ const FormDetails = ({ navigation, route }) => {
   const renderButtons = () => {
     return (
       <SafeAreaView style={{ marginBottom: 20, flexDirection: "row" }}>
-        <SafeAreaView style={{ marginRight: 90, width: "25%" }}>
+        <SafeAreaView style={{ marginRight: 50, width: "25%" }}>
           <Button
             title="Cancel"
             onPress={() =>
@@ -698,7 +689,7 @@ const FormDetails = ({ navigation, route }) => {
             }
           />
         </SafeAreaView>
-        <SafeAreaView style={{ marginLeft: 90, width: "25%" }}>
+        <SafeAreaView style={{ marginLeft: 50, width: "25%" }}>
           <Button
             title="Submit"
             onPress={() =>
@@ -726,10 +717,14 @@ const FormDetails = ({ navigation, route }) => {
         backgroundColor: "#FBF8D6",
       }}
     >
-      <SafeAreaView style={{ flex: 1, top: 70 }}>
+      <SafeAreaView style={{ flex: 0.4, top: 70 }}>
         <Text style={styles.apptTextHeader}>Appointment Form</Text>
       </SafeAreaView>
-      {renderSelections()}
+      <SafeAreaView
+        style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+      >
+        {renderSelections()}
+      </SafeAreaView>
       {renderButtons()}
       <View>
         {

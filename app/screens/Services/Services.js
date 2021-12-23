@@ -33,7 +33,7 @@ const customAlert = (title, msg, accept, decline) => {
 const Services = ({ navigation }) => {
   return (
     <ImageBackground source={icons["BG_pic"]} style={styles.imageBg}>
-      <SafeAreaView style={{ flexDirection: "row" }}>
+      <SafeAreaView style={{ flexDirection: "row", marginTop: 100 }}>
         <TouchableOpacity
           style={styles.touchableContainer}
           onPress={() => navigation.navigate("Helplines")}
@@ -85,6 +85,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#DDDDDD",
     padding: 10,
     marginTop: 15,
+  },
+
+  text: {
+    fontSize: 24,
+    fontFamily: "Itim",
   },
 
   touchableContainer: {
