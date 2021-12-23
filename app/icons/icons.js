@@ -37,6 +37,13 @@ const icons = {
   // lock
   lock: require("./lock.png"),
 
+  // icons for other stuff
+  icon_emergency: require("./icon_emergency.png"),
+  icon_PFA: require("./icon_PFA.png"),
+  icon_feedback: require("./icon_feedback.png"),
+  icon_survey: require("./icon_survey.png"),
+  icon_notifs: require("./icon_notifs.png"),
+
   // the alternates!
   mood_sad_sunglasses: require("./Moods2/mood_sad_sunglasses.png"),
   mood_stressed_sunglasses: require("./Moods2/mood_stressed_sunglasses.png"),
