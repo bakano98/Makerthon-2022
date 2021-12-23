@@ -3,13 +3,11 @@
 
 import React, { useState, useEffect, useContext } from "react";
 import {
-  Button,
   TouchableOpacity,
   StyleSheet,
   Text,
   View,
   Switch,
-  Alert,
 } from "react-native";
 import dailyContext from "../contexts/dailyContext";
 import * as Notifications from "expo-notifications"; // REQUIRED. Need this for all things related to Notifications from Expo
