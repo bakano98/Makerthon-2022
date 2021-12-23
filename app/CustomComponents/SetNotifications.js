@@ -9,6 +9,7 @@ import {
   Text,
   View,
   Switch,
+  Alert,
 } from "react-native";
 import dailyContext from "../contexts/dailyContext";
 import * as Notifications from "expo-notifications"; // REQUIRED. Need this for all things related to Notifications from Expo
@@ -17,6 +18,16 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 
 const TIME_KEY = "@time_key";
 const NOTIFS_SWITCH_KEY = "@switch_key";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
+let notifId = "";
 
 // First, we test AsyncStorage
 const SetNotifications = () => {
@@ -54,6 +65,9 @@ const SetNotifications = () => {
     const curr_time = curr_hr + ":" + curr_min + AM_PM;
     setTime(curr_time);
     cancelBeforeAndSchedule();
+    if (!toggle) {
+      setToggle(true);
+    }
   };
 
   const showMode = (currentMode) => {
@@ -134,7 +148,18 @@ const SetNotifications = () => {
 
   // call this to ensure that time and scheduling is saved properly on first click
   useEffect(() => {
-    cancelBeforeAndSchedule();
+    // if notifications are turned on
+    if (toggle && !done) {
+      cancelBeforeAndSchedule();
+    } else {
+      // notifications are turned off, then cancel all notifs
+      Notifications.cancelAllScheduledNotificationsAsync();
+    }
+
+    if (done) {
+      Notifications.cancelAllScheduledNotificationsAsync();
+    }
+
     saveTime();
     saveToggle();
   }, [time, toggle]);
@@ -145,10 +170,10 @@ const SetNotifications = () => {
   const hrs = Number(split_time[0]);
   const mins = Number(split_time[1].split(" ")[0]);
   const cancelBeforeAndSchedule = async () => {
-    await Notifications.cancelAllScheduledNotificationsAsync();
+    await Notifications.cancelAllScheduledNotificationsAsync(notifId);
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: "Mood Tracking",
+        title: "Moodal",
         body: "Remember to do your mood tracking for today!",
       },
       trigger: {
@@ -159,10 +184,11 @@ const SetNotifications = () => {
     });
   };
 
-  // if (!done) {
-  //   console.log("Rescheduling...");
-  //   cancelBeforeAndSchedule();
-  // }
+  if (done) {
+    console.log("Done, should not receive notifs")
+    Notifications.cancelAllScheduledNotificationsAsync();
+  }
+
 
   // remove comment if you want to do some debugging
   // console.log(time);
@@ -179,7 +205,7 @@ const SetNotifications = () => {
               { backgroundColor: toggle ? "#FFFFFF" : "#BCBCBC" },
             ]}
           >
-            <TouchableOpacity onPress={showTimepicker}>
+            <TouchableOpacity onPress={() => showTimepicker()}>
               <Text style={styles.text}>{time}</Text>
             </TouchableOpacity>
           </View>
