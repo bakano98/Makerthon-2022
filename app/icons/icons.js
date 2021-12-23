@@ -67,6 +67,9 @@ const icons = {
   mood_calm_moustache: require("./Moods3/mood_calm_moustache.png"),
   mood_anxious_moustache: require("./Moods3/mood_anxious_moustache.png"),
   mood_angry_moustache: require("./Moods3/mood_angry_moustache.png"),
+
+  // currency
+  noodals: require("./Noodals.png"),
 };
 
 module.exports = icons;

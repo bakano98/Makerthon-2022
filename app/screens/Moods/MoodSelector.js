@@ -18,7 +18,6 @@ import {
   SPEND_POINTS,
 } from "../../redux/mood/moodReducer"; // action takes place here, so import
 import contentContext from "../../contexts/contentContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { useIsFocused } from "@react-navigation/native";
 
@@ -57,34 +56,30 @@ const moustache = [
 // when adding themes, add to here (0) --> add array of objects
 
 // when adding themes, add to here (1)
-// possible_themes is an object of objects
-// Each object is a possible theme that can be chosen
-// Each theme contains the theme name, and the cost to unlock
-const possible_themes = {
-  normal: {
-    theme: normal,
-    cost: 0,
-  },
-  sunglasses: {
-    theme: sunglasses,
-    cost: 10,
-  },
-  moustache: {
-    theme: moustache,
-    cost: 10,
-  },
-};
-
-const all_themes = [
-  { name: "normal", theme: normal, pv: "skin1_unlocked", cost: 0 },
-  { name: "sunglasses", theme: sunglasses, pv: "skin2_unlocked", cost: 10 },
-  { name: "moustache", theme: moustache, pv: "skin3_unlocked", cost: 10 },
-];
-
-// when adding themes, add to here (2)
 // all_content is an array that contains the name of all possible themes.
 // This is used to render out the names within a Picker.
 const all_content = ["normal", "sunglasses", "moustache"];
+
+// when adding themes, add to here (2)
+// Each object is a possible theme that can be chosen
+// Each theme contains the theme name, and the cost to unlock
+const all_themes = [
+  { name: "normal", theme: normal, pv_unlocked: "skin1_unlocked", cost: 0 },
+  {
+    name: "sunglasses",
+    theme: sunglasses,
+    pv_unlocked: "skin2_unlocked",
+    pv_locked: "skin2_locked",
+    cost: 10,
+  },
+  {
+    name: "moustache",
+    theme: moustache,
+    pv_unlocked: "skin3_unlocked",
+    pv_locked: "skin3_locked",
+    cost: 10,
+  },
+];
 
 // Customisable alert
 const customAlert = (title, msg, accept, decline) => {
@@ -102,7 +97,6 @@ const customAlert = (title, msg, accept, decline) => {
   ]);
 };
 
-const SELECTION_KEY = "@selection_key";
 const MoodSelector = ({ navigation, route }) => {
   // content is the list of themes that we have unlocked
   const { content, setContent } = useContext(contentContext);
@@ -120,34 +114,6 @@ const MoodSelector = ({ navigation, route }) => {
   }
 
   const dispatch = useDispatch();
-
-  // AsyncStorage to remember the last selected series. For better UX, so user does not need to constantly choose a series that is not default.
-  const storeSelected = async () => {
-    try {
-      await AsyncStorage.setItem(SELECTION_KEY, JSON.stringify(selectedValue));
-    } catch (e) {
-      console.log("Store selected failed: " + e);
-    }
-  };
-
-  const readSelected = async () => {
-    try {
-      const res = await AsyncStorage.getItem(SELECTION_KEY);
-      if (res !== null) {
-        setSelectedValue(JSON.parse(res));
-      }
-    } catch (e) {
-      console.log("Read selected failed: " + e);
-    }
-  };
-
-  useEffect(() => {
-    readSelected();
-  }, []);
-
-  useEffect(() => {
-    storeSelected();
-  }, [selectedValue]);
 
   // console.log(theme);
   // Actions. Item to be passed down to Reducer. actualMood is "src".
@@ -171,10 +137,43 @@ const MoodSelector = ({ navigation, route }) => {
   };
 
   // console.log(content);
+  const Skin = ({ imageSrc, skinName }) => {
+    const _onSkinPress = () => {
+      setSelectedValue(skinName);
+    };
+
+    return (
+      <TouchableOpacity
+        style={{
+          marginTop: 10,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        onPress={() => _onSkinPress()}
+      >
+        <Image style={styles.imageStyle} source={imageSrc} />
+      </TouchableOpacity>
+    );
+  };
+
+  const renderSkins = ({ item }) => {
+    return (
+      <Skin
+        imageSrc={
+          icons[
+            content.some((x) => x === item.name)
+              ? item.pv_unlocked
+              : item.pv_locked
+          ]
+        }
+        skinName={item.name}
+      />
+    );
+  };
 
   // The action to be taken when attempting to unlock a theme
   // Themes can only be unlocked if the user has sufficient logPoints.
-  const unlockTheme = (themeObject) => {
+  const unlockSkin = (themeObject) => {
     if (logPoints >= themeObject.cost) {
       spendPoints(themeObject.cost, selectedValue);
       setContent([...content, selectedValue]);
@@ -234,7 +233,7 @@ const MoodSelector = ({ navigation, route }) => {
         onPress={() => _onPress()}
       >
         <Image style={styles.imageStyle} source={imageSrc} />
-        <Text>{moodName}</Text>
+        <Text style={styles.itemText}>{moodName}</Text>
       </TouchableOpacity>
     );
   };
@@ -245,7 +244,7 @@ const MoodSelector = ({ navigation, route }) => {
       customAlert(
         "Sorry!",
         `You do not have access to the ${selectedValue} series yet. Would you like to unlock it for ${themeObject.cost} points?`,
-        () => unlockTheme(themeObject), // logic on accept. In the form of () => ....
+        () => unlockSkin(themeObject), // logic on accept. In the form of () => ....
         () => console.log("User declined") // logic on decline. In the form of () => ... || For this purpose, we can just do nothing if user does not want to unlock it.
       );
     };
@@ -259,21 +258,8 @@ const MoodSelector = ({ navigation, route }) => {
         }}
         onPress={() => _onPress()}
       >
-        <ImageBackground style={styles.imageStyle} source={imageSrc}>
-          <Image
-            style={{
-              height: 31.25,
-              width: 25,
-              opacity: 1,
-              position: "absolute",
-              marginLeft: 12,
-              marginTop: 20,
-              // backgroundColor: "hsl(360, 100%, 100%)",
-            }}
-            source={icons["lock"]}
-          />
-        </ImageBackground>
-        <Text>{moodName}</Text>
+        <Image style={styles.imageStyle} source={imageSrc} />
+        <Text style={[styles.itemText]}>{moodName}</Text>
       </TouchableOpacity>
     );
   };
@@ -300,28 +286,25 @@ const MoodSelector = ({ navigation, route }) => {
     );
   };
 
-  // Rendering the items within the picker. Picker is used to select the themes
-  const renderPicker = all_content.map((item) => {
-    return <Picker.Item value={item} label={item} />;
-  });
-
   // when adding themes, add to here (3)
-  // We have to retrieve the correct object from possible_themes, based on the selected theme.
+  // We have to retrieve the correct object from all_themes, based on the selected theme.
   let themeObject = "";
   switch (selectedValue) {
     case "normal":
-      themeObject = possible_themes.normal;
+      themeObject = all_themes[0];
       break;
     case "sunglasses":
-      themeObject = possible_themes.sunglasses;
+      themeObject = all_themes[1];
       break;
     case "moustache":
-      themeObject = possible_themes.moustache;
+      themeObject = all_themes[2];
       break;
     default:
-      themeObject = possible_themes.normal;
+      themeObject = all_themes[0];
       break;
   }
+
+  // console.log(themeObject);
 
   // Logs to check whether a user has access to a particular theme.
   /*if (content.some((x) => x === selectedValue)) {
@@ -332,29 +315,28 @@ const MoodSelector = ({ navigation, route }) => {
 
   return (
     <ImageBackground style={styles.container} source={icons["BG_pic"]}>
-      <SafeAreaView
-        style={{
-          backgroundColor: "white",
-        }}
-      >
-        <Picker
-          style={{ height: 25, width: 150, alignItems: "center" }}
-          selectedValue={selectedValue}
-          onValueChange={(itemValue) => setSelectedValue(itemValue)}
-        >
-          {renderPicker}
-        </Picker>
+      <SafeAreaView style={{ marginBottom: 30 }}>
+        <Text style={styles.text}>Select your mood!</Text>
       </SafeAreaView>
-      <SafeAreaView style={styles.headerView}>
-        <Text style={{ fontSize: 24, marginBottom: 10 }}>
-          Select your mood!
-        </Text>
-        <Image
-          style={styles.headerImageStyle}
-          source={icons[themeObject.theme[0].src]}
+      <SafeAreaView style={{ flexDirection: "row", marginBottom: 20 }}>
+        <Text style={[styles.text, styles.skinsText]}>Skins</Text>
+        <SafeAreaView style={styles.noodalView}>
+          <Text style={[styles.text, { marginRight: 10 }]}>{logPoints}</Text>
+          <Image style={styles.noodalStyle} source={icons["noodals"]} />
+        </SafeAreaView>
+      </SafeAreaView>
+      <SafeAreaView style={styles.skinsContainer}>
+        <FlatList
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "center",
+            marginBottom: 30,
+          }}
+          data={all_themes}
+          numColumns={6}
+          renderItem={renderSkins}
         />
       </SafeAreaView>
-
       <SafeAreaView style={styles.iconsContainer}>
         <FlatList
           contentContainerStyle={styles.flatListStyle}
@@ -381,8 +363,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  text: {
+    fontFamily: "Itim",
+    fontSize: 32,
+  },
+
+  itemText: {
+    fontFamily: "Itim",
+    fontSize: 16,
+  },
+
   iconsContainer: {
-    // position: "absolute",
     borderWidth: 2,
     color: "black",
     borderColor: "black",
@@ -390,11 +381,25 @@ const styles = StyleSheet.create({
     height: "30%",
     borderRadius: 15,
     backgroundColor: "#FBF8D6",
-    marginTop: 100,
     alignItems: "center",
     justifyContent: "center",
     elevation: 3,
   },
+
+  skinsContainer: {
+    borderWidth: 2,
+    color: "black",
+    borderColor: "black",
+    width: "90%",
+    height: "15%",
+    borderRadius: 15,
+    marginBottom: 70,
+    backgroundColor: "#FBF8D6",
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 3,
+  },
+
   flatListStyle: {
     flex: 1,
     justifyContent: "center",
@@ -417,6 +422,31 @@ const styles = StyleSheet.create({
     width: 50,
     marginLeft: 10,
     marginRight: 10,
+  },
+
+  noodalStyle: {
+    height: 50,
+    width: 40,
+  },
+
+  noodalView: {
+    flex: 0.8,
+    marginLeft: 100,
+    flexDirection: "row",
+    borderWidth: 2,
+    height: "110%",
+    color: "black",
+    borderColor: "black",
+    borderRadius: 15,
+    backgroundColor: "#FBF8D6",
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 3,
+  },
+
+  skinsText: {
+    top: 20,
+    left: 10,
   },
 
   headerView: {
