@@ -112,7 +112,7 @@ const Dashboard = ({ navigation }) => {
 
         <Button
           title="Show data on console"
-          onPress={() => console.log(dict)}
+          onPress={() => console.log(moodsData)}
         />
         <Button title="Clear whole AsyncStorage" onPress={() => clearAll()} />
       </ScrollView>
