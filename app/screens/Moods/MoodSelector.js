@@ -75,6 +75,12 @@ const possible_themes = {
   },
 };
 
+const all_themes = [
+  { name: "normal", theme: normal, pv: "skin1_unlocked", cost: 0 },
+  { name: "sunglasses", theme: sunglasses, pv: "skin2_unlocked", cost: 10 },
+  { name: "moustache", theme: moustache, pv: "skin3_unlocked", cost: 10 },
+];
+
 // when adding themes, add to here (2)
 // all_content is an array that contains the name of all possible themes.
 // This is used to render out the names within a Picker.
@@ -98,6 +104,7 @@ const customAlert = (title, msg, accept, decline) => {
 
 const SELECTION_KEY = "@selection_key";
 const MoodSelector = ({ navigation, route }) => {
+  // content is the list of themes that we have unlocked
   const { content, setContent } = useContext(contentContext);
   const [selectedValue, setSelectedValue] = useState("normal"); // default state.
   const { item } = route.params;
@@ -327,7 +334,6 @@ const MoodSelector = ({ navigation, route }) => {
     <ImageBackground style={styles.container} source={icons["BG_pic"]}>
       <SafeAreaView
         style={{
-          marginTop: 50,
           backgroundColor: "white",
         }}
       >
@@ -348,17 +354,20 @@ const MoodSelector = ({ navigation, route }) => {
           source={icons[themeObject.theme[0].src]}
         />
       </SafeAreaView>
-      <FlatList
-        contentContainerStyle={styles.flatListStyle}
-        data={themeObject.theme}
-        numColumns={4} // Render only 4 columns per row
-        renderItem={
-          content.some((x) => x === selectedValue)
-            ? renderItem
-            : renderLockedItem
-        }
-        keyExtractor={(item) => item.id}
-      />
+
+      <SafeAreaView style={styles.iconsContainer}>
+        <FlatList
+          contentContainerStyle={styles.flatListStyle}
+          data={themeObject.theme}
+          numColumns={4} // Render only 4 columns per row
+          renderItem={
+            content.some((x) => x === selectedValue)
+              ? renderItem
+              : renderLockedItem
+          }
+          keyExtractor={(item) => item.id}
+        />
+      </SafeAreaView>
     </ImageBackground>
   );
 };
@@ -368,9 +377,28 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: "100%",
-    backgroundColor: "pink",
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  iconsContainer: {
+    // position: "absolute",
+    borderWidth: 2,
+    color: "black",
+    borderColor: "black",
+    width: "90%",
+    height: "30%",
+    borderRadius: 15,
+    backgroundColor: "#FBF8D6",
+    marginTop: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 3,
+  },
+  flatListStyle: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   moodStyle: {
@@ -389,13 +417,6 @@ const styles = StyleSheet.create({
     width: 50,
     marginLeft: 10,
     marginRight: 10,
-  },
-
-  flatListStyle: {
-    flex: 1,
-    marginTop: 50,
-    justifyContent: "center",
-    alignItems: "center",
   },
 
   headerView: {
