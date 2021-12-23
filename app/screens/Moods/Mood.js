@@ -230,8 +230,7 @@ const Mood = ({ navigation }) => {
       }
     });
   }
-  console.log(moodyDays);
-  console.log(lastPromptedDay);
+
   // update matrix before each re-render
   updateMatrix(addedMoods, matrix);
   // console.log(addedMoods);
@@ -270,7 +269,6 @@ const Mood = ({ navigation }) => {
           declineHandler(navigation.navigate("Resources"));
         }
       );
-      // if accepted, then reset counter
     }
   };
 
@@ -432,7 +430,7 @@ const Mood = ({ navigation }) => {
         </TouchableOpacity>
         <Text
           style={{
-            fontSize: 25,
+            fontSize: 26,
             fontFamily: "Itim",
             textAlign: "center",
           }}
@@ -477,7 +475,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 50,
+    marginTop: 60,
     marginBottom: 10,
   },
 
@@ -494,8 +492,8 @@ const styles = StyleSheet.create({
   },
 
   floatButton: {
-    height: 90,
-    width: 90,
+    height: 95,
+    width: 95,
   },
 
   floatView: {
