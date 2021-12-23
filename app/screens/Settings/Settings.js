@@ -21,16 +21,6 @@ import { sendFeedback } from "../../firebase"; // sendFeedback(msg)
 */
 
 const icons = require("../../icons/icons.js");
-import * as Notifications from "expo-notifications";
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
-
 // find a way to call notifications daily from here
 
 const Settings = ({ navigation }) => {
