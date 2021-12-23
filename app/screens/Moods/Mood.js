@@ -322,7 +322,7 @@ const Mood = ({ navigation, route, props }) => {
             style={{
               fontFamily: "Itim",
               color:
-                (colIndex === 0 || colIndex === 6) && rowIndex === 0
+                (colIndex === 0 || colIndex === 6)
                   ? "#e09000"
                   : "#000",
             }}
