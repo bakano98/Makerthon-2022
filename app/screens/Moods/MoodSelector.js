@@ -137,9 +137,18 @@ const MoodSelector = ({ navigation, route }) => {
   };
 
   // console.log(content);
-  const Skin = ({ imageSrc, skinName }) => {
+  const Skin = ({ imageSrc, skinName, cost, themeObject }) => {
     const _onSkinPress = () => {
-      setSelectedValue(skinName);
+      if (content.some((x) => x === skinName)) {
+        setSelectedValue(skinName);
+      } else {
+        customAlert(
+          "Locked Skin",
+          `Would you like to unlock the ${skinName} series for ${cost} Noodals?`,
+          () => unlockSkin(themeObject),
+          () => console.log("User denied")
+        );
+      }
     };
 
     return (
@@ -167,6 +176,8 @@ const MoodSelector = ({ navigation, route }) => {
           ]
         }
         skinName={item.name}
+        cost={item.cost}
+        themeObject={item}
       />
     );
   };
@@ -174,14 +185,16 @@ const MoodSelector = ({ navigation, route }) => {
   // The action to be taken when attempting to unlock a theme
   // Themes can only be unlocked if the user has sufficient logPoints.
   const unlockSkin = (themeObject) => {
+    console.log(logPoints);
+    console.log(themeObject);
     if (logPoints >= themeObject.cost) {
-      spendPoints(themeObject.cost, selectedValue);
-      setContent([...content, selectedValue]);
+      spendPoints(themeObject.cost, themeObject.name);
+      setContent([...content, themeObject.name]);
     } else {
-      console.log(themeObject);
+      // console.log(themeObject);
       Alert.alert(
         "Insufficient points",
-        "You do not have enough points to unlock this series yet. Track your mood daily to earn points!"
+        "You do not have enough Noodals to unlock this series yet. Track your mood daily to earn points!"
       );
     }
   };
@@ -230,15 +243,22 @@ const MoodSelector = ({ navigation, route }) => {
       });
 
       if (modify) {
-        customAlert(
-          "Are you sure?",
-          `Changing from ${curr.mood.split("_")[1]} to ${moodName}`,
-          () => {
-            modifyMoods(moodSrc, moodValue);
-            navigation.goBack();
-          },
-          () => console.log("User was not sure")
-        );
+        if (curr.moodValue !== moodValue) {
+          // Only prompt the user if they're changing between moods
+          // So if they're changing series but using the same mood, don't prompt
+          customAlert(
+            "Are you sure?",
+            `Changing from ${curr.mood.split("_")[1]} to ${moodName}`,
+            () => {
+              modifyMoods(moodSrc, moodValue);
+              navigation.goBack();
+            },
+            () => console.log("User was not sure")
+          );
+        } else {
+          modifyMoods(moodSrc, moodValue);
+          navigation.goBack();
+        }
       } else {
         addMoods(moodSrc, moodValue);
         navigation.goBack();
@@ -260,31 +280,32 @@ const MoodSelector = ({ navigation, route }) => {
     );
   };
 
+  // Uncomment only if we want user to see PV of the skins before deciding to unlock
   // Logic for a locked theme
-  const LockedItem = ({ imageSrc, moodName }) => {
-    const _onPress = () => {
-      customAlert(
-        "Sorry!",
-        `You do not have access to the ${selectedValue} series yet. Would you like to unlock it for ${themeObject.cost} points?`,
-        () => unlockSkin(themeObject), // logic on accept. In the form of () => ....
-        () => console.log("User declined") // logic on decline. In the form of () => ... || For this purpose, we can just do nothing if user does not want to unlock it.
-      );
-    };
+  // const LockedItem = ({ imageSrc, moodName }) => {
+  //   const _onPress = () => {
+  //     customAlert(
+  //       "Sorry!",
+  //       `You do not have access to the ${selectedValue} series yet. Would you like to unlock it for ${themeObject.cost} points?`,
+  //       () => unlockSkin(themeObject), // logic on accept. In the form of () => ....
+  //       () => console.log("User declined") // logic on decline. In the form of () => ... || For this purpose, we can just do nothing if user does not want to unlock it.
+  //     );
+  //   };
 
-    return (
-      <TouchableOpacity
-        style={{
-          marginTop: 10,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        onPress={() => _onPress()}
-      >
-        <Image style={styles.imageStyle} source={imageSrc} />
-        <Text style={[styles.itemText]}>{moodName}</Text>
-      </TouchableOpacity>
-    );
-  };
+  //   return (
+  //     <TouchableOpacity
+  //       style={{
+  //         marginTop: 10,
+  //         alignItems: "center",
+  //         justifyContent: "center",
+  //       }}
+  //       onPress={() => _onPress()}
+  //     >
+  //       <Image style={styles.imageStyle} source={imageSrc} />
+  //       <Text style={[styles.itemText]}>{moodName}</Text>
+  //     </TouchableOpacity>
+  //   );
+  // };
 
   // The actual rendering of each item
   const renderItem = ({ item }) => {
@@ -297,16 +318,17 @@ const MoodSelector = ({ navigation, route }) => {
     );
   };
 
-  // The actual rendering of each locked item
-  const renderLockedItem = ({ item }) => {
-    return (
-      <LockedItem
-        imageSrc={icons[item.src]}
-        moodName={item.title}
-        moodSrc={item.src}
-      />
-    );
-  };
+  // Uncomment only if we want users to see the PV before deciding whether they want to unlock the skin
+  // // The actual rendering of each locked item
+  // const renderLockedItem = ({ item }) => {
+  //   return (
+  //     <LockedItem
+  //       imageSrc={icons[item.src]}
+  //       moodName={item.title}
+  //       moodSrc={item.src}
+  //     />
+  //   );
+  // };
 
   // when adding themes, add to here (3)
   // We have to retrieve the correct object from all_themes, based on the selected theme.
@@ -365,9 +387,11 @@ const MoodSelector = ({ navigation, route }) => {
           data={themeObject.theme}
           numColumns={4} // Render only 4 columns per row
           renderItem={
-            content.some((x) => x === selectedValue)
-              ? renderItem
-              : renderLockedItem
+            // Uncomment only if we want to allow users to click on locked skins and see a preview
+            // content.some((x) => x === selectedValue)
+            //   ? renderItem
+            //   : renderLockedItem
+            renderItem
           }
           keyExtractor={(item) => item.id}
         />
