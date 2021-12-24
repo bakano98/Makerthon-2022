@@ -85,7 +85,7 @@ const Settings = ({ navigation }) => {
                 />
               </SafeAreaView>
 
-              <SafeAreaView style={{ position: "absolute", bottom: 20 }}>
+              <SafeAreaView style={{ bottom: -10 }}>
                 <SafeAreaView
                   style={{
                     flexDirection: "row",
@@ -122,24 +122,26 @@ const Settings = ({ navigation }) => {
 
   return (
     <ImageBackground style={styles.container} source={icons["BG_pic"]}>
-      <SetNotifications />
-      <TouchableOpacity
-        onPress={() => setVisible(true)}
-        style={styles.touchableContainer}
-      >
-        <Text style={styles.text}>Send Feedback</Text>
-        <Image
-          style={{ height: 25, width: 25, marginLeft: 10, marginBottom: 5 }}
-          source={icons["icon_feedback"]}
-        />
-      </TouchableOpacity>
+      <SafeAreaView style={[styles.container]}>
+        <SetNotifications />
+        <TouchableOpacity
+          onPress={() => setVisible(true)}
+          style={styles.touchableContainer}
+        >
+          <Text style={styles.text}>Send Feedback</Text>
+          <Image
+            style={{ height: 25, width: 25, marginLeft: 10, marginBottom: 5 }}
+            source={icons["icon_feedback"]}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("About")}
+          style={styles.touchableContainer}
+        >
+          <Text style={styles.text}>About Us</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate("About")}
-        style={styles.touchableContainer}
-      >
-        <Text style={styles.text}>About Us</Text>
-      </TouchableOpacity>
       {feedbackForm()}
     </ImageBackground>
   );
@@ -187,14 +189,13 @@ const styles = StyleSheet.create({
     borderColor: "black",
     color: "black",
     width: "110%",
-    height: "84%",
+    height: "80%",
   },
 
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
   },
 
   modalView: {
@@ -208,7 +209,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    height: "70%",
+    height: "80%",
     width: "90%",
     shadowOpacity: 0.25,
     shadowRadius: 4,

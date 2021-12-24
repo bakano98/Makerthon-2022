@@ -10,7 +10,7 @@ import {
   View,
   TouchableOpacity,
   Image,
-  KeyboardAvoidingView,
+  ImageBackground,
 } from "react-native";
 
 // Import from Firebase to utilise cloud functions
@@ -709,13 +709,13 @@ const FormDetails = ({ navigation, route }) => {
 
   // Rendering the rest of the things
   return (
-    <SafeAreaView
+    <ImageBackground
       style={{
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#FBF8D6",
       }}
+      source={icons["BG_pic"]}
     >
       <SafeAreaView style={{ flex: 0.4, top: 70 }}>
         <Text style={styles.apptTextHeader}>Appointment Form</Text>
@@ -740,7 +740,7 @@ const FormDetails = ({ navigation, route }) => {
           ) /* Can just ignore this entire thing. It's simply used to help open up the time picker*/
         }
       </View>
-    </SafeAreaView>
+    </ImageBackground>
   );
 };
 

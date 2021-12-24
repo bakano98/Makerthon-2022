@@ -249,7 +249,7 @@ const App = () => {
         <Stack.Screen
           component={About}
           name="About"
-          options={{ title: "About Us" }}
+          options={{ headerShown: true, title: "About Us" }}
         />
         <Stack.Screen
           component={FormDetails}
