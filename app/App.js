@@ -5,15 +5,6 @@ import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
 
 LogBox.ignoreAllLogs(true); // enable this when debugging
-// To be removed
-import {
-  TestingScreen,
-  QuestionnaireBoxTest,
-  MoodTest,
-  BookingTest,
-  FlatListMoods,
-  EmailTest,
-} from "./screens"; // this entire line will be used for testing components and other functionalities
 
 // Navigation stuff
 import {
@@ -64,60 +55,6 @@ const setNameFromRouteName = (route) => {
 // we make all the Navigation Screens in App for easy referencing
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
-
-const MoodTestingStack = () => {
-  return (
-    <Provider store={store}>
-      <Stack.Navigator>
-        <Stack.Screen
-          component={MoodTest}
-          name="MoodTest"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          component={FlatListMoods}
-          name="FlatListMoods"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          component={QuestionnaireBoxTest}
-          name="QuestionnaireBoxTest"
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </Provider>
-  );
-};
-
-// For testing. Remove next time when all testing is finished
-const TestingStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen component={TestingScreen} name="TestingScreen" />
-      <Stack.Screen component={MoodTestingStack} name="MoodTestingStack" />
-      <Stack.Screen
-        component={QuestionnaireBoxTest}
-        name="QuestionnaireBoxTest"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={BookingTest}
-        name="BookingTest"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={FlatListMoods}
-        name="FlatListMoods"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={EmailTest}
-        name="EmailTest"
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-};
 
 const CONTENT_KEY = "@content_key";
 // contains the mood stuff
@@ -276,11 +213,6 @@ const Bottoms = () => {
                 component={Settings}
                 name="Settings"
                 options={screenStyles.settingsOptions}
-              />
-              <BottomTabs.Screen
-                component={TestingStack}
-                name="TestingStack"
-                options={{ headerShown: false }}
               />
             </BottomTabs.Navigator>
           </dailyContext.Provider>

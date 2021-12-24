@@ -214,18 +214,15 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+
   button: {
     borderRadius: 10,
     width: 90,
+    backgroundColor: "#ffbf00",
     padding: 10,
     elevation: 3,
   },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#ffbf00",
-  },
+
   textStyle: {
     color: "white",
     fontSize: 16,

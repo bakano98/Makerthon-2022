@@ -34,20 +34,6 @@ const customAlert = (title, msg, accept, decline) => {
   ]);
 };
 
-// Remove next
-const manualPrompt = () => {
-  customAlert(
-    "Important",
-    "Hey, we noticed you haven't been feeling the best lately, please help us to answer some questions so we know how we can help :)",
-    () => {
-      acceptHandler();
-    },
-    () => {
-      declineHandler(navigation.navigate("Resources"));
-    }
-  );
-};
-
 const todayDate = new Date(); // to be used for handling calendar back/front
 let x = 0;
 // AsyncStorage keys
@@ -246,6 +232,19 @@ const Mood = ({ navigation }) => {
     navigation.navigate("Questionnaire");
   };
 
+  // Remove next
+  const manualPrompt = () => {
+    customAlert(
+      "Important",
+      "Hey, we noticed you haven't been feeling the best lately, please help us to answer some questions so we know how we can help :)",
+      () => {
+        acceptHandler();
+      },
+      () => {
+        declineHandler(navigation.navigate("Resources"));
+      }
+    );
+  };
   // <-------------------------------- Prompt Handling Stuff --------------------------------->
   let shouldPrompt = moodyDays >= 5;
   const prompter = () => {
@@ -388,8 +387,8 @@ const Mood = ({ navigation }) => {
     if (todayItem.img !== "mood_empty") {
       if (!done && x === 1) {
         Alert.alert(
-          "Mood saved",
-          "Today's mood done! You have earned 1 point."
+          "Recorded",
+          "Today's mood has been recorded. You have earned 1 Noodal!"
         );
         x++;
       }
