@@ -8,6 +8,7 @@ import {
   ImageBackground,
   Modal,
   TextInput,
+  Image,
 } from "react-native";
 
 // local imports
@@ -127,7 +128,12 @@ const Settings = ({ navigation }) => {
         style={styles.touchableContainer}
       >
         <Text style={styles.text}>Send Feedback</Text>
+        <Image
+          style={{ height: 25, width: 25, marginLeft: 10, marginBottom: 5 }}
+          source={icons["icon_feedback"]}
+        />
       </TouchableOpacity>
+
       <TouchableOpacity
         onPress={() => navigation.navigate("About")}
         style={styles.touchableContainer}
@@ -142,7 +148,6 @@ const Settings = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -159,6 +164,7 @@ const styles = StyleSheet.create({
   },
 
   touchableContainer: {
+    flexDirection: "row",
     borderWidth: 2,
     color: "black",
     borderColor: "black",
