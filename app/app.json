@@ -6,7 +6,7 @@
         "expo-notifications",
         {
           "icon": "./assets/logo.png",
-          "color": "#ffffff",
+          "color": "#fff5cb",
           "sounds": [
             "./local/assets/notification-sound.wav",
             "./local/assets/notification-sound-other.wav"
@@ -21,7 +21,7 @@
     "splash": {
       "image": "./assets/loading_screen.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#fcf7c7"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -35,7 +35,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#fff5cb"
       }
     },
     "web": {

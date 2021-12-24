@@ -68,7 +68,7 @@ const Dashboard = ({ navigation }) => {
   ];
 
   //handling empty {} after AsyncStorage.clear()
-
+  console.log(dict);
   return (
     <ImageBackground source={icons["BG_pic"]} style={styles.image}>
       <ScrollView contentContainerStyle={{ justifyContent: "center" }}>
