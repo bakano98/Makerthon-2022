@@ -334,73 +334,59 @@ const screenStyles = {
   resourcesOptions: {
     headerShown: false,
     tabBarLabel: ({ focused, color }) => {
-      if (focused) {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "#e09000" }}>
-            Resources
-          </Text>
-        );
-      } else {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "grey" }}>
-            Resources
-          </Text>
-        );
-      }
+      return (
+        <Text
+          style={{
+            fontSize: 10,
+            fontFamily: "Itim",
+            color: focused ? "#e09000" : "grey",
+          }}
+        >
+          Resources
+        </Text>
+      );
     },
     unmountOnBlur: true,
     tabBarIcon: ({ size, focused, color }) => {
-      if (focused) {
-        return (
-          <Image
-            style={{ width: size, height: size }}
-            source={icons["resources_s"]}
-          />
-        );
-      } else {
-        return (
-          <Image
-            style={{ width: size, height: size }}
-            source={icons["resources_u"]}
-          />
-        );
-      }
+      return (
+        <Image
+          style={{
+            width: size,
+            height: size,
+            tintColor: focused ? "#ffbf00" : "#bcbcbc",
+          }}
+          source={icons["resources"]}
+        />
+      );
     },
   },
 
   subMoodOptions: {
     tabBarLabel: ({ focused, color }) => {
-      if (focused) {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "#e09000" }}>
-            My Moodal
-          </Text>
-        );
-      } else {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "grey" }}>
-            My Moodal
-          </Text>
-        );
-      }
+      return (
+        <Text
+          style={{
+            fontSize: 10,
+            fontFamily: "Itim",
+            color: focused ? "#e09000" : "grey",
+          }}
+        >
+          My Moodal
+        </Text>
+      );
     },
     headerShown: false,
     tabBarIcon: ({ size, focused, color }) => {
-      if (focused) {
-        return (
-          <Image
-            style={{ width: size, height: size }}
-            source={icons["moodscreen_s"]}
-          />
-        );
-      } else {
-        return (
-          <Image
-            style={{ width: size, height: size }}
-            source={icons["moodscreen_u"]}
-          />
-        );
-      }
+      return (
+        <Image
+          style={{
+            width: size,
+            height: size,
+            tintColor: focused ? "#ffbf00" : "#bcbcbc",
+          }}
+          source={icons["moodscreen"]}
+        />
+      );
     },
   },
 
@@ -408,110 +394,89 @@ const screenStyles = {
     unmountOnBlur: true,
     headerShown: false,
     tabBarLabel: ({ focused, color }) => {
-      if (focused) {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "#e09000" }}>
-            Dashboard
-          </Text>
-        );
-      } else {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "grey" }}>
-            Dashboard
-          </Text>
-        );
-      }
+      return (
+        <Text
+          style={{
+            fontSize: 10,
+            fontFamily: "Itim",
+            color: focused ? "#e09000" : "grey",
+          }}
+        >
+          Dashboard
+        </Text>
+      );
     },
     tabBarIcon: ({ size, focused, color }) => {
-      if (focused) {
-        return (
-          <Image
-            style={{ width: size, height: size }}
-            source={icons["dashboard_s"]}
-          />
-        );
-      } else {
-        return (
-          <Image
-            style={{ width: size, height: size }}
-            source={icons["dashboard_u"]}
-          />
-        );
-      }
+      return (
+        <Image
+          style={{
+            width: size,
+            height: size,
+            tintColor: focused ? "#ffbf00" : "#bcbcbc",
+          }}
+          source={icons["dashboard"]}
+        />
+      );
     },
   },
 
   servicesOptions: {
     tabBarLabel: ({ focused, color }) => {
-      if (focused) {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "#e09000" }}>
-            Services
-          </Text>
-        );
-      } else {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "grey" }}>
-            Services
-          </Text>
-        );
-      }
+      return (
+        <Text
+          style={{
+            fontSize: 10,
+            fontFamily: "Itim",
+            color: focused ? "#e09000" : "grey",
+          }}
+        >
+          Services
+        </Text>
+      );
     },
     unmountOnBlur: true,
     headerShown: false,
     tabBarIcon: ({ size, focused, color }) => {
-      if (focused) {
-        return (
-          <Image
-            style={{ width: size, height: size }}
-            source={icons["services_s"]}
-          />
-        );
-      } else {
-        return (
-          <Image
-            style={{ width: size, height: size }}
-            source={icons["services_u"]}
-          />
-        );
-      }
+      return (
+        <Image
+          style={{
+            width: size,
+            height: size,
+            tintColor: focused ? "#ffbf00" : "#bcbcbc",
+          }}
+          source={icons["services"]}
+        />
+      );
     },
   },
 
   settingsOptions: {
     tabBarLabel: ({ focused, color }) => {
-      if (focused) {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "#e09000" }}>
-            Settings
-          </Text>
-        );
-      } else {
-        return (
-          <Text style={{ fontSize: 10, fontFamily: "Itim", color: "grey" }}>
-            Settings
-          </Text>
-        );
-      }
+      return (
+        <Text
+          style={{
+            fontSize: 10,
+            fontFamily: "Itim",
+            color: focused ? "#e09000" : "grey",
+          }}
+        >
+          Settings
+        </Text>
+      );
     },
     unmountOnBlur: true,
     headerShown: false,
     tabBarIcon: ({ size, focused, color }) => {
-      if (focused) {
-        return (
-          <Image
-            style={{ width: size, height: size }}
-            source={icons["settings_s"]}
-          />
-        );
-      } else {
-        return (
-          <Image
-            style={{ width: size, height: size }}
-            source={icons["settings_u"]}
-          />
-        );
-      }
+      return (
+        <Image
+          style={{
+            width: size,
+            height: size,
+            tintColor: focused ? "#ffbf00" : "#bcbcbc",
+          }}
+          source={icons["settings"]}
+        />
+      );
     },
   },
 };

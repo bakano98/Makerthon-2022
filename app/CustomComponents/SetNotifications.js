@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   Text,
-  View,
+  SafeAreaView,
   Switch,
+  Image,
 } from "react-native";
 import dailyContext from "../contexts/dailyContext";
 import * as Notifications from "expo-notifications"; // REQUIRED. Need this for all things related to Notifications from Expo
@@ -25,7 +26,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-let notifId = "";
+const icons = require("../icons/icons.js");
 
 // First, we test AsyncStorage
 const SetNotifications = () => {
@@ -183,34 +184,44 @@ const SetNotifications = () => {
   };
 
   if (done) {
-    console.log("Done, should not receive notifs")
+    console.log("Done, should not receive notifs");
     Notifications.cancelAllScheduledNotificationsAsync();
   }
-
 
   // remove comment if you want to do some debugging
   // console.log(time);
   return (
-    <View>
-      <View style={styles.touchableContainer}>
-        <Text style={[styles.text, { paddingLeft: 10 }]}>
-          Notifications OFF/ON
-        </Text>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <View
+    <SafeAreaView>
+      <SafeAreaView style={styles.touchableContainer}>
+        <SafeAreaView style={{ flexDirection: "row" }}>
+          <Image
+            style={{
+              height: 25,
+              width: 25,
+              tintColor: toggle ? "#ffbf00" : "#bcbcbc",
+            }}
+            source={icons["icon_notifs"]}
+          />
+          <Text style={[styles.text, { paddingLeft: 10 }]}>
+            Notifications OFF/ON
+          </Text>
+        </SafeAreaView>
+
+        <SafeAreaView style={{ flexDirection: "row", alignItems: "center" }}>
+          <SafeAreaView
             style={[
               styles.smallContainer,
-              { backgroundColor: toggle ? "#FFFFFF" : "#BCBCBC" },
+              { backgroundColor: toggle ? "#FFFFFF" : "#bcbcbc" },
             ]}
           >
             <TouchableOpacity onPress={() => showTimepicker()}>
               <Text style={styles.text}>{time}</Text>
             </TouchableOpacity>
-          </View>
+          </SafeAreaView>
           <Switch onValueChange={toggleSwitch} value={toggle} />
-        </View>
-      </View>
-      <View>
+        </SafeAreaView>
+      </SafeAreaView>
+      <SafeAreaView>
         {
           show && (
             <DateTimePicker
@@ -223,8 +234,8 @@ const SetNotifications = () => {
             />
           ) /* Can just ignore this entire thing. It's simply used to help open up the time picker*/
         }
-      </View>
-    </View>
+      </SafeAreaView>
+    </SafeAreaView>
   );
 };
 
