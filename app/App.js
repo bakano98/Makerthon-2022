@@ -229,7 +229,7 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator
         barStyle={{ backgroundColor: "#694fad" }}
-        options={{ headerShown: false }}
+        screenOptions={{ headerShown: false, animationEnabled: false }}
       >
         <Stack.Screen
           component={Bottoms}

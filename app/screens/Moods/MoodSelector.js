@@ -216,11 +216,33 @@ const MoodSelector = ({ navigation, route }) => {
           moodValue = 7;
           break;
       }
+      let curr = "";
+      let modify = false;
       // if the key already exists, it means we are modifying a mood instead of adding
-      addedMoods.some((x) => x.key === item.key)
-        ? modifyMoods(moodSrc, moodValue)
-        : addMoods(moodSrc, moodValue);
-      navigation.goBack();
+      addedMoods.some((x) => {
+        if (x.key === item.key) {
+          // so item already exists
+          curr = x;
+          modify = true;
+        } else {
+          modify = false;
+        }
+      });
+
+      if (modify) {
+        customAlert(
+          "Are you sure?",
+          `Changing from ${curr.mood.split("_")[1]} to ${moodName}`,
+          () => {
+            modifyMoods(moodSrc, moodValue);
+            navigation.goBack();
+          },
+          () => console.log("User was not sure")
+        );
+      } else {
+        addMoods(moodSrc, moodValue);
+        navigation.goBack();
+      }
     };
 
     return (
