@@ -56,15 +56,10 @@ const moustache = [
 // when adding themes, add to here (0) --> add array of objects
 
 // when adding themes, add to here (1)
-// all_content is an array that contains the name of all possible themes.
-// This is used to render out the names within a Picker.
-const all_content = ["normal", "sunglasses", "moustache"];
-
-// when adding themes, add to here (2)
 // Each object is a possible theme that can be chosen
 // Each theme contains the theme name, and the cost to unlock
 const all_themes = [
-  { name: "normal", theme: normal, pv_unlocked: "skin1_unlocked", cost: 0 },
+  { name: "normal", theme: normal, pv_unlocked: "skin1_unlocked", cost: 0 }, // has no locked pv because it is unlocked by defaultF
   {
     name: "sunglasses",
     theme: sunglasses,
