@@ -233,9 +233,8 @@ const MoodSelector = ({ navigation, route }) => {
           // so item already exists
           curr = x;
           modify = true;
-        } else {
-          modify = false;
         }
+        // don't reset to false, because otherwise it'll override
       });
 
       if (modify) {
