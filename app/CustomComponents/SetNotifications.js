@@ -1,6 +1,4 @@
 // Component that allows users to select a time for their daily notifications.
-// Need to add an option to turn off notifications
-
 import React, { useState, useEffect, useContext } from "react";
 import {
   TouchableOpacity,
@@ -15,9 +13,11 @@ import * as Notifications from "expo-notifications"; // REQUIRED. Need this for 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
+// The keys for AsyncStorage
 const TIME_KEY = "@time_key";
 const NOTIFS_SWITCH_KEY = "@switch_key";
 
+// Required by Expo. This tells Expo how to handle notifications.
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -26,9 +26,9 @@ Notifications.setNotificationHandler({
   }),
 });
 
+// Importing this to get access to all icons by their names
 const icons = require("../icons/icons.js");
 
-// First, we test AsyncStorage
 const SetNotifications = () => {
   // Define your time with hooks. We use this as the default time. This is a string used to display time only.
   const [time, setTime] = useState("12:00 PM");
@@ -37,6 +37,8 @@ const SetNotifications = () => {
   const [toggle, setToggle] = useState(false);
 
   // Getting dailyContext
+  // We use dailyContext in order to tell whether we should disable the notifications for today 
+  // as we do not want to prompt the user to track their mood if it has already been tracked.
   const { done } = useContext(dailyContext);
 
   // <------------------------------------ DateTimePicker stuff ------------------------------------->
@@ -44,6 +46,7 @@ const SetNotifications = () => {
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
+  // Function to handle an onChange event, which is when the user picks and confirms the time.
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
@@ -69,6 +72,7 @@ const SetNotifications = () => {
     }
   };
 
+  // Decides what to show. For our context, we only need to show the time picker
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
@@ -122,6 +126,8 @@ const SetNotifications = () => {
   };
 
   // Clearing the AsyncStorage. Will be useful for next time when we have to use ONE key to manage an ARRAY OF OBJECTS
+  // Not super useful for our context, but keeping it here for now
+  /*
   const clearTime = async () => {
     try {
       await AsyncStorage.clear();
@@ -129,7 +135,7 @@ const SetNotifications = () => {
     } catch (e) {
       alert("Failed to clear local storage");
     }
-  };
+  };*/
 
   // <------------------------------------ AsyncStorage stuff end ------------------------------------->
 
@@ -168,8 +174,11 @@ const SetNotifications = () => {
   const AM_PM = split_time[1].split(" ")[1];
   const hrs = Number(split_time[0]);
   const mins = Number(split_time[1].split(" ")[0]);
+
+  // Notifications logic. Because we're setting a repeated notification, we need to make sure we cancel all notifications
+  // before scheduling a new one each day
   const cancelBeforeAndSchedule = async () => {
-    await Notifications.cancelAllScheduledNotificationsAsync(notifId);
+    await Notifications.cancelAllScheduledNotificationsAsync();
     await Notifications.scheduleNotificationAsync({
       content: {
         title: "Moodal",
@@ -183,6 +192,8 @@ const SetNotifications = () => {
     });
   };
 
+
+  // If today's tracking has been done, then cancel all notifications.
   if (done) {
     console.log("Done, should not receive notifs");
     Notifications.cancelAllScheduledNotificationsAsync();
