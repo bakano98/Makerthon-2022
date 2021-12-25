@@ -21,14 +21,9 @@ import {
   toDict,
   displayModeMood,
 } from "./Stats/DataProcessing";
-import PieChartWeek from "./Stats/PieChartWeek";
-import PieChartMonth from "./Stats/PieChartMonth";
 import ProgressBar from "./Stats/ProgessBar";
-import StackedGraph from "./Stats/StackedGraph";
 import LineGraph from "./Stats/LineGraph";
-import PieChartYear from "./Stats/PieChartYear";
 import SwiperComponent from "./Stats/SwiperComponent";
-import { mood_happy } from "../icons/icons.js";
 
 // image is just a placeholder for now
 const icons = require("../icons/icons.js");
@@ -44,7 +39,7 @@ const clearAll = async () => {
 };
 
 // navigation may be used later so we keep it here for now.
-const Dashboard = ({ navigation }) => {
+const Dashboard = () => {
   // Note that if we want to update anything related to the state, we have to directly call user_state.(dataType) = ....
   const moodState = useSelector((state) => state);
   const moodsData = moodState.data;
@@ -82,8 +77,17 @@ const Dashboard = ({ navigation }) => {
               {Math.ceil(getProgress(dict) * 100)}%
             </Text>
           </View>
-          <Text style={styles.progressText}>🔥 streak: ? days</Text>
-          <Text style={styles.progressText}>🌟 points: {logPoints}</Text>
+          <Text style={styles.progressText}>
+            🔥  streak: ? days
+            {/* To do streaks, we'll need to use context and pass it down */}
+          </Text>
+          <View style={{ flexDirection: "row", paddingLeft: 10 }}>
+            <Image
+              style={{ height: 25, width: 25 }}
+              source={icons["noodals"]}
+            />
+            <Text style={styles.progressText}>Noodals: {logPoints}</Text>
+          </View>
         </View>
 
         <View style={styles.pieContainer}>
@@ -143,6 +147,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   subheader: {
+    fontFamily: "Itim",
     fontSize: 20,
     color: "black",
     width: 400,
@@ -154,6 +159,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "black",
     height: 60,
+    fontFamily: "Itim",
     //backgroundColor: '#f5f5f5',
     //borderRadius: 25,
     //padding: 10,
@@ -162,13 +168,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
 
-  button: {
-    // default button, change later?
-    alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 10,
-    marginTop: 15,
-  },
   image: {
     width: "100%",
     height: "100%",
@@ -180,6 +179,7 @@ const styles = StyleSheet.create({
     marginStart: 20,
     height: 10,
   },
+
   pieContainer: {
     backgroundColor: "#f5f5f5",
     borderRadius: 25,
@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
   },
   progressHeaderText: {
     fontSize: 28,
+    fontFamily: "Itim",
     color: "black",
     height: 60,
     marginStart: 25,
@@ -213,15 +214,13 @@ const styles = StyleSheet.create({
   },
   progressText: {
     fontSize: 20,
+    fontFamily: "Itim",
     color: "black",
     height: 30,
-    //backgroundColor: '#f5f5f5',
-    //borderRadius: 25,
-    //padding: 10,
-    marginStart: 20,
+    marginStart: 10,
   },
   pieText: {
-    fontStyle: "italic",
+    fontFamily: "Itim",
     fontSize: 18,
     padding: 10,
     paddingBottom: 10,
@@ -256,6 +255,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     padding: 0,
     paddingStart: 25,
+    fontFamily: "Itim",
   },
   moodText: {
     fontSize: 28,
@@ -269,14 +269,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 2,
     alignSelf: "flex-start",
+    fontFamily: "Itim",
   },
   moodDescriptionText: {
     fontSize: 12,
     color: "black",
     height: 60,
-    //backgroundColor: '#f5f5f5',
-    //borderRadius: 25,
-    //padding: 10,
+    fontFamily: "Itim",
     marginStart: 25,
     marginEnd: 10,
     paddingTop: 10,
