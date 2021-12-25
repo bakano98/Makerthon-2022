@@ -144,7 +144,7 @@ const MoodSelector = ({ navigation, route }) => {
       } else {
         customAlert(
           "Locked Skin",
-          `Would you like to unlock the ${skinName} series for ${cost} Noodals?`,
+          `Unlock the ${skinName} series for ${cost} Noodals?`,
           () => unlockSkin(themeObject),
           () => console.log("User denied")
         );
@@ -190,6 +190,7 @@ const MoodSelector = ({ navigation, route }) => {
     if (logPoints >= themeObject.cost) {
       spendPoints(themeObject.cost, themeObject.name);
       setContent([...content, themeObject.name]);
+      setSelectedValue(themeObject.name);
     } else {
       // console.log(themeObject);
       Alert.alert(

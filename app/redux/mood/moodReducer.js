@@ -76,10 +76,6 @@ const moodReducer = (state = initialState, action) => {
       console.log("Spending points");
       console.log(initialState.logPoints);
       initialState.logPoints -= action.payload.pointsToSpend;
-      Alert.alert(
-        "Success",
-        `You have unlocked the ${action.payload.seriesName} series!`
-      );
       return { ...initialState };
     case REHYDRATE:
       // some error handling, for initial startup where there's no payload
