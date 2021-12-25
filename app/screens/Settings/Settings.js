@@ -128,11 +128,11 @@ const Settings = ({ navigation }) => {
           onPress={() => setVisible(true)}
           style={styles.touchableContainer}
         >
-          <Text style={styles.text}>Send Feedback</Text>
           <Image
-            style={{ height: 25, width: 25, marginLeft: 10, marginBottom: 5 }}
+            style={{ height: 25, width: 25, marginRight: 10 }}
             source={icons["icon_feedback"]}
           />
+          <Text style={styles.text}>Send Feedback</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate("About")}

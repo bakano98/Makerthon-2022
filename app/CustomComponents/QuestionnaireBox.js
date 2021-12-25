@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { UPDATE_ANSWER } from "../redux/questionnaire/questionnaireReducer";
 
-// how to get key to be unique?
-
 // we can turn this into a reusable component and pass down a variable called questionName in order to specify a question
 const QuestionnaireBox = (props) => {
   const num = props.qNum;
