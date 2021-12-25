@@ -17,7 +17,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // Redux stuff
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "./redux/mood/store";
+import { store as moodStore, persistor } from "./redux/mood/store";
+import store from "./redux/questionnaire/store";
 
 // local imports
 import dailyContext from "./contexts/dailyContext";
@@ -180,7 +181,7 @@ const Bottoms = () => {
     return <AppLoading />;
   } else {
     return (
-      <Provider store={store}>
+      <Provider store={moodStore}>
         <PersistGate loading={null} persistor={persistor}>
           <dailyContext.Provider
             value={{ done, setDone, todayMood, setTodayMood }}
@@ -226,38 +227,40 @@ const Bottoms = () => {
 // QuestionnaireStack and About should not have bottom tabs. So for anything that should not have bottom tabs, add to here.
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        barStyle={{ backgroundColor: "#694fad" }}
-        screenOptions={{ headerShown: false, animationEnabled: false }}
-      >
-        <Stack.Screen
-          component={Bottoms}
-          name="Bottoms"
-          options={({ route }) => ({
-            title: setNameFromRouteName(route),
-            headerShown: false,
-          })}
-        />
-        <Stack.Screen
-          component={Questionnaire}
-          name="Questionnaire"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          component={About}
-          name="About"
-          options={{ headerShown: true, title: "About Us" }}
-        />
-        <Stack.Screen
-          component={FormDetails}
-          name="FormDetails"
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          barStyle={{ backgroundColor: "#694fad" }}
+          screenOptions={{ headerShown: false, animationEnabled: false }}
+        >
+          <Stack.Screen
+            component={Bottoms}
+            name="Bottoms"
+            options={({ route }) => ({
+              title: setNameFromRouteName(route),
+              headerShown: false,
+            })}
+          />
+          <Stack.Screen
+            component={Questionnaire}
+            name="Questionnaire"
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            component={About}
+            name="About"
+            options={{ headerShown: true, title: "About Us" }}
+          />
+          <Stack.Screen
+            component={FormDetails}
+            name="FormDetails"
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

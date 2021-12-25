@@ -9,12 +9,13 @@ import {
   Alert,
   Text,
   SafeAreaView,
+  Button,
 } from "react-native";
-import { Provider } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // local imports
 import { QuestionnaireBox } from "../../CustomComponents";
-import store from "../../redux/questionnaire/store";
+import { RESET } from "../../redux/questionnaire/questionnaireReducer";
 
 // [question, question number]. K10 scale. Note, this is reusable so we can change this to GHQ-12 as well.
 const questions = [
@@ -31,11 +32,7 @@ const questions = [
 ];
 
 const qnsList = questions.map((qns) => {
-  return (
-    <Provider store={store}>
-      <QuestionnaireBox question={qns[0]} qNum={qns[1]} key={qns[1]} />
-    </Provider>
-  );
+  return <QuestionnaireBox question={qns[0]} qNum={qns[1]} key={qns[1]} />;
 });
 
 // to access the score of each component:
@@ -112,16 +109,14 @@ let user_score = 0;
 
 // i is the number of questions
 // handles the submit button. Handle navigation/alerts later
-const handleSubmit = (list) => {
+const handleSubmit = (state, call) => {
   let break_flag = false;
-  for (let i = 0; i < questions.length; i++) {
-    const current = list.map((x) => x.props.store.getState())[0][i].currScore;
-    if (current == 0) {
+  Object.keys(state).forEach((key) => {
+    if (state[key].currScore === 0) {
       break_flag = true;
-      break;
     }
-    score += current;
-  }
+    score += state[key].currScore;
+  });
 
   if (break_flag) {
     // means we have not checked all boxes
@@ -144,16 +139,25 @@ const handleSubmit = (list) => {
   console.log(score);
   user_score = score; // set user score to the the current score before resetting it.
   score = 0; // reset!!
+  call();
 };
-
+let x = 0;
 // no need to reset after submitting because the states are not saved on app restart.
 const Questionnaire = ({ navigation }) => {
-  Alert.alert(
-    "Disclaimer",
-    "The following questions are widely recommended as a simple measure of psychological distress.\n" +
-      "It is used as an indication for the need for interventions and is no way diagnostic in nature.\n" +
-      "Do try your best to answer these questions as accurately as possible."
-  );
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const reset = () => {
+    dispatch({ type: RESET, payload: {} });
+  };
+  if (x === 0) {
+    Alert.alert(
+      "Disclaimer",
+      "The following questions are widely recommended as a simple measure of psychological distress.\n" +
+        "It is used as an indication for the need for interventions and is no way diagnostic in nature.\n" +
+        "Do try your best to answer these questions as accurately as possible."
+    );
+    x++;
+  }
   useEffect(() => {
     // disable hardware back press
     const backHandler = BackHandler.addEventListener(
@@ -227,7 +231,7 @@ const Questionnaire = ({ navigation }) => {
           <TouchableOpacity
             style={styles.touchableContainer}
             onPress={() => {
-              handleSubmit(qnsList);
+              handleSubmit(state, reset);
               switch (navigator) {
                 case "Resources":
                   console.log(navigator);
@@ -254,6 +258,14 @@ const Questionnaire = ({ navigation }) => {
               Submit
             </Text>
           </TouchableOpacity>
+          <Button
+            title="Get log"
+            onPress={() =>
+              Object.keys(state).forEach((key) => {
+                console.log(state[key].currScore);
+              })
+            }
+          />
         </SafeAreaView>
       </SafeAreaView>
     </ScrollView>
