@@ -129,7 +129,7 @@ const Settings = ({ navigation }) => {
           style={styles.touchableContainer}
         >
           <Image
-            style={{ height: 25, width: 25, marginRight: 10 }}
+            style={{ height: 25, width: 25, marginRight: 10  }}
             source={icons["icon_feedback"]}
           />
           <Text style={styles.text}>Send Feedback</Text>

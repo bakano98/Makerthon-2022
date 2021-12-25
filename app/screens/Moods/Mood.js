@@ -6,7 +6,6 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  Button,
   View,
   Image,
   TouchableOpacity,
@@ -120,7 +119,6 @@ const Mood = ({ navigation }) => {
       };
     }
 
-    // **any date function, returns you a number
 
     // first day of the month
     let firstDay = new Date(year, month, 1).getDay();
@@ -232,19 +230,6 @@ const Mood = ({ navigation }) => {
     navigation.navigate("Questionnaire");
   };
 
-  // Remove next
-  const manualPrompt = () => {
-    customAlert(
-      "Important",
-      "Hey, we noticed you haven't been feeling the best lately, please help us to answer some questions so we know how we can help :)",
-      () => {
-        acceptHandler();
-      },
-      () => {
-        declineHandler(navigation.navigate("Resources"));
-      }
-    );
-  };
   // <-------------------------------- Prompt Handling Stuff --------------------------------->
   let shouldPrompt = moodyDays >= 5;
   const prompter = () => {
@@ -255,7 +240,7 @@ const Mood = ({ navigation }) => {
 
     if (
       shouldPrompt &&
-      differenceInDays >= 3 // so if the last prompt was 3 days ago, then prompt again
+      differenceInDays >= 3 // so if the last prompt was at least 3 days ago, then prompt again
     ) {
       setLastPromptedDay(todayDate);
       customAlert(
@@ -299,7 +284,6 @@ const Mood = ({ navigation }) => {
       return (
         <TouchableOpacity
           style={{
-            // needs to use ternary ops, so no choice but to do inline styling
             // note, change the background colour to be different in order to see the size of pressable box.
             flex: 1,
             height: rowIndex === 0 ? 20 : 40, // conditionally rendering the height. If it is the days of the week, then lower.
@@ -371,7 +355,7 @@ const Mood = ({ navigation }) => {
     return null;
   };
 
-  // Setting the reference to today's items. A hacky solution.
+  // Setting the reference to today's items.
   if (x === 0) {
     setPersistentItem(retrieveItem());
     x++;
@@ -459,7 +443,6 @@ const Mood = ({ navigation }) => {
           <Image source={icons["float_button"]} style={styles.floatButton} />
         </TouchableOpacity>
       </View>
-      <Button title="Manual prompt" onPress={() => manualPrompt()} />
     </SafeAreaView>
   );
 };
