@@ -3,6 +3,7 @@ import * as dateFn from "date-fns";
 import { PieChart } from 'react-native-svg-charts'
 import { flattenObject } from './DataProcessing';
 
+
 function PieChartWeek(dictionary) {
     // takes in data as a dictionary
     const now = new Date();
@@ -10,9 +11,9 @@ function PieChartWeek(dictionary) {
     const currYear = dateFn.getYear(now);
     const currWeek = dateFn.getWeek(now);
     if (dictionary == -1 
-        || dictionary[currYear] == undefined
-        || dictionary[currYear][currMonth] == undefined
-        || dictionary[currYear][currMonth][currWeek] == undefined) {
+        || dictionary[currYear] === undefined
+        || dictionary[currYear][currMonth] === undefined
+        || dictionary[currYear][currMonth][currWeek] === undefined) {
         return (
             <PieChart
                 style={{ height: 150, width: 150 }}
@@ -80,6 +81,9 @@ function PieChartWeek(dictionary) {
             svg: { fill: '#ff9aa0' }
         }
     ]
+
+    const icons = require("../../icons/icons");
+
     return (
         <PieChart
             style={{ height: 150, width: 150 }}

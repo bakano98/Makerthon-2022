@@ -8,16 +8,19 @@ function ProgressBar(dictionary) {
         const now = new Date();
         const currMonth = dateFn.getMonth(now);
         const currYear = dateFn.getYear(now);
-        const currWeek = dateFn.getWeek(now);
         
-        if (dictionary == -1 
-            || dictionary[currYear] == undefined
-            || dictionary[currYear][currMonth] == undefined) {
+        if (dictionary === -1 
+            || dictionary[currYear] === undefined
+            || dictionary[currYear][currMonth] === undefined) {
             return 0; 
         }
         const maxDays = dateFn.getDate(dateFn.lastDayOfMonth(now));
         
-        return ( Object.values(dictionary[currYear][currMonth]).length / maxDays )
+        return ( 
+            (Object.values(dictionary[currYear][currMonth])
+            .map((x) => Object.values(x).length)
+            .reduce( (prev, curr) => prev + curr)
+             / maxDays ) )
     }
     const progress = getProgress(dictionary)
     

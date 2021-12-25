@@ -7,8 +7,8 @@ function PieChartYear(dictionary) {
     // takes in data as a dictionary
     const now = new Date();
     const currYear = dateFn.getYear(now);
-    if (dictionary == -1 
-        || dictionary[currYear] == undefined) {
+    if (dictionary === -1 
+        || dictionary[currYear] === undefined) {
         return (
             <PieChart
                 style={{ height: 150, width: 150 }}

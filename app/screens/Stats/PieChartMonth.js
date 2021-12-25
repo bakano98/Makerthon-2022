@@ -10,9 +10,9 @@ function PieChartMonth(dictionary) {
     const now = new Date();
     const currMonth = dateFn.getMonth(now);
     const currYear = dateFn.getYear(now);
-    if (dictionary == -1 
-        || dictionary[currYear] == undefined
-        || dictionary[currYear][currMonth] == undefined) {
+    if (dictionary === -1 
+        || dictionary[currYear] === undefined
+        || dictionary[currYear][currMonth] === undefined) {
         return (
             <PieChart
                 style={{ height: 150, width: 150 }}

@@ -17,7 +17,7 @@ function LineGraph(array, n) {
 
     let data = [0,];
     let origin = 0;
-    const max = array.length == 0 ? 0 : Math.min(array.length, n + 1)
+    const max = array.length === 0 ? 0 : Math.min(array.length, n + 1)
     for (let i = array.length - max; i < array.length; i++) {
         let curr = array[i] 
         let mood = curr.mood
