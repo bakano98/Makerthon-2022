@@ -46,6 +46,7 @@ const Dashboard = () => {
 
   const logPoints = moodState.logPoints;
 
+  console.log(moodsData);
   //parse data into a dictionary
   const dict = toDict(moodsData);
   const icons = require("../icons/icons");
