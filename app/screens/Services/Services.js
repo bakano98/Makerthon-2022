@@ -47,12 +47,13 @@ const Services = ({ navigation }) => {
         <TouchableOpacity
           style={styles.touchableContainer}
           onPress={() =>
-            customAlert(
-              "Acknowledgement",
-              "By clicking, 'Accept', you will be brought to your calling app. Click call to connect with one of our PFAs!",
-              () => Linking.openURL(`tel: ${+6512345678}`)
-              // console.log("User declined")
-            )
+            // customAlert(
+            //   "Acknowledgement",
+            //   "By clicking, 'Accept', you will be brought to your calling app. Click call to connect with one of our PFAs!",
+            //   () => Linking.openURL(`tel: ${+6512345678}`)
+            //   // console.log("User declined")
+            // )
+            navigation.navigate("Callback")
           }
         >
           <Image
