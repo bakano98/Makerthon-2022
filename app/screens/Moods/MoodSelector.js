@@ -113,12 +113,22 @@ const MoodSelector = ({ navigation, route }) => {
   const addMoods = (mood, moodValue, moodName) =>
     dispatch({
       type: ADD_MOOD,
-      payload: { mood: mood, moodValue: moodValue, item: item, moodName: moodName},
+      payload: {
+        mood: mood,
+        moodValue: moodValue,
+        item: item,
+        moodName: moodName,
+      },
     });
   const modifyMoods = (mood, moodValue, moodName) => {
     dispatch({
       type: MODIFY_MOOD,
-      payload: { mood: mood, moodValue: moodValue, item: item, moodName: moodName },
+      payload: {
+        mood: mood,
+        moodValue: moodValue,
+        item: item,
+        moodName: moodName,
+      },
     });
   };
 
@@ -372,6 +382,7 @@ const MoodSelector = ({ navigation, route }) => {
           data={all_themes}
           numColumns={6}
           renderItem={renderSkins}
+          keyExtractor={(item) => item.id}
         />
       </SafeAreaView>
       <SafeAreaView style={styles.iconsContainer}>
