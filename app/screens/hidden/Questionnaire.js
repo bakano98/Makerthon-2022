@@ -252,6 +252,7 @@ const Questionnaire = ({ navigation }) => {
                 default:
                   break;
               }
+              navigator="";
             }}
           >
             <Text style={{ fontSize: 24, fontFamily: "Itim", color: "black" }}>
