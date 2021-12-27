@@ -39,6 +39,7 @@ const moodReducer = (state = initialState, action) => {
         ...initialState.data,
         {
           mood: action.payload.mood,
+          moodName: action.payload.moodName,
           moodValue: action.payload.moodValue, // unique value assigned to each mood. Can help in making data processing easier as well
           col: item.col,
           row: item.row,
@@ -65,6 +66,7 @@ const moodReducer = (state = initialState, action) => {
       tempState.forEach((item) => {
         if (item.key === action.payload.item.key) {
           item.mood = action.payload.mood;
+          item.moodName = action.payload.moodName;
           item.moodValue = action.payload.moodValue;
         }
       });
