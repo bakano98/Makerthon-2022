@@ -9,6 +9,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Button,
   Alert,
 } from "react-native";
 import * as dateFn from "date-fns";
@@ -455,6 +456,7 @@ const Mood = ({ navigation }) => {
           <Image source={icons["float_button"]} style={styles.floatButton} />
         </TouchableOpacity>
       </View>
+      <Button title="Go to PFAScreen" onPress={() => navigation.navigate("PFAScreen")}/>
     </SafeAreaView>
   );
 };

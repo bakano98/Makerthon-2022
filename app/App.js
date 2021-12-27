@@ -269,7 +269,7 @@ const App = () => {
           <Stack.Screen
             component={PFAScreen}
             name="PFAScreen"
-            options={{headerShown: false}}
+            options={{headerShown: true}} // change to false next time
           />
         </Stack.Navigator>
       </NavigationContainer>
