@@ -9,7 +9,6 @@ import {
   Alert,
   Text,
   SafeAreaView,
-  Button,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -88,7 +87,6 @@ const getConsent = (accept, decline) => {
 // not sure if this is necessary now.
 const referToCounsel = (action) => {
   alert("Referring to counselling...");
-
   action();
 };
 
@@ -175,15 +173,16 @@ const Questionnaire = ({ navigation }) => {
         style: "cancel",
       },
       {
-        text: "Anonymous Counselling",
-        onPress: () =>
-          choice === "PFA"
-            ? referToPFA(() => navigation.goBack()) // takes an action
-            : referToCounsel(() => navigation.goBack()), // takes an action
+        text: "Quick Appointment",
+        onPress: () => navigation.navigate("Urgent"), // may be renamed later
+        // onPress: () =>
+        //   choice === "PFA"
+        //     ? referToPFA(() => navigation.goBack()) // takes an action
+        //     : referToCounsel(() => navigation.goBack()), // takes an action
         style: "default",
       },
       {
-        text: "Booking with UHC",
+        text: "UHC",
         onPress: () =>
           referToPsych(
             () =>
@@ -199,22 +198,42 @@ const Questionnaire = ({ navigation }) => {
 
   // the message to be shown to the user
   const msg = (recommended) => {
+    // if (recommended === "PFA") {
+    //   three_alert(
+    //     "Results",
+    //     "You seem to be in slight psychological distress across the last month.\nWe recommend talking anonymously to a Counsellor, but you can choose either.",
+    //     "PFA"
+    //   );
+    // } else if (recommended === "Counsel") {
+    //   three_alert(
+    //     "Results",
+    //     "You seem to be in slight psychological distress across the last month.\nWe recommend talking anonymously to a Counsellor, but you can choose either.",
+    //     "Counsel"
+    //   );
+    // } else {
+    //   three_alert(
+    //     "Results",
+    //     "You seem to be in a high level of psychological distress across the last month.\nWe recommend booking an appointment with UHC.",
+    //     "Counsel"
+    //   );
+    // }
+
     if (recommended === "PFA") {
       three_alert(
         "Results",
-        "You seem to be in slight psychological distress across the last month.\nWe recommend talking anonymously to a Counsellor, but you can choose either.",
+        "You seem to be in slight psychological distress across the last month.\nWe recommend seeking help (anonymously) via \"Quick Appointment\", but you can choose either.",
         "PFA"
       );
     } else if (recommended === "Counsel") {
       three_alert(
         "Results",
-        "You seem to be in slight psychological distress across the last month.\nWe recommend talking anonymously to a Counsellor, but you can choose either.",
+        "You seem to be in slight psychological distress across the last month.\nWe recommend seeking help (anonymously) via \"Quick Appointment\", but you can choose either.",
         "Counsel"
       );
     } else {
       three_alert(
         "Results",
-        "You seem to be in a high level of psychological distress across the last month.\nWe recommend booking an appointment with UCS.",
+        "You seem to be in a high level of psychological distress across the last month.\nWe recommend booking an appointment with UHC.",
         "Counsel"
       );
     }
@@ -252,21 +271,13 @@ const Questionnaire = ({ navigation }) => {
                 default:
                   break;
               }
-              navigator="";
+              navigator=""; // ensure proper resetting
             }}
           >
             <Text style={{ fontSize: 24, fontFamily: "Itim", color: "black" }}>
               Submit
             </Text>
           </TouchableOpacity>
-          {/* <Button
-            title="Get log"
-            onPress={() =>
-              Object.keys(state).forEach((key) => {
-                console.log(state[key].currScore);
-              })
-            }
-          /> */}
         </SafeAreaView>
       </SafeAreaView>
     </ScrollView>

@@ -597,7 +597,7 @@ const FormDetails = ({ navigation, route }) => {
       if (handlePickerConfirm(apptDate, time, item)) {
         Alert.alert(
           "Request sent",
-          `Requested for an appointment on ${apptDate}, at ${time}`,
+          `Requested for an appointment on ${apptDate}, at ${time}.\nIf you need help urgently, please use "Talk to a PFA Personnel" under the services tab.`,
           [
             {
               text: "OK",
@@ -694,11 +694,8 @@ const FormDetails = ({ navigation, route }) => {
             title="Submit"
             onPress={() =>
               handleSubmit(() => {
-                // Will actually need to implement email sender.
-                // Firebase Cloud + Gmail + Nodemailer should be sufficient, but need to find out how to do it.
-                // email sending
                 // return back to dashboard
-                navigation.navigate("Mood");
+                navigation.navigate("Bottoms");
               })
             }
           />
