@@ -8,11 +8,13 @@ import {
   BackHandler,
   Modal,
   View,
+  ScrollView,
   TouchableOpacity,
   Image,
   ImageBackground,
 } from "react-native";
 
+import { CheckBox } from "react-native-elements";
 // Import from Firebase to utilise cloud functions
 import { sendMail } from "../../firebase"; // sendMail is of the form sendMail(msg, dest)
 
@@ -498,14 +500,7 @@ const FormDetails = ({ navigation, route }) => {
 
   /* End AsyncStorage stuff*/
 
-  /* Updates stuff */
-  // Need to copy the array, then value of array to be that new array. Otherwise, won't work.
-  const updateArray = (index, text) => {
-    let newArr = [...details]; // First, copy the array
-    newArr[index] = text; // Set the correct field to the new text value
-    setDetails(newArr);
-  };
-
+  // Update on re-render stuff
   // Disable hardware back press.
   // Probably need to check if this causes any issues on iOS
   useEffect(() => {
@@ -522,6 +517,122 @@ const FormDetails = ({ navigation, route }) => {
     saveDetails();
     saveBookings();
   }, [details, booked]);
+
+  // Component renders
+  const renderSelections = () => {
+    return (
+      <SafeAreaView style={{ marginTop: 20 }}>
+        <TextInput
+          value={details[NAME] === "" ? "" : details[NAME]}
+          onChangeText={(text) => updateArray(NAME, text)}
+          placeholder="Name"
+          placeholderTextColor="grey"
+          style={styles.inputContainer}
+        />
+        <TextInput
+          value={details[NAME] === "" ? "" : details[NUM]}
+          onChangeText={(text) => updateArray(NUM, text)}
+          placeholder="Student Number"
+          placeholderTextColor="grey"
+          style={styles.inputContainer}
+        />
+        <TextInput
+          value={details[NAME] === "" ? "" : details[EMAIL]}
+          onChangeText={(text) => updateArray(EMAIL, text)}
+          placeholder="NUSNET email"
+          placeholderTextColor="grey"
+          style={styles.inputContainer}
+        />
+        {modal()}
+      </SafeAreaView>
+    );
+  };
+
+  const renderPreference = () => {
+    return (
+      <SafeAreaView style={{ flexDirection: "row" }}>
+        <CheckBox
+          center
+          title="Physical"
+          checked={physical}
+          checkedIcon="dot-circle-o"
+          uncheckedIcon="circle-o"
+          containerStyle={
+            physical ? styles.boxStyleChecked : styles.boxStyleNormal
+          }
+          onPress={() => handleSelection("physical")}
+        />
+        <CheckBox
+          center
+          title="Online"
+          checked={online}
+          checkedIcon="dot-circle-o"
+          uncheckedIcon="circle-o"
+          containerStyle={
+            online ? styles.boxStyleChecked : styles.boxStyleNormal
+          }
+          onPress={() => handleSelection("online")}
+        />
+      </SafeAreaView>
+    );
+  };
+
+  const renderButtons = () => {
+    return (
+      <SafeAreaView style={{ flexDirection: "row" }}>
+        <SafeAreaView style={{ marginRight: 50, width: "30%" }}>
+          <Button
+            title={route.params.directedFrom === "PFA" ? "Back" : "Cancel"}
+            onPress={() =>
+              route.params.directedFrom === "PFA"
+                ? navigation.goBack()
+                : handleCancel(() =>
+                    declineHandler(navigation.navigate("Resources"))
+                  )
+            }
+          />
+        </SafeAreaView>
+        <SafeAreaView style={{ marginLeft: 50, width: "30%" }}>
+          <Button
+            title="Submit"
+            onPress={() =>
+              handleSubmit(() => {
+                // return back to dashboard
+                navigation.navigate("Bottoms");
+              })
+            }
+          />
+        </SafeAreaView>
+      </SafeAreaView>
+    );
+  };
+
+  // All necessary functions
+  // hooks for setting availability
+  const [physical, setPhysical] = useState(false);
+  const [online, setOnline] = useState(false);
+
+  const handleSelection = (option) => {
+    switch (option) {
+      case "physical":
+        setPhysical(true);
+        setOnline(false);
+        break;
+      case "online":
+        setPhysical(false);
+        setOnline(true);
+        break;
+      default:
+        break;
+    }
+  };
+
+  // Need to copy the array, then value of array to be that new array. Otherwise, won't work.
+  const updateArray = (index, text) => {
+    let newArr = [...details]; // First, copy the array
+    newArr[index] = text; // Set the correct field to the new text value
+    setDetails(newArr);
+  };
 
   // Function that checks if the email given is a valid NUS net email.
   const checkMail = () => {
@@ -592,21 +703,47 @@ const FormDetails = ({ navigation, route }) => {
     let isMailOK = checkMail();
     let isNumberOK = checkStudentNumber();
     let isNameOK = checkName();
+    let preference = "";
+
+    if (route.params.directedFrom === "PFA") {
+      preference = "Online";
+    } else {
+      if (online) {
+        preference = "Online";
+      } else {
+        preference = "Physical";
+      }
+    }
+
+    if (preference === "") {
+      // Neither online nor physical is chosen
+      Alert.alert(
+        "Invalid appointment mode",
+        "Please choose either Online or Physical"
+      );
+      return;
+    }
 
     if (isMailOK && isNumberOK && isNameOK) {
       if (handlePickerConfirm(apptDate, time, item)) {
         Alert.alert(
-          "Request sent",
-          `Requested for an appointment on ${apptDate}, at ${time}.\nIf you need help urgently, please use "Talk to a PFA Personnel" under the services tab.`,
+          "Appointment requested",
+          `Requested for an appointment on ${apptDate}, at ${time}. You will receive confirmation details via email/SMS soon.
+          \nIf you need help urgently, please call SoS (under Helplines) or 995`,
           [
             {
               text: "OK",
               onPress: () => {
                 sendMail(
-                  `\nName of student: ${name}, K-10 score: ${K_SCORE}\n
+                  `\n
+                  Name of student: ${name}, K-10 score: ${
+                    K_SCORE === 0 ? "not taken yet" : K_SCORE
+                  }\n
                   Student number: ${stud_num}\n
-                  Email: ${email}
-                  \nhas requested for an appointment on ${apptDate} at ${time}`,
+                  Email: ${email}\n
+                  has requested for an appointment on ${apptDate} at ${time}\n
+                  and would like a/an ${preference} appointment\n
+                  This appointment is meant for a ${route.params.directedFrom}`,
                   "98lawweijie@gmail.com"
                 );
                 action();
@@ -639,105 +776,69 @@ const FormDetails = ({ navigation, route }) => {
   const handleCancel = (screenToNavigateTo) => {
     customAlert(
       "Are you sure?",
-      "It is strongly recommended to visit UCS for help",
+      "It is strongly recommended for you to seek help",
       screenToNavigateTo,
       ""
     );
   };
 
-  const renderSelections = () => {
-    return (
-      <SafeAreaView
-        style={{ flex: 1, alignItems: "center", position: "absolute" }}
-      >
-        <TextInput
-          value={details[NAME] === "" ? "" : details[NAME]}
-          onChangeText={(text) => updateArray(NAME, text)}
-          placeholder="Name"
-          placeholderTextColor="grey"
-          style={styles.inputContainer}
-        />
-        <TextInput
-          value={details[NAME] === "" ? "" : details[NUM]}
-          onChangeText={(text) => updateArray(NUM, text)}
-          placeholder="Student Number"
-          placeholderTextColor="grey"
-          style={styles.inputContainer}
-        />
-        <TextInput
-          value={details[NAME] === "" ? "" : details[EMAIL]}
-          onChangeText={(text) => updateArray(EMAIL, text)}
-          placeholder="NUSNET email"
-          placeholderTextColor="grey"
-          style={styles.inputContainer}
-        />
-        {modal()}
-      </SafeAreaView>
-    );
-  };
-
-  const renderButtons = () => {
-    return (
-      <SafeAreaView style={{ marginBottom: 20, flexDirection: "row" }}>
-        <SafeAreaView style={{ marginRight: 50, width: "25%" }}>
-          <Button
-            title="Cancel"
-            onPress={() =>
-              handleCancel(() =>
-                declineHandler(navigation.navigate("Resources"))
-              )
-            }
-          />
-        </SafeAreaView>
-        <SafeAreaView style={{ marginLeft: 50, width: "25%" }}>
-          <Button
-            title="Submit"
-            onPress={() =>
-              handleSubmit(() => {
-                // return back to dashboard
-                navigation.navigate("Bottoms");
-              })
-            }
-          />
-        </SafeAreaView>
-      </SafeAreaView>
-    );
-  };
-
   // Rendering the rest of the things
   return (
-    <ImageBackground
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      source={icons["BG_pic"]}
-    >
-      <SafeAreaView style={{ flex: 0.4, top: 70 }}>
-        <Text style={styles.apptTextHeader}>Appointment Form</Text>
-      </SafeAreaView>
-      <SafeAreaView
-        style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+    <SafeAreaView style={{ flex: 1 }}>
+      <ImageBackground
+        style={{
+          // flex: 1,
+          height: "100%",
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        source={icons["BG_pic"]}
       >
-        {renderSelections()}
-      </SafeAreaView>
-      {renderButtons()}
-      <View>
-        {
-          show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={mode}
-              is24Hour={false}
-              display="default"
-              onChange={onChange}
-            />
-          ) /* Can just ignore this entire thing. It's simply used to help open up the time picker*/
-        }
-      </View>
-    </ImageBackground>
+        <SafeAreaView style={{ flex: 0.4, top: 70 }}>
+          <Text style={styles.apptTextHeader}>Appointment Form</Text>
+        </SafeAreaView>
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <SafeAreaView
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            {renderSelections()}
+            {route.params.directedFrom === "PFA"
+              ? () => {}
+              : renderPreference()}
+          </SafeAreaView>
+          <SafeAreaView
+            style={{
+              flex: 1,
+              marginTop: 100,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {renderButtons()}
+          </SafeAreaView>
+          <View>
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode={mode}
+                is24Hour={false}
+                display="default"
+                onChange={onChange}
+              />
+            )}
+          </View>
+        </ScrollView>
+      </ImageBackground>
+    </SafeAreaView>
   );
 };
 
@@ -857,6 +958,24 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontFamily: "Itim",
     textAlign: "center",
+  },
+
+  boxStyleNormal: {
+    width: "40%",
+    backgroundColor: "white",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    paddingLeft: 20,
+    elevation: 2,
+  },
+
+  boxStyleChecked: {
+    width: "40%",
+    backgroundColor: "#fde086",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    paddingLeft: 20,
+    elevation: 2,
   },
 });
 

@@ -36,7 +36,7 @@ import {
   Settings,
   Questionnaire,
   FormDetails,
-  PFAScreen
+  PFAScreen,
 } from "./screens";
 
 const icons = require("./icons/icons.js"); // use icons['name'] to get the icon!
@@ -194,7 +194,7 @@ const Bottoms = () => {
             value={{ done, setDone, todayMood, setTodayMood }}
           >
             <BottomTabs.Navigator
-              // initialRouteName={done ? "Dashboard" : "SubMoodStack"}
+              initialRouteName={done ? "Dashboard" : "SubMoodStack"}
               screenOptions={{ tabBarStyle: { backgroundColor: "white" } }}
             >
               <BottomTabs.Screen
@@ -230,6 +230,22 @@ const Bottoms = () => {
   }
 };
 
+const PFAStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        component={PFAScreen}
+        name="PFAScreen"
+        options={{ headerShown: false }} // change to false next time
+      />
+      <Stack.Screen
+        component={Callback}
+        name="Callback"
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 // Render the entire thing
 // QuestionnaireStack and About should not have bottom tabs. So for anything that should not have bottom tabs, add to here.
@@ -267,9 +283,9 @@ const App = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            component={PFAScreen}
-            name="PFAScreen"
-            options={{headerShown: true}} // change to false next time
+            component={PFAStack}
+            name="PFAStack"
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>
