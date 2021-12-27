@@ -10,6 +10,9 @@ import {
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { sendToPFA } from "../../firebase"; // sendMail is of the form sendToPFA(msg)
+import * as dateFn from "date-fns";
+
+const nowTime = dateFn.getHours(new Date());
 
 const daySelectedString = [
   "Today",
@@ -61,6 +64,10 @@ const Callback = ({ navigation }) => {
   ];
 
   const changeOption = (option) => {
+    if (nowTime >= 16 && option === 1) {
+      Alert.alert("Sorry", "Earliest call you can schedule is from tomorrow");
+      return;
+    }
     switch (option) {
       case 1:
         setDayCheck1(true);
@@ -210,21 +217,39 @@ const Callback = ({ navigation }) => {
               title="9am - 10am"
               checked={timeCheck1}
               containerStyle={styles.boxStyle}
-              onPress={() => setTimeCheck1(!timeCheck1)}
+              onPress={() => {
+                if (dayCheck1 && nowTime >= 9) {
+                  Alert.alert("Sorry", "Please pick another time");
+                  return;
+                }
+                setTimeCheck1(!timeCheck1);
+              }}
             />
             <CheckBox
               center
               title="10am - 11am"
               checked={timeCheck2}
               containerStyle={styles.boxStyle}
-              onPress={() => setTimeCheck2(!timeCheck2)}
+              onPress={() => {
+                if (dayCheck1 && nowTime >= 10) {
+                  Alert.alert("Sorry", "Please pick another time");
+                  return;
+                }
+                setTimeCheck2(!timeCheck2);
+              }}
             />
             <CheckBox
               center
               title="11am - 12pm"
               checked={timeCheck3}
               containerStyle={styles.boxStyle}
-              onPress={() => setTimeCheck3(!timeCheck3)}
+              onPress={() => {
+                if (dayCheck1 && nowTime >= 11) {
+                  Alert.alert("Sorry", "Please pick another time");
+                  return;
+                }
+                setTimeCheck3(!timeCheck3);
+              }}
             />
 
             <CheckBox
@@ -232,7 +257,13 @@ const Callback = ({ navigation }) => {
               title="12pm - 1pm"
               checked={timeCheck4}
               containerStyle={styles.boxStyle}
-              onPress={() => setTimeCheck4(!timeCheck4)}
+              onPress={() => {
+                if (dayCheck1 && nowTime >= 12) {
+                  Alert.alert("Sorry", "Please pick another time");
+                  return;
+                }
+                setTimeCheck4(!timeCheck4);
+              }}
             />
           </SafeAreaView>
           <SafeAreaView style={[styles.timePickerView, { right: 70 }]}>
@@ -241,28 +272,52 @@ const Callback = ({ navigation }) => {
               title="1pm - 2pm"
               checked={timeCheck5}
               containerStyle={styles.boxStyle}
-              onPress={() => setTimeCheck5(!timeCheck5)}
+              onPress={() => {
+                if (dayCheck1 && nowTime >= 13) {
+                  Alert.alert("Sorry", "Please pick another time");
+                  return;
+                }
+                setTimeCheck5(!timeCheck5);
+              }}
             />
             <CheckBox
               center
               title="2pm - 3pm"
               checked={timeCheck6}
               containerStyle={styles.boxStyle}
-              onPress={() => setTimeCheck6(!timeCheck6)}
+              onPress={() => {
+                if (dayCheck1 && nowTime >= 14) {
+                  Alert.alert("Sorry", "Please pick another time");
+                  return;
+                }
+                setTimeCheck6(!timeCheck6);
+              }}
             />
             <CheckBox
               center
               title="3pm - 4pm"
               checked={timeCheck7}
               containerStyle={styles.boxStyle}
-              onPress={() => setTimeCheck7(!timeCheck7)}
+              onPress={() => {
+                if (dayCheck1 && nowTime >= 15) {
+                  Alert.alert("Sorry", "Please pick another time");
+                  return;
+                }
+                setTimeCheck7(!timeCheck7);
+              }}
             />
             <CheckBox
               center
               title="4pm - 5pm"
               checked={timeCheck8}
               containerStyle={styles.boxStyle}
-              onPress={() => setTimeCheck8(!timeCheck8)}
+              onPress={() => {
+                if (dayCheck1 && nowTime >= 16) {
+                  Alert.alert("Sorry", "Please pick another time");
+                  return;
+                }
+                setTimeCheck8(!timeCheck8);
+              }}
             />
           </SafeAreaView>
         </SafeAreaView>
