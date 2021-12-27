@@ -30,6 +30,8 @@ import {
   Mood,
   MoodSelector,
   ResourcesMain,
+  Breathing,
+  Panic,
   Services,
   Helplines,
   Callback,
@@ -112,6 +114,16 @@ const Resources = () => {
       <Stack.Screen
         component={ResourcesMain}
         name="ResourcesMain"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Breathing}
+        name="Breathing"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Panic}
+        name="Panic"
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
