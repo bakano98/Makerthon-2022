@@ -91,7 +91,7 @@ const Callback = ({ navigation }) => {
     }
   };
 
-  let finalOutput = "User would prefer: ";
+  let msg = "User would prefer: ";
 
   const handleSubmit = () => {
     const numberChecker = Number.isNaN(Number(number));
@@ -104,7 +104,7 @@ const Callback = ({ navigation }) => {
     // getting the string message after checking validity of number
     for (let i = 0; i < 4; i++) {
       if (daySelected[i]) {
-        finalOutput += daySelectedString[i];
+        msg += daySelectedString[i];
         selectedAny++;
       }
     }
@@ -114,12 +114,12 @@ const Callback = ({ navigation }) => {
         return;
     }
 
-    finalOutput += "\nAt the following times: ";
+    msg += "\nAt the following times: ";
 
     let selectedTime = 0;
     for (let i = 0; i < 8; i++) {
       if (timeSelected[i]) {
-        finalOutput = finalOutput + "\n" + timeSelectedString[i];
+        msg = msg + "\n" + timeSelectedString[i];
         selectedTime++;
       }
     }
@@ -129,11 +129,12 @@ const Callback = ({ navigation }) => {
         return;
     }
 
-    finalOutput += `\nwith phone number: ${number}`;
+    msg += `\nwith phone number: ${number}`;
     // then submit it
-    // console.log(finalOutput);
-    sendToPFA(finalOutput);
+    sendToPFA(msg);
+    navigation.goBack();
   };
+
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fde086" }}>
@@ -194,7 +195,7 @@ const Callback = ({ navigation }) => {
             onPress={() => changeOption(4)}
           />
         </SafeAreaView>
-        <Text style={styles.text}>
+        <Text style={[styles.text, {marginTop: 20}]}>
           Please provide one of the more following times:
         </Text>
         <SafeAreaView
