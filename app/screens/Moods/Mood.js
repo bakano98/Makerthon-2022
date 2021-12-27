@@ -42,7 +42,7 @@ const PROMPT_KEY = "@prompt_key";
 const Mood = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
-  const [lastPromptedDay, setLastPromptedDay] = useState(new Date(1970, 1, 0));
+  const [lastPromptedDay, setLastPromptedDay] = useState(new Date(2000, 1, 0));
   const [persistentItem, setPersistentItem] = useState("");
 
   // addedMoods stores all the moods that have been added
@@ -244,9 +244,13 @@ const Mood = ({ navigation }) => {
   const shouldPrompt = moodyDays >= 5;
   const prompter = () => {
     const differenceInDays =
-      lastPromptedDay === new Date(1970, 1, 0) // edge case, because when user starts for the very first time, lastPromptedDay === new Date(1970, 1, 0, 0, 0, 0), we have to do this until they have been prompted at least once throughout the app's lifetime
+      lastPromptedDay === new Date(2000, 1, 0) // edge case, because when user starts for the very first time, lastPromptedDay === new Date(1970, 1, 0, 0, 0, 0), we have to do this until they have been prompted at least once throughout the app's lifetime
         ? 3
         : dateFn.differenceInCalendarDays(todayDate, lastPromptedDay);
+    // console.log(dateFn.differenceInCalendarDays(todayDate, lastPromptedDay));
+    // console.log(todayDate);
+    // console.log("Last: " + lastPromptedDay);
+    // console.log(differenceInDays);
     if (
       differenceInDays >= 3 // so if the last prompt was at least 3 days ago, then prompt again
     ) {
