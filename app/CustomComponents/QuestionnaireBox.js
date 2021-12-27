@@ -14,9 +14,11 @@ const QuestionnaireBox = (props) => {
     dispatch({ type: UPDATE_ANSWER, payload: { answerIndex, num } });
   return (
     <SafeAreaView style={{ backgroundColor: "#FBF8D6" }}>
-      <Text style={styles.text}>
-        {num + 1}) {props.question}
-      </Text>
+      <SafeAreaView style={{ flexDirection: "row" }}>
+        <Text style={styles.text}>{num + 1})</Text>
+        <Text style={[styles.text, { paddingLeft: 5 }]}>{props.question}</Text>
+      </SafeAreaView>
+
       <SafeAreaView style={{ justifyContent: "center", alignItems: "center" }}>
         {answers.answers.map((answer, index) => (
           <CheckBox
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     left: 15,
     marginBottom: 10,
     marginTop: 40,
-    marginLeft: 20,
+    paddingLeft: 5,
   },
 });
 

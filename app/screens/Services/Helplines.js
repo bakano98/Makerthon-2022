@@ -98,6 +98,7 @@ const Helplines = () => {
           data={data}
           renderItem={renderItem}
           keyExtractor={(item) => item.name}
+          showsVerticalScrollIndicator={false}
         />
       </SafeAreaView>
     </ImageBackground>

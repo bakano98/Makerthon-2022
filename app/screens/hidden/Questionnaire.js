@@ -174,7 +174,7 @@ const Questionnaire = ({ navigation }) => {
       },
       {
         text: "Quick Appointment",
-        onPress: () => navigation.navigate("Urgent"), // may be renamed later
+        onPress: () => navigation.navigate("PFAStack"), // may be renamed later
         // onPress: () =>
         //   choice === "PFA"
         //     ? referToPFA(() => navigation.goBack()) // takes an action
@@ -188,6 +188,7 @@ const Questionnaire = ({ navigation }) => {
             () =>
               navigation.navigate("FormDetails", {
                 K_SCORE: user_score,
+                directedFrom: "Counselling",
               }),
             () => declineHandler(navigation.navigate("Resources"))
           ), // done.
@@ -221,13 +222,13 @@ const Questionnaire = ({ navigation }) => {
     if (recommended === "PFA") {
       three_alert(
         "Results",
-        "You seem to be in slight psychological distress across the last month.\nWe recommend seeking help (anonymously) via \"Quick Appointment\", but you can choose either.",
+        'You seem to be in slight psychological distress across the last month.\nWe recommend seeking help (anonymously) via "Quick Appointment", but you can choose either.',
         "PFA"
       );
     } else if (recommended === "Counsel") {
       three_alert(
         "Results",
-        "You seem to be in slight psychological distress across the last month.\nWe recommend seeking help (anonymously) via \"Quick Appointment\", but you can choose either.",
+        'You seem to be in slight psychological distress across the last month.\nWe recommend seeking help (anonymously) via "Quick Appointment", but you can choose either.',
         "Counsel"
       );
     } else {
@@ -271,7 +272,7 @@ const Questionnaire = ({ navigation }) => {
                 default:
                   break;
               }
-              navigator=""; // ensure proper resetting
+              navigator = ""; // ensure proper resetting
             }}
           >
             <Text style={{ fontSize: 24, fontFamily: "Itim", color: "black" }}>

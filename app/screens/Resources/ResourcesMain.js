@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, SafeAreaView, ImageBackground, Button } from "react-native";
+import { StyleSheet, Text, ImageBackground } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const icons = require("../../icons/icons.js");
@@ -14,13 +14,10 @@ const clearAll = async () => {
   console.log("Done.");
 };
 
-
-
 const ResourcesMain = () => {
   return (
     <ImageBackground style={styles.container} source={icons["BG_pic"]}>
       <Text>Resources</Text>
-      <Button title="reset" onPress={() => clearAll()}/>
     </ImageBackground>
   );
 };

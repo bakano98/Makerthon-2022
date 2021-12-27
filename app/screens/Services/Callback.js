@@ -65,7 +65,10 @@ const Callback = ({ navigation }) => {
 
   const changeOption = (option) => {
     if (nowTime >= 16 && option === 1) {
-      Alert.alert("Sorry", "Earliest call you can schedule is from tomorrow");
+      Alert.alert(
+        "Sorry",
+        "Earliest call you can schedule is from tomorrow onwards"
+      );
       return;
     }
     switch (option) {
@@ -147,7 +150,10 @@ const Callback = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: "#fde086" }}>
+    <ScrollView
+      style={{ flex: 1, backgroundColor: "#FBF8D6" }}
+      showsVerticalScrollIndicator={false}
+    >
       <SafeAreaView
         style={{
           flex: 1,
@@ -156,11 +162,11 @@ const Callback = ({ navigation }) => {
           marginTop: 60,
         }}
       >
-        <Text style={styles.text}>Please provide us with a number</Text>
+        <Text style={styles.text}>Please provide us with your number</Text>
         <TextInput
           onChangeText={(text) => setNumber(text)}
           value={number}
-          placeholder={"e.g. 65653535"}
+          placeholder={"e.g. 81234567"}
           placeholderTextColor="grey"
           style={styles.inputContainer}
         />
@@ -172,7 +178,9 @@ const Callback = ({ navigation }) => {
             center
             title="Today"
             checked={dayCheck1}
-            containerStyle={styles.boxStyle}
+            containerStyle={
+              dayCheck1 ? styles.boxStyleChecked : styles.boxStyleNormal
+            }
             checkedIcon="dot-circle-o"
             uncheckedIcon="circle-o"
             onPress={() => changeOption(1)}
@@ -181,7 +189,9 @@ const Callback = ({ navigation }) => {
             center
             title="1-3 days from now"
             checked={dayCheck2}
-            containerStyle={styles.boxStyle}
+            containerStyle={
+              dayCheck2 ? styles.boxStyleChecked : styles.boxStyleNormal
+            }
             checkedIcon="dot-circle-o"
             uncheckedIcon="circle-o"
             onPress={() => changeOption(2)}
@@ -190,7 +200,9 @@ const Callback = ({ navigation }) => {
             center
             title="3-5 days from now"
             checked={dayCheck3}
-            containerStyle={styles.boxStyle}
+            containerStyle={
+              dayCheck3 ? styles.boxStyleChecked : styles.boxStyleNormal
+            }
             checkedIcon="dot-circle-o"
             uncheckedIcon="circle-o"
             onPress={() => changeOption(3)}
@@ -199,7 +211,9 @@ const Callback = ({ navigation }) => {
             center
             title="5-7 days from now"
             checked={dayCheck4}
-            containerStyle={styles.boxStyle}
+            containerStyle={
+              dayCheck4 ? styles.boxStyleChecked : styles.boxStyleNormal
+            }
             checkedIcon="dot-circle-o"
             uncheckedIcon="circle-o"
             onPress={() => changeOption(4)}
@@ -216,7 +230,9 @@ const Callback = ({ navigation }) => {
               center
               title="9am - 10am"
               checked={timeCheck1}
-              containerStyle={styles.boxStyle}
+              containerStyle={
+                timeCheck1 ? styles.boxStyleChecked : styles.boxStyleNormal
+              }
               onPress={() => {
                 if (dayCheck1 && nowTime >= 9) {
                   Alert.alert("Sorry", "Please pick another time");
@@ -229,7 +245,9 @@ const Callback = ({ navigation }) => {
               center
               title="10am - 11am"
               checked={timeCheck2}
-              containerStyle={styles.boxStyle}
+              containerStyle={
+                timeCheck2 ? styles.boxStyleChecked : styles.boxStyleNormal
+              }
               onPress={() => {
                 if (dayCheck1 && nowTime >= 10) {
                   Alert.alert("Sorry", "Please pick another time");
@@ -242,7 +260,9 @@ const Callback = ({ navigation }) => {
               center
               title="11am - 12pm"
               checked={timeCheck3}
-              containerStyle={styles.boxStyle}
+              containerStyle={
+                timeCheck3 ? styles.boxStyleChecked : styles.boxStyleNormal
+              }
               onPress={() => {
                 if (dayCheck1 && nowTime >= 11) {
                   Alert.alert("Sorry", "Please pick another time");
@@ -256,7 +276,9 @@ const Callback = ({ navigation }) => {
               center
               title="12pm - 1pm"
               checked={timeCheck4}
-              containerStyle={styles.boxStyle}
+              containerStyle={
+                timeCheck4 ? styles.boxStyleChecked : styles.boxStyleNormal
+              }
               onPress={() => {
                 if (dayCheck1 && nowTime >= 12) {
                   Alert.alert("Sorry", "Please pick another time");
@@ -271,7 +293,9 @@ const Callback = ({ navigation }) => {
               center
               title="1pm - 2pm"
               checked={timeCheck5}
-              containerStyle={styles.boxStyle}
+              containerStyle={
+                timeCheck5 ? styles.boxStyleChecked : styles.boxStyleNormal
+              }
               onPress={() => {
                 if (dayCheck1 && nowTime >= 13) {
                   Alert.alert("Sorry", "Please pick another time");
@@ -284,7 +308,9 @@ const Callback = ({ navigation }) => {
               center
               title="2pm - 3pm"
               checked={timeCheck6}
-              containerStyle={styles.boxStyle}
+              containerStyle={
+                timeCheck6 ? styles.boxStyleChecked : styles.boxStyleNormal
+              }
               onPress={() => {
                 if (dayCheck1 && nowTime >= 14) {
                   Alert.alert("Sorry", "Please pick another time");
@@ -297,7 +323,9 @@ const Callback = ({ navigation }) => {
               center
               title="3pm - 4pm"
               checked={timeCheck7}
-              containerStyle={styles.boxStyle}
+              containerStyle={
+                timeCheck7 ? styles.boxStyleChecked : styles.boxStyleNormal
+              }
               onPress={() => {
                 if (dayCheck1 && nowTime >= 15) {
                   Alert.alert("Sorry", "Please pick another time");
@@ -310,7 +338,9 @@ const Callback = ({ navigation }) => {
               center
               title="4pm - 5pm"
               checked={timeCheck8}
-              containerStyle={styles.boxStyle}
+              containerStyle={
+                timeCheck8 ? styles.boxStyleChecked : styles.boxStyleNormal
+              }
               onPress={() => {
                 if (dayCheck1 && nowTime >= 16) {
                   Alert.alert("Sorry", "Please pick another time");
@@ -341,12 +371,6 @@ const Callback = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fde086",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   bottomTouchableContainer: {
     flexDirection: "row",
     margin: 30,
@@ -389,12 +413,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  boxStyle: {
+  boxStyleNormal: {
     width: "50%",
-    backgroundColor: "#FBF8D6",
+    backgroundColor: "white",
     alignItems: "flex-start",
     justifyContent: "center",
     paddingLeft: 20,
+    elevation: 2,
+  },
+
+  boxStyleChecked: {
+    width: "50%",
+    backgroundColor: "#fde086",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    paddingLeft: 20,
+    elevation: 2,
   },
 
   boxText: {
