@@ -36,6 +36,7 @@
     "react-native-communications": "^2.2.1",
     "react-native-dotenv": "^3.3.1",
     "react-native-elements": "^3.4.2",
+    "react-native-multiple-choice-picker": "^1.0.6",
     "react-native-svg": "^12.1.1",
     "react-native-svg-charts": "^5.4.0",
     "react-native-swiper": "^1.6.0",

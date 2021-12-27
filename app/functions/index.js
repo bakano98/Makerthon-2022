@@ -63,3 +63,26 @@ exports.sendFeedback = functions.https.onCall((data, context) => {
     return { data: { status: 200, message: "sent" } };
   });
 });
+
+exports.sendToPFA = functions.https.onCall((data, context) => {
+  const msg = data.msg;
+
+  const mailOptions = {
+    from: "PFA Booking <makerthon15.2022@gmail.com>",
+    to: gmailEmail,
+    subject: "PFA booking details",
+    text: `To PFA:\n\n The user has requested for a call, with the following details: \n\n${msg}`,
+  };
+
+  return transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return {
+        data: {
+          status: 500,
+          message: error.toString(),
+        },
+      };
+    }
+    return { data: { status: 200, message: "sent" } };
+  });
+});
