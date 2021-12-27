@@ -110,8 +110,8 @@ const Callback = ({ navigation }) => {
     }
 
     if (selectedAny === 0) {
-        Alert.alert("Sorry", "Please choose a range of dates");
-        return;
+      Alert.alert("Sorry", "Please choose a range of dates");
+      return;
     }
 
     msg += "\nAt the following times: ";
@@ -125,16 +125,19 @@ const Callback = ({ navigation }) => {
     }
 
     if (selectedTime === 0) {
-        Alert.alert("Sorry", "Please choose at least one timeframe");
-        return;
+      Alert.alert("Sorry", "Please choose at least one timeframe");
+      return;
     }
 
     msg += `\nwith phone number: ${number}`;
     // then submit it
     sendToPFA(msg);
-    navigation.goBack();
+    Alert.alert(
+      "Notice",
+      "You will receive a confirmation shortly via SMS. Meanwhile, feel free to make use of the following resources!"
+    );
+    navigation.navigate("Resources");
   };
-
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fde086" }}>
@@ -195,7 +198,7 @@ const Callback = ({ navigation }) => {
             onPress={() => changeOption(4)}
           />
         </SafeAreaView>
-        <Text style={[styles.text, {marginTop: 20}]}>
+        <Text style={[styles.text, { marginTop: 20 }]}>
           Please provide one of the more following times:
         </Text>
         <SafeAreaView
