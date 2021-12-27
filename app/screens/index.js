@@ -11,3 +11,4 @@ export { default as About } from "./Settings/About";
 // the hidden screens
 export { default as Questionnaire } from "./hidden/Questionnaire";
 export { default as FormDetails } from "./hidden/FormDetails";
+export { default as Urgent } from "./hidden/Urgent";

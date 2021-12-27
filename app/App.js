@@ -36,6 +36,7 @@ import {
   Settings,
   Questionnaire,
   FormDetails,
+  Urgent
 } from "./screens";
 
 const icons = require("./icons/icons.js"); // use icons['name'] to get the icon!
@@ -229,6 +230,7 @@ const Bottoms = () => {
   }
 };
 
+
 // Render the entire thing
 // QuestionnaireStack and About should not have bottom tabs. So for anything that should not have bottom tabs, add to here.
 const App = () => {
@@ -263,6 +265,11 @@ const App = () => {
             component={FormDetails}
             name="FormDetails"
             options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            component={Urgent}
+            name="Urgent"
+            options={{headerShown: false}}
           />
         </Stack.Navigator>
       </NavigationContainer>
