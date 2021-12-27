@@ -259,14 +259,14 @@ const Questionnaire = ({ navigation }) => {
               Submit
             </Text>
           </TouchableOpacity>
-          <Button
+          {/* <Button
             title="Get log"
             onPress={() =>
               Object.keys(state).forEach((key) => {
                 console.log(state[key].currScore);
               })
             }
-          />
+          /> */}
         </SafeAreaView>
       </SafeAreaView>
     </ScrollView>

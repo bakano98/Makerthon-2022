@@ -31,8 +31,9 @@ import {
   MoodSelector,
   ResourcesMain,
   Services,
-  Settings,
   Helplines,
+  Callback,
+  Settings,
   Questionnaire,
   FormDetails,
 } from "./screens";
@@ -130,6 +131,11 @@ const ServicesStack = () => {
         name="Helplines"
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        component={Callback}
+        name="Callback"
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
@@ -187,7 +193,7 @@ const Bottoms = () => {
             value={{ done, setDone, todayMood, setTodayMood }}
           >
             <BottomTabs.Navigator
-              initialRouteName={done ? "Dashboard" : "SubMoodStack"}
+              // initialRouteName={done ? "Dashboard" : "SubMoodStack"}
               screenOptions={{ tabBarStyle: { backgroundColor: "white" } }}
             >
               <BottomTabs.Screen
