@@ -6,9 +6,7 @@ import {
   SafeAreaView,
   Image,
   FlatList,
-  Button,
   Alert,
-  Picker,
   ImageBackground,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
@@ -112,15 +110,15 @@ const MoodSelector = ({ navigation, route }) => {
 
   // console.log(theme);
   // Actions. Item to be passed down to Reducer. actualMood is "src".
-  const addMoods = (mood, moodValue) =>
+  const addMoods = (mood, moodValue, moodName) =>
     dispatch({
       type: ADD_MOOD,
-      payload: { mood: mood, moodValue: moodValue, item: item },
+      payload: { mood: mood, moodValue: moodValue, item: item, moodName: moodName},
     });
-  const modifyMoods = (mood, moodValue) => {
+  const modifyMoods = (mood, moodValue, moodName) => {
     dispatch({
       type: MODIFY_MOOD,
-      payload: { mood: mood, moodValue: moodValue, item: item },
+      payload: { mood: mood, moodValue: moodValue, item: item, moodName: moodName },
     });
   };
 
@@ -245,17 +243,17 @@ const MoodSelector = ({ navigation, route }) => {
             "Are you sure?",
             `Changing from ${curr.mood.split("_")[1]} to ${moodName}`,
             () => {
-              modifyMoods(moodSrc, moodValue);
+              modifyMoods(moodSrc, moodValue, moodName);
               navigation.goBack();
             },
             () => console.log("User was not sure")
           );
         } else {
-          modifyMoods(moodSrc, moodValue);
+          modifyMoods(moodSrc, moodValue, moodName);
           navigation.goBack();
         }
       } else {
-        addMoods(moodSrc, moodValue);
+        addMoods(moodSrc, moodValue, moodName);
         navigation.goBack();
       }
     };

@@ -42,7 +42,7 @@ const Mood = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const [lastPromptedDay, setLastPromptedDay] = useState(
-    new Date(1970, 1, 0, 0, 0, 0)
+    new Date(1970, 1, 0)
   );
   const [persistentItem, setPersistentItem] = useState("");
 
@@ -118,7 +118,6 @@ const Mood = ({ navigation }) => {
         key: weekDays[i] + "-" + month + "-" + year,
       };
     }
-
 
     // first day of the month
     let firstDay = new Date(year, month, 1).getDay();
@@ -213,6 +212,18 @@ const Mood = ({ navigation }) => {
         }
       }
     });
+  } else {
+    addedMoods.forEach((moodObject) => {
+      if (moodObject.moodValue >= 4) {
+        if (
+          todayDate.getMonth() === moodObject.month &&
+          todayDate.getFullYear() === moodObject.year &&
+          todayDate.getDate() - moodObject.day < 7
+        ) {
+          moodyDays++;
+        }
+      }
+    });
   }
 
   // update matrix before each re-render
@@ -231,16 +242,14 @@ const Mood = ({ navigation }) => {
   };
 
   // <-------------------------------- Prompt Handling Stuff --------------------------------->
-  let shouldPrompt = moodyDays >= 5;
+  const shouldPrompt = moodyDays >= 5;
   const prompter = () => {
     const differenceInDays =
-      lastPromptedDay === new Date(1970, 1, 0, 0, 0, 0) // edge case, because when user starts for the very first time, lastPromptedDay === new Date(1970, 1, 0, 0, 0, 0), we have to do this until they have been prompted at least once throughout the app's lifetime
+      lastPromptedDay === new Date(1970, 1, 0) // edge case, because when user starts for the very first time, lastPromptedDay === new Date(1970, 1, 0, 0, 0, 0), we have to do this until they have been prompted at least once throughout the app's lifetime
         ? 3
         : dateFn.differenceInCalendarDays(todayDate, lastPromptedDay);
-
-    if (
-      shouldPrompt &&
-      differenceInDays >= 3 // so if the last prompt was at least 3 days ago, then prompt again
+      console.log(differenceInDays);
+    if (differenceInDays >= 3 // so if the last prompt was at least 3 days ago, then prompt again
     ) {
       setLastPromptedDay(todayDate);
       customAlert(
@@ -383,7 +392,10 @@ const Mood = ({ navigation }) => {
       // Prompter logic can be improved upon next time.
       setTimeout(() => {
         if (!loading && done) {
-          prompter();
+          console.log(shouldPrompt);
+          if (shouldPrompt) {
+            prompter();
+          }
         }
       }, 1500);
     } else if (formatted === formattedCurr && todayItem.img === "mood_empty") {
