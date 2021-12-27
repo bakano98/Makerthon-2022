@@ -1,10 +1,10 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 
-const Urgent = () => {
+const PFAScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
-            <Text>Urgent screen</Text>
+            <Text>PFAScreen</Text>
         </SafeAreaView>
     )
 }
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Urgent;
+export default PFAScreen;

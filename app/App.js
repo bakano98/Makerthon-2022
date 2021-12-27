@@ -36,7 +36,7 @@ import {
   Settings,
   Questionnaire,
   FormDetails,
-  Urgent
+  PFAScreen
 } from "./screens";
 
 const icons = require("./icons/icons.js"); // use icons['name'] to get the icon!
@@ -267,8 +267,8 @@ const App = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            component={Urgent}
-            name="Urgent"
+            component={PFAScreen}
+            name="PFAScreen"
             options={{headerShown: false}}
           />
         </Stack.Navigator>
