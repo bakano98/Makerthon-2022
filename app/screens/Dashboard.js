@@ -89,7 +89,9 @@ const Dashboard = () => {
               style={{ marginLeft: 10, height: 25, width: 25 }}
               source={icons["noodals"]}
             />
-            <Text style={styles.progressText}>Noodals: {logPoints}</Text>
+            <Text style={[styles.progressText, { right: 15, bottom: 2.5 }]}>
+              Noodals: {logPoints}
+            </Text>
           </View>
         </View>
 
@@ -113,11 +115,11 @@ const Dashboard = () => {
 
         <View style={styles.subcontainer}>
           <View style={styles.moodContainer}>
-            {displayModeMood(getModeMoodArray(moodsData, 5))}
+            {displayModeMood(getModeMoodArray(moodsData, 7))}
           </View>
           <View style={{ flexDirection: "column", width: 280 }}>
             <Text style={styles.moodText}>
-              {getModeMood(moodsData, 5).toUpperCase()}
+              {getModeMood(moodsData, 7).toUpperCase()}
             </Text>
             <Text style={styles.moodDescriptionText}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
@@ -227,9 +229,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "black",
     height: 30,
-    //backgroundColor: '#f5f5f5',
-    //borderRadius: 25,
-    //padding: 10,
     marginStart: 20,
   },
   pieText: {
