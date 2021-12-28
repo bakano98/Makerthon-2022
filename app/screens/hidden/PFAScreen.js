@@ -16,7 +16,8 @@ const declineHandler = (submit) => {
   );
 };
 
-const PFAScreen = ({ navigation }) => {
+const PFAScreen = ({ navigation, route }) => {
+  const { K_SCORE } = route.params;
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView style={{ flex: 0.5, top: 50 }}>
@@ -46,11 +47,12 @@ const PFAScreen = ({ navigation }) => {
             confidential and anonymous service.
           </Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.touchableContainer}
           onPress={() =>
             navigation.navigate("FormDetails", {
-              K_SCORE: 0,
+              K_SCORE: K_SCORE, // Pass down their K_SCORE if they want to go ahead and do a Zoom call with the PFA.
               directedFrom: "PFA",
             })
           }
@@ -64,6 +66,7 @@ const PFAScreen = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </SafeAreaView>
+
       <SafeAreaView style={{ bottom: 20 }}>
         <Button
           title="I do not want help"

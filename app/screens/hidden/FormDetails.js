@@ -736,9 +736,7 @@ const FormDetails = ({ navigation, route }) => {
               onPress: () => {
                 sendMail(
                   `\n
-                  Name of student: ${name}, K-10 score: ${
-                    K_SCORE === 0 ? "not taken yet" : K_SCORE
-                  }\n
+                  Name of student: ${name}, K-10 score: ${K_SCORE}\n
                   Student number: ${stud_num}\n
                   Email: ${email}\n
                   has requested for an appointment on ${apptDate} at ${time}\n

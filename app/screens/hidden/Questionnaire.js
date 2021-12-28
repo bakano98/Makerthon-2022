@@ -174,7 +174,11 @@ const Questionnaire = ({ navigation }) => {
       },
       {
         text: "Quick Appointment",
-        onPress: () => navigation.navigate("PFAStack"), // may be renamed later
+        onPress: () =>
+          navigation.navigate("PFAStack", {
+            screen: "PFAScreen",
+            params: { K_SCORE: user_score },
+          }),
         // onPress: () =>
         //   choice === "PFA"
         //     ? referToPFA(() => navigation.goBack()) // takes an action
