@@ -159,12 +159,17 @@ function displayModeMood(array) {
       <Image style={{ width: 72, height: 90 }} source={icons["mood_empty"]} />
     );
   }
-  const result = array
-    .map((x) => iconName[x - 1])
-    .map((x) => {
-      return <Image style={{ width: 72, height: 90 }} source={icons[x]} />;
-    });
-  return result;
+  const result = array.map((x) => iconName[x - 1]);
+
+  if (result.length > 1) {
+    return (
+      <Image style={{ width: 72, height: 90 }} source={icons["mood_mixed"]} />
+    );
+  } else {
+    return (
+      <Image style={{ width: 72, height: 90 }} source={icons[result[0]]} />
+    );
+  }
 }
 
 function getModeMoodArray(array, n) {
