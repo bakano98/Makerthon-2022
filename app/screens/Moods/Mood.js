@@ -458,10 +458,6 @@ const Mood = ({ navigation }) => {
           <Image source={icons["float_button"]} style={styles.floatButton} />
         </TouchableOpacity>
       </View>
-      <Button
-        title="Go to PFAScreen"
-        onPress={() => navigation.navigate("PFAStack")}
-      />
     </SafeAreaView>
   );
 };
