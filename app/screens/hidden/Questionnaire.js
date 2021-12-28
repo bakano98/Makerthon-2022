@@ -169,7 +169,7 @@ const Questionnaire = ({ navigation }) => {
     Alert.alert(title, msg, [
       {
         text: "I do not want help",
-        onPress: () => declineHandler(navigation.navigate("Resources")),
+        onPress: () => declineHandler(navigation.navigate("ResourcesMain")),
         style: "cancel",
       },
       {
