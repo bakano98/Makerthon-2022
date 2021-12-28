@@ -37,8 +37,12 @@ const icons = {
   skin1_unlocked: require("./Skins/Skin1_unlocked.png"),
   skin2_unlocked: require("./Skins/Skin2_unlocked.png"),
   skin3_unlocked: require("./Skins/Skin3_unlocked.png"),
+  skin4_unlocked: require("./Skins/Skin4_unlocked.png"),
+  skin5_unlocked: require("./Skins/Skin5_unlocked.png"),
   skin2_locked: require("./Skins/Skin2_locked.png"),
   skin3_locked: require("./Skins/Skin3_locked.png"),
+  skin4_locked: require("./Skins/Skin4_locked.png"),
+  skin5_locked: require("./Skins/Skin5_locked.png"),
 
   // the alternates!
   mood_sad_sunglasses: require("./Moods2/mood_sad_sunglasses.png"),
@@ -56,6 +60,22 @@ const icons = {
   mood_calm_moustache: require("./Moods3/mood_calm_moustache.png"),
   mood_anxious_moustache: require("./Moods3/mood_anxious_moustache.png"),
   mood_angry_moustache: require("./Moods3/mood_angry_moustache.png"),
+
+  mood_sad_4: require("./Moods4/mood_sad_4.png"),
+  mood_stressed_4: require("./Moods4/mood_stressed_4.png"),
+  mood_okay_4: require("./Moods4/mood_okay_4.png"),
+  mood_happy_4: require("./Moods4/mood_happy_4.png"),
+  mood_calm_4: require("./Moods4/mood_calm_4.png"),
+  mood_anxious_4: require("./Moods4/mood_anxious_4.png"),
+  mood_angry_4: require("./Moods4/mood_angry_4.png"),
+
+  mood_sad_5: require("./Moods5/mood_sad_5.png"),
+  mood_stressed_5: require("./Moods5/mood_stressed_5.png"),
+  mood_okay_5: require("./Moods5/mood_okay_5.png"),
+  mood_happy_5: require("./Moods5/mood_happy_5.png"),
+  mood_calm_5: require("./Moods5/mood_calm_5.png"),
+  mood_anxious_5: require("./Moods5/mood_anxious_5.png"),
+  mood_angry_5: require("./Moods5/mood_angry_5.png"),
 
   // currency/login points
   noodals: require("./Noodals.png"),

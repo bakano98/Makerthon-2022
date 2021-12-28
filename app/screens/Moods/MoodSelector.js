@@ -51,6 +51,26 @@ const moustache = [
   { id: "6_moustache", title: "anxious", src: "mood_anxious_moustache" },
 ];
 
+const arms = [
+  { id: "0_4", title: "happy", src: "mood_happy_4" },
+  { id: "1_4", title: "okay", src: "mood_okay_4" },
+  { id: "2_4", title: "calm", src: "mood_calm_4" },
+  { id: "3_4", title: "sad", src: "mood_sad_4" },
+  { id: "4_4", title: "stressed", src: "mood_stressed_4" },
+  { id: "5_4", title: "angry", src: "mood_angry_4" },
+  { id: "6_4", title: "anxious", src: "mood_anxious_4" },
+];
+
+const avatar = [
+  { id: "0_5", title: "happy", src: "mood_happy_5" },
+  { id: "1_5", title: "okay", src: "mood_okay_5" },
+  { id: "2_5", title: "calm", src: "mood_calm_5" },
+  { id: "3_5", title: "sad", src: "mood_sad_5" },
+  { id: "5_5", title: "stressed", src: "mood_stressed_5" },
+  { id: "5_5", title: "angry", src: "mood_angry_5" },
+  { id: "6_5", title: "anxious", src: "mood_anxious_5" },
+];
+
 // when adding themes, add to here (0) --> add array of objects
 
 // when adding themes, add to here (1)
@@ -70,6 +90,20 @@ const all_themes = [
     theme: moustache,
     pv_unlocked: "skin3_unlocked",
     pv_locked: "skin3_locked",
+    cost: 10,
+  },
+  {
+    name: "arms",
+    theme: arms,
+    pv_unlocked: "skin4_unlocked",
+    pv_locked: "skin4_locked",
+    cost: 10,
+  },
+  {
+    name: "avatar",
+    theme: avatar,
+    pv_unlocked: "skin5_unlocked",
+    pv_locked: "skin5_locked",
     cost: 10,
   },
 ];
@@ -333,7 +367,7 @@ const MoodSelector = ({ navigation, route }) => {
   //   );
   // };
 
-  // when adding themes, add to here (3)
+  // when adding themes, add to here (2)
   // We have to retrieve the correct object from all_themes, based on the selected theme.
   let themeObject = "";
   switch (selectedValue) {
@@ -345,6 +379,12 @@ const MoodSelector = ({ navigation, route }) => {
       break;
     case "moustache":
       themeObject = all_themes[2];
+      break;
+    case "arms":
+      themeObject = all_themes[3];
+      break;
+    case "avatar":
+      themeObject = all_themes[4];
       break;
     default:
       themeObject = all_themes[0];
@@ -374,13 +414,9 @@ const MoodSelector = ({ navigation, route }) => {
       </SafeAreaView>
       <SafeAreaView style={styles.skinsContainer}>
         <FlatList
-          contentContainerStyle={{
-            flex: 1,
-            justifyContent: "center",
-            marginBottom: 30,
-          }}
+          contentContainerStyle={[styles.flatListStyle, { marginBottom: 20 }]}
           data={all_themes}
-          numColumns={6}
+          numColumns={5}
           renderItem={renderSkins}
           keyExtractor={(item) => item.id}
         />
@@ -425,29 +461,21 @@ const styles = StyleSheet.create({
 
   iconsContainer: {
     borderWidth: 2,
-    color: "black",
     borderColor: "black",
     width: "90%",
     height: "30%",
     borderRadius: 15,
     backgroundColor: "#FBF8D6",
-    alignItems: "center",
-    justifyContent: "center",
-    elevation: 3,
   },
 
   skinsContainer: {
     borderWidth: 2,
-    color: "black",
     borderColor: "black",
     width: "90%",
-    height: "15%",
+    height: "20%",
     borderRadius: 15,
     marginBottom: 70,
     backgroundColor: "#FBF8D6",
-    alignItems: "center",
-    justifyContent: "center",
-    elevation: 3,
   },
 
   flatListStyle: {
@@ -468,8 +496,8 @@ const styles = StyleSheet.create({
 
   imageStyle: {
     // Height to width ratio is 1.25 : 1
-    height: 62.5,
-    width: 50,
+    height: 55,
+    width: 44,
     marginLeft: 10,
     marginRight: 10,
   },
