@@ -23,8 +23,9 @@ const PFAScreen = ({ navigation, route }) => {
       <SafeAreaView style={{ flex: 0.5, top: 50 }}>
         <Text style={styles.apptHeader}>Quick Appointment</Text>
         <Text style={styles.headerDescriptionText}>
-          Talk to a Psychological First-Aid (PFA) trained personnel at the
-          nearest availablity, via anonymous phone call or Zoom call
+          Talk to a Psychological First-Aid (PFA) trained personnel to talk
+          about your struggles and feel heard, at the nearest availablity, via
+          anonymous phone call or video call
         </Text>
       </SafeAreaView>
       <SafeAreaView
