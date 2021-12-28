@@ -31,6 +31,7 @@ import {
   MoodSelector,
   ResourcesMain,
   Breathing,
+  Burnout,
   Panic,
   Services,
   Helplines,
@@ -110,7 +111,7 @@ const SubMoodStack = () => {
 // contains all the resources stuff. Add exercises, face massage, etc...
 const Resources = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ unmountOnBlur: true }}>
       <Stack.Screen
         component={ResourcesMain}
         name="ResourcesMain"
@@ -124,6 +125,11 @@ const Resources = () => {
       <Stack.Screen
         component={Panic}
         name="Panic"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Burnout}
+        name="Burnout"
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
@@ -307,6 +313,7 @@ const App = () => {
 
 // all the screen styles' options
 const screenStyles = {
+  unmountOnBlur: true,
   resourcesOptions: {
     headerShown: false,
     tabBarLabel: ({ focused, color }) => {
@@ -322,7 +329,6 @@ const screenStyles = {
         </Text>
       );
     },
-    unmountOnBlur: true,
     tabBarIcon: ({ size, focused, color }) => {
       return (
         <Image

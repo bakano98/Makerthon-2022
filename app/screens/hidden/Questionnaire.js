@@ -190,7 +190,7 @@ const Questionnaire = ({ navigation }) => {
                 K_SCORE: user_score,
                 directedFrom: "Counselling",
               }),
-            () => declineHandler(navigation.navigate("Resources"))
+            () => declineHandler(navigation.navigate("ResourcesMain"))
           ), // done.
         style: "default",
       },

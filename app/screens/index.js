@@ -13,6 +13,7 @@ export { default as Callback } from "./Services/Callback";
 export { default as ResourcesMain } from "./Resources/ResourcesMain";
 export { default as Panic } from "./Resources/Panic";
 export { default as Breathing } from "./Resources/Breathing";
+export { default as Burnout } from "./Resources/Burnout";
 
 // Things that goes with Settings
 export { default as Settings } from "./Settings/Settings";

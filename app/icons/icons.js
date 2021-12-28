@@ -13,6 +13,7 @@ const icons = {
   mood_calm: require("./Moods/mood_calm.png"),
   mood_anxious: require("./Moods/mood_anxious.png"),
   mood_angry: require("./Moods/mood_angry.png"),
+  mood_mixed: require("./mood_mixed.png"),
   // tabs
   settings: require("./settings_u.png"),
   services: require("./services_u.png"),
@@ -58,6 +59,9 @@ const icons = {
 
   // currency/login points
   noodals: require("./Noodals.png"),
+  // for the resources
+  panic_symptoms: require("./resources/panic_symptoms.png"),
+  breathing_attack: require("./resources/breathing.jpg"),
 };
 
 module.exports = icons;

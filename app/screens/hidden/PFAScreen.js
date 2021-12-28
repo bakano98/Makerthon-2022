@@ -67,7 +67,7 @@ const PFAScreen = ({ navigation }) => {
       <SafeAreaView style={{ bottom: 20 }}>
         <Button
           title="I do not want help"
-          onPress={() => declineHandler(navigation.navigate("Resources"))}
+          onPress={() => declineHandler(navigation.navigate("ResourcesMain"))}
         />
       </SafeAreaView>
     </SafeAreaView>
