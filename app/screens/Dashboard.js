@@ -1,29 +1,27 @@
 // the Dashboard screen
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import {
   ImageBackground,
   StyleSheet,
   Text,
-  SafeAreaView,
   Button,
   ScrollView,
   View,
   Image,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import {
   getModeMood,
   getModeMoodArray,
   getProgress,
-  getTrend,
+  getProgressAsFraction,
   toDict,
   displayModeMood,
 } from "./Stats/DataProcessing";
 import ProgressBar from "./Stats/ProgessBar";
-import LineGraph from "./Stats/LineGraph";
 import SwiperComponent from "./Stats/SwiperComponent";
+import SwipeableLineGraph from "./Stats/SwipeableLineGraph";
 
 // image is just a placeholder for now
 const icons = require("../icons/icons.js");
@@ -50,6 +48,7 @@ const Dashboard = () => {
   //parse data into a dictionary
   const dict = toDict(moodsData);
   const icons = require("../icons/icons");
+  const progress = getProgressAsFraction(dict);
 
   const legend = () => {
     const mood = [
@@ -75,16 +74,19 @@ const Dashboard = () => {
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             {ProgressBar(dict)}
             <Text style={styles.pieText}>
+              {progress[0]} / {progress[1]} days
+            </Text>
+            <Text style={styles.pieText}>
               {Math.ceil(getProgress(dict) * 100)}%
             </Text>
           </View>
           <Text style={styles.progressText}>
-            🔥  streak: ? days
+            🔥 streak: ? days
             {/* To do streaks, we'll need to use context and pass it down */}
           </Text>
           <View style={{ flexDirection: "row", paddingLeft: 10 }}>
             <Image
-              style={{ height: 25, width: 25 }}
+              style={{ marginLeft: 10, height: 25, width: 25 }}
               source={icons["noodals"]}
             />
             <Text style={styles.progressText}>Noodals: {logPoints}</Text>
@@ -100,8 +102,13 @@ const Dashboard = () => {
         </View>
 
         <View style={styles.graphContainer}>
-          <Text style={styles.subheader}>Trend {getTrend(moodsData, 7)}</Text>
-          {LineGraph(moodsData, 7)}
+          <Text style={styles.subheader}>Trend</Text>
+          <Text style={styles.trendDescriptionText}>
+            Change in mood on a scale of -1 to 1, for each time window.
+          </Text>
+          <View style={{ height: 300, width: 330 }}>
+            {SwipeableLineGraph(moodsData)}
+          </View>
         </View>
 
         <View style={styles.subcontainer}>
@@ -148,7 +155,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   subheader: {
-    fontFamily: "Itim",
     fontSize: 20,
     color: "black",
     width: 400,
@@ -160,7 +166,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "black",
     height: 60,
-    fontFamily: "Itim",
     //backgroundColor: '#f5f5f5',
     //borderRadius: 25,
     //padding: 10,
@@ -169,6 +174,13 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
 
+  button: {
+    // default button, change later?
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 10,
+    marginTop: 15,
+  },
   image: {
     width: "100%",
     height: "100%",
@@ -180,7 +192,6 @@ const styles = StyleSheet.create({
     marginStart: 20,
     height: 10,
   },
-
   pieContainer: {
     backgroundColor: "#f5f5f5",
     borderRadius: 25,
@@ -205,7 +216,6 @@ const styles = StyleSheet.create({
   },
   progressHeaderText: {
     fontSize: 28,
-    fontFamily: "Itim",
     color: "black",
     height: 60,
     marginStart: 25,
@@ -215,13 +225,15 @@ const styles = StyleSheet.create({
   },
   progressText: {
     fontSize: 20,
-    fontFamily: "Itim",
     color: "black",
     height: 30,
-    marginStart: 10,
+    //backgroundColor: '#f5f5f5',
+    //borderRadius: 25,
+    //padding: 10,
+    marginStart: 20,
   },
   pieText: {
-    fontFamily: "Itim",
+    fontStyle: "italic",
     fontSize: 18,
     padding: 10,
     paddingBottom: 10,
@@ -256,7 +268,6 @@ const styles = StyleSheet.create({
     fontSize: 40,
     padding: 0,
     paddingStart: 25,
-    fontFamily: "Itim",
   },
   moodText: {
     fontSize: 28,
@@ -270,16 +281,28 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 2,
     alignSelf: "flex-start",
-    fontFamily: "Itim",
   },
   moodDescriptionText: {
     fontSize: 12,
     color: "black",
     height: 60,
-    fontFamily: "Itim",
+    //backgroundColor: '#f5f5f5',
+    //borderRadius: 25,
+    //padding: 10,
     marginStart: 25,
     marginEnd: 10,
     paddingTop: 10,
+  },
+  trendDescriptionText: {
+    fontSize: 12,
+    color: "black",
+    height: 60,
+    //backgroundColor: '#f5f5f5',
+    //borderRadius: 25,
+    //padding: 10,
+    marginStart: 10,
+    marginEnd: 10,
+    paddingTop: 0,
   },
   legendContainer: {
     flexDirection: "row",

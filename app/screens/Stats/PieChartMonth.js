@@ -29,14 +29,14 @@ function PieChartMonth(dictionary) {
     const moodOnly = Object.values(Object.values(dictionary[currYear][currMonth]))
 
     const moodCount = {
-        mood_sad: 0,
-        mood_stressed: 0,
-        mood_okay: 0,
-        mood_happy: 0,
-        mood_calm: 0,
-        mood_anxious: 0,
-        mood_angry: 0,
-    }
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+        6: 0,
+        7: 0,
+      }
 
     for (const [key, value] of Object.entries(flattenObject(moodOnly))) {
         moodCount[value]++;
@@ -46,37 +46,37 @@ function PieChartMonth(dictionary) {
     const data = [
         {
             key: 'mood_sad',
-            amount: moodCount['mood_sad'],
+            amount: moodCount[4],
             svg: { fill: '#7ce2f7' },
         },
         {
             key: 'mood_stressed',
-            amount: moodCount['mood_stressed'],
+            amount: moodCount[5],
             svg: { fill: '#d8bcff' }
         },
         {
             key: 'mood_okay',
-            amount: moodCount['mood_okay'],
+            amount: moodCount[2],
             svg: { fill: '#ffbf00' }
         },
         {
             key: 'mood_happy',
-            amount: moodCount['mood_happy'],
+            amount: moodCount[1],
             svg: { fill: '#ffb254' }
         },
         {
             key: 'mood_calm',
-            amount: moodCount['mood_calm'],
+            amount: moodCount[3],
             svg: { fill: '#acec6c' }
         },
         {
             key: 'mood_anxious',
-            amount: moodCount['mood_anxious'],
+            amount: moodCount[7],
             svg: { fill: '#bebebe' }
         },
         {
             key: "mood_angry",
-            amount: moodCount['mood_angry'],
+            amount: moodCount[6],
             svg: { fill: '#ff9aa0' }
         }
     ]
