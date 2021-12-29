@@ -117,7 +117,14 @@ const Panic = ({ navigation }) => {
             </Text>
             <Text
               style={styles.panicBoldText}
-              onPress={() => navigation.navigate("PFAStack")}
+              onPress={() =>
+                navigation.navigate("PFAStack", {
+                  screen: "PFAScreen",
+                  params: { 
+                    K_SCORE: 0,
+                   },
+                })
+              }
             >
               {" "}
               speak to our certified psychological first aid volunteers

@@ -587,7 +587,7 @@ const FormDetails = ({ navigation, route }) => {
               route.params.directedFrom === "PFA"
                 ? navigation.goBack()
                 : handleCancel(() =>
-                    declineHandler(navigation.navigate("Resources"))
+                    declineHandler(navigation.navigate("ResourcesMain"))
                   )
             }
           />
