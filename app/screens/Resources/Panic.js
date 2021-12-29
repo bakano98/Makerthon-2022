@@ -20,9 +20,7 @@ const Panic = ({ navigation }) => {
           justifyContent: "space-evenly",
         }}
       >
-        <Text style={styles.panicHeader}>
-          Panic Attacks and what to do
-        </Text>
+        <Text style={styles.panicHeader}>Panic Attacks and what to do</Text>
         <Text style={styles.panicSubHeader}>Is it a panic attack?</Text>
         <Text style={styles.panicText}>
           A panic attack is a sudden episode of intense fear that triggers
@@ -38,7 +36,13 @@ const Panic = ({ navigation }) => {
           </Text>
           <Text>You may have the following symptoms:</Text>
         </Text>
-        <SafeAreaView style={{ marginTop: 10 }}>
+        <SafeAreaView
+          style={{
+            marginTop: 10,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Image
             style={styles.panicImageStyle}
             source={icons["panic_symptoms"]}
@@ -120,9 +124,9 @@ const Panic = ({ navigation }) => {
               onPress={() =>
                 navigation.navigate("PFAStack", {
                   screen: "PFAScreen",
-                  params: { 
+                  params: {
                     K_SCORE: "not taken, was directed from Resources",
-                   },
+                  },
                 })
               }
             >
@@ -180,7 +184,9 @@ const styles = StyleSheet.create({
   },
 
   panicImageStyle: {
-    width: "100%",
+    width: 375,
+    height: 336,
+    resizeMode: "contain",
   },
 
   bulletBackground: {

@@ -82,6 +82,7 @@ const icons = {
   // for the resources
   panic_symptoms: require("./resources/panic_symptoms.png"),
   breathing_attack: require("./resources/breathing.jpg"),
+  panic_recovering: require("./resources/panic_recovering.png"),
 };
 
 module.exports = icons;

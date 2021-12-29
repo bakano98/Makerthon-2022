@@ -33,6 +33,7 @@ import {
   Breathing,
   Burnout,
   Panic,
+  PanicRecovering,
   Services,
   Helplines,
   Callback,
@@ -128,6 +129,11 @@ const Resources = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        component={PanicRecovering}
+        name="PanicRecovering"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         component={Burnout}
         name="Burnout"
         options={{ headerShown: false }}
@@ -215,9 +221,7 @@ const Bottoms = () => {
     return (
       <Provider store={moodStore}>
         <PersistGate loading={null} persistor={persistor}>
-          <dailyContext.Provider
-            value={{ done, setDone, streak, setStreak }}
-          >
+          <dailyContext.Provider value={{ done, setDone, streak, setStreak }}>
             <BottomTabs.Navigator
               initialRouteName={done ? "Dashboard" : "SubMoodStack"}
               screenOptions={{ tabBarStyle: { backgroundColor: "white" } }}

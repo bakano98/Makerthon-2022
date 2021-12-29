@@ -15,7 +15,13 @@ const ResourcesMain = ({ navigation }) => {
         style={styles.touchableContainer}
         onPress={() => navigation.navigate("Panic")}
       >
-        <Text style={styles.text}>What Are Panic Attacks?</Text>
+        <Text style={styles.text}>Panic Attacks</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.touchableContainer}
+        onPress={() => navigation.navigate("PanicRecovering")}
+      >
+        <Text style={styles.text}>Panic Attack Recovery</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.touchableContainer}

@@ -36,7 +36,7 @@ const Breathing = () => {
         >
           How do I breathe to help with my anxiety?
         </Text>
-        <SafeAreaView>
+        <SafeAreaView style={{alignItems: "center", justifyContent: "center" }}>
           <Image
             style={styles.breathImageStyle}
             source={icons["breathing_attack"]}
@@ -141,7 +141,9 @@ const styles = StyleSheet.create({
   },
 
   breathImageStyle: {
-    width: "100%",
+    width: 529,
+    height: 209,
+    resizeMode: "contain"
   },
 
   bulletBackground: {
