@@ -36,7 +36,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#fff5cb"
-      }
+      },
+      "package": "com.bakano.moodal"
     },
     "web": {
       "favicon": "./assets/logo.png"
