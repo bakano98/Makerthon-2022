@@ -85,7 +85,7 @@ const Dashboard = () => {
       case "mixed moods":
         return "You have been experiencing the ups and downs of life. Let the joy of the good days tide you through bad times";
       default:
-        break;
+        return "Start tracking today!";
     }
   };
 
@@ -104,9 +104,7 @@ const Dashboard = () => {
             </Text>
           </View>
           <Text style={styles.progressText}>
-            {streak === 0
-              ? "Start tracking for the first time to see your streak!"
-              : "🔥 streak: " + streak}
+            {streak === 0 ? "Start tracking today!" : "🔥 streak: " + streak}
           </Text>
           <View style={{ flexDirection: "row", paddingLeft: 10 }}>
             <Image
@@ -134,9 +132,7 @@ const Dashboard = () => {
               {"\n\n"}A graphical representation of your change in mood
             </Text>
           </Text>
-          <View style={{ height: 300}}>
-            {SwipeableLineGraph(moodsData)}
-          </View>
+          <View style={{ height: 300 }}>{SwipeableLineGraph(moodsData)}</View>
         </View>
 
         <View style={styles.subcontainer}>

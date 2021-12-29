@@ -15,7 +15,7 @@
       ]
     ],
     "slug": "Moodal",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "splash": {
@@ -30,7 +30,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false,
+      "supportsTablet": true,
       "bundleIdentifier": "com.mk15.moodal",
       "buildNumber": "1.0.0"
     },
@@ -40,7 +40,7 @@
         "backgroundColor": "#fff5cb"
       },
       "permissions": [],
-      "versionCode": 1,
+      "versionCode": 2,
       "package": "com.mk15.moodal"
     },
     "web": {

@@ -413,9 +413,9 @@ const Mood = ({ navigation }) => {
           } else {
             setStreak(1);
           }
-          // after setting the streak, change lastLoginDay to today's date
-          setLastLoginDay(new Date());
         }
+        // after setting the streak, change lastLoginDay to today's date
+        setLastLoginDay(new Date());
         x++;
       }
 
@@ -436,6 +436,7 @@ const Mood = ({ navigation }) => {
       setDone(false);
     }
   }
+  console.log(lastLoginDay);
   const handleRetrieval = () => {
     const year_difference = todayDate.getFullYear() - date.getFullYear();
     const month_difference = todayDate.getMonth() - date.getMonth();
