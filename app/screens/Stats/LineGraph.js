@@ -104,7 +104,7 @@ function LineGraph(array, size, period) {
            fill: 'grey',
            fontSize: 10,
          }}
-         formatLabel={ value => value == 0 ? `${value}` : (value > 0 ? `+${value}` : `-${value}`) }
+         formatLabel={ value => (value > 0 ? `+${value}` : `${value}`) }
         />
         <AreaChart
             style={{height: 200, width: 250}}
