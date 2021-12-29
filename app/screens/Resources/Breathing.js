@@ -20,7 +20,7 @@ const Breathing = () => {
           justifyContent: "space-evenly",
         }}
       >
-        <Text style={styles.breathHeader}>BREATHING TECHNIQUES</Text>
+        <Text style={styles.breathHeader}>Breathing Techniques</Text>
         <Text style={styles.breathSubHeader}>
           How does breathing help with my distress?
         </Text>

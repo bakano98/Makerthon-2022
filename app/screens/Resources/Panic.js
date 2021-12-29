@@ -21,7 +21,7 @@ const Panic = ({ navigation }) => {
         }}
       >
         <Text style={styles.panicHeader}>
-          PANIC ATTACKS{"\n"}AND WHAT TO DO
+          Panic Attacks and what to do
         </Text>
         <Text style={styles.panicSubHeader}>Is it a panic attack?</Text>
         <Text style={styles.panicText}>
@@ -121,7 +121,7 @@ const Panic = ({ navigation }) => {
                 navigation.navigate("PFAStack", {
                   screen: "PFAScreen",
                   params: { 
-                    K_SCORE: 0,
+                    K_SCORE: "not taken, was directed from Resources",
                    },
                 })
               }

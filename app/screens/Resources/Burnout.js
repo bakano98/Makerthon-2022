@@ -4,10 +4,8 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Image,
 } from "react-native";
 
-const icons = require("../../icons/icons.js");
 
 const Burnout = () => {
   return (
@@ -20,7 +18,7 @@ const Burnout = () => {
           justifyContent: "space-evenly",
         }}
       >
-        <Text style={styles.burnHeader}>ARE YOU FEELING BURNED OUT?</Text>
+        <Text style={styles.burnHeader}>Are you feeling burned out?</Text>
         <Text style={styles.burnSubHeader}>What is burnout?</Text>
         <Text style={styles.burnText}>
           <Text style={styles.burnBoldText}>
