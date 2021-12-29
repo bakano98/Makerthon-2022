@@ -15,7 +15,7 @@
       ]
     ],
     "slug": "Moodal",
-    "version": "1.1.0",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "splash": {
@@ -30,7 +30,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.mk15.moodal",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
@@ -38,8 +40,8 @@
         "backgroundColor": "#fff5cb"
       },
       "permissions": [],
-      "versionCode": 2,
-      "package": "com.bakano.moodal"
+      "versionCode": 1,
+      "package": "com.mk15.moodal"
     },
     "web": {
       "favicon": "./assets/logo.png"
