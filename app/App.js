@@ -160,13 +160,14 @@ const ServicesStack = () => {
 };
 
 const DAILY_KEY = "@daily_key";
+const STREAK_KEY = "@streak_key";
 // Entire thing is wrapped with mood store, so Dashboard can have access to the mood object
 // Furthermore, we also pass down a dailyContext which tells us whether today's mood has been inputted.
 // If it has, the value is set to true, which will then set out initialRoute to Dashboard.
 // In order to ensure that the value is still true upon app restart on the same day, we have to store this in AsyncStorage, and fetch it.
 const Bottoms = () => {
   const [done, setDone] = useState(false);
-  const [todayMood, setTodayMood] = useState(false);
+  const [streak, setStreak] = useState(0);
   const [loading, setLoading] = useState(true);
   let [fontsLoaded] = useFonts({
     Itim: require("./assets/fonts/Itim.ttf"),
@@ -175,14 +176,20 @@ const Bottoms = () => {
   const saveDone = async () => {
     try {
       await AsyncStorage.setItem(DAILY_KEY, JSON.stringify(done));
+      await AsyncStorage.setItem(STREAK_KEY, JSON.stringify(streak));
     } catch (e) {}
   };
 
   const readDone = async () => {
     try {
       const res = await AsyncStorage.getItem(DAILY_KEY);
+      const res2 = await AsyncStorage.getItem(STREAK_KEY);
       if (res !== null) {
         setDone(JSON.parse(res));
+      }
+
+      if (res2 !== null) {
+        setStreak(JSON.parse(res2));
       }
     } catch (e) {}
     setLoading(false);
@@ -194,7 +201,7 @@ const Bottoms = () => {
 
   useEffect(() => {
     saveDone();
-  }, [done]);
+  }, [done, streak]);
 
   // console.log("From app: " + done);
   if (!fontsLoaded) {
@@ -209,7 +216,7 @@ const Bottoms = () => {
       <Provider store={moodStore}>
         <PersistGate loading={null} persistor={persistor}>
           <dailyContext.Provider
-            value={{ done, setDone, todayMood, setTodayMood }}
+            value={{ done, setDone, streak, setStreak }}
           >
             <BottomTabs.Navigator
               initialRouteName={done ? "Dashboard" : "SubMoodStack"}

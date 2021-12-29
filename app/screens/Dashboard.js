@@ -1,5 +1,5 @@
 // the Dashboard screen
-import React from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import {
   ImageBackground,
@@ -22,7 +22,7 @@ import {
 import ProgressBar from "./Stats/ProgessBar";
 import SwiperComponent from "./Stats/SwiperComponent";
 import SwipeableLineGraph from "./Stats/SwipeableLineGraph";
-
+import dailyContext from "../contexts/dailyContext";
 // image is just a placeholder for now
 const icons = require("../icons/icons.js");
 const clearAll = async () => {
@@ -38,13 +38,14 @@ const clearAll = async () => {
 
 // navigation may be used later so we keep it here for now.
 const Dashboard = () => {
+  const { streak } = useContext(dailyContext);
   // Note that if we want to update anything related to the state, we have to directly call user_state.(dataType) = ....
   const moodState = useSelector((state) => state);
   const moodsData = moodState.data;
 
   const logPoints = moodState.logPoints;
 
-  console.log(moodsData);
+  console.log(streak);
   //parse data into a dictionary
   const dict = toDict(moodsData);
   const icons = require("../icons/icons");
@@ -66,6 +67,7 @@ const Dashboard = () => {
     return <View style={styles.legendContainer}>{result}</View>;
   };
 
+
   return (
     <ImageBackground source={icons["BG_pic"]} style={styles.image}>
       <ScrollView contentContainerStyle={{ justifyContent: "center" }}>
@@ -81,8 +83,7 @@ const Dashboard = () => {
             </Text>
           </View>
           <Text style={styles.progressText}>
-            🔥 streak: ? days
-            {/* To do streaks, we'll need to use context and pass it down */}
+            { streak === 0 ? "Start tracking for the first time to see your streak!" : "🔥 streak: " + streak}
           </Text>
           <View style={{ flexDirection: "row", paddingLeft: 10 }}>
             <Image

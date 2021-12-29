@@ -1,7 +1,6 @@
+import { useContext } from "react";
 import { REHYDRATE } from "redux-persist/es/constants";
 import * as dateFn from "date-fns";
-import { Alert } from "react-native";
-
 // the actions, remember to "export", then import in the place where action is taking place!
 export const ADD_MOOD = "ADD_MOOD";
 export const MODIFY_MOOD = "MODIFY_MOOD";
@@ -51,7 +50,7 @@ const moodReducer = (state = initialState, action) => {
       ];
 
       if (itemDay === currDay && itemMonth === currMonth) {
-        initialState.logPoints++; // if you log on that day itself, you get 1 point
+        initialState.logPoints = initialState.logPoints + 1 + action.payload.additionalPoints; // if you log on that day itself, you get 1 point
       }
       initialState.data.sort(comp);
       // return the object to moodReducer

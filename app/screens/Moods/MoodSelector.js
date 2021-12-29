@@ -128,7 +128,7 @@ const MoodSelector = ({ navigation, route }) => {
   // content is the list of themes that we have unlocked
   const { content, setContent } = useContext(contentContext);
   const [selectedValue, setSelectedValue] = useState("normal"); // default state.
-  const { item } = route.params;
+  const { item, streak } = route.params;
   const user_state = useSelector((state) => state);
   const addedMoods = user_state.data; // get the array of added moods, aka our state array
   const logPoints = user_state.logPoints;
@@ -142,7 +142,6 @@ const MoodSelector = ({ navigation, route }) => {
 
   const dispatch = useDispatch();
 
-  // console.log(theme);
   // Actions. Item to be passed down to Reducer. actualMood is "src".
   const addMoods = (mood, moodValue, moodName) =>
     dispatch({
@@ -152,6 +151,7 @@ const MoodSelector = ({ navigation, route }) => {
         moodValue: moodValue,
         item: item,
         moodName: moodName,
+        additionalPoints: (streak % 3 === 0  && streak !== 0) ? 1 : 0 // change to 3 next time. Every 
       },
     });
   const modifyMoods = (mood, moodValue, moodName) => {

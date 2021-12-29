@@ -38,21 +38,26 @@ const todayDate = new Date(); // to be used for handling calendar back/front
 let x = 0;
 // AsyncStorage keys
 const PROMPT_KEY = "@prompt_key";
+const LOGIN_KEY = "@login_key";
 // Main body
 const Mood = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
+  const [lastLoginDay, setLastLoginDay] = useState(-1); // set to -1 initially
   const [lastPromptedDay, setLastPromptedDay] = useState(-1);
   const [persistentItem, setPersistentItem] = useState("");
 
   // addedMoods stores all the moods that have been added
   const user_state = useSelector((state) => state);
   const addedMoods = user_state.data;
+  // Getting context
+  const { done, setDone, streak, setStreak } = useContext(dailyContext);
 
   // <-------------------------------- AsyncStorage Stuff -------------------------------->
   const saveLastPromptedDay = async () => {
     try {
       await AsyncStorage.setItem(PROMPT_KEY, JSON.stringify(lastPromptedDay));
+      await AsyncStorage.setItem(LOGIN_KEY, JSON.stringify(lastLoginDay));
     } catch (e) {
       console.log(e);
     }
@@ -63,6 +68,10 @@ const Mood = ({ navigation }) => {
       const res = await AsyncStorage.getItem(PROMPT_KEY);
       if (res !== null) {
         setLastPromptedDay(JSON.parse(res));
+      }
+      const res2 = await AsyncStorage.getItem(LOGIN_KEY);
+      if (res2 !== null) {
+        setLastLoginDay(JSON.parse(res2));
       }
     } catch (e) {
       console.log(e);
@@ -76,7 +85,7 @@ const Mood = ({ navigation }) => {
 
   useEffect(() => {
     saveLastPromptedDay();
-  }, [lastPromptedDay, persistentItem]);
+  }, [lastPromptedDay, lastLoginDay, persistentItem]);
 
   // the months in the year
   const months = [
@@ -309,6 +318,7 @@ const Mood = ({ navigation }) => {
               ? console.log("Haha nothing") // Change to "" before sending for test
               : navigation.navigate("MoodSelector", {
                   item: item,
+                  streak: streak + 1,
                 })
           }
           key={item.key}
@@ -374,18 +384,38 @@ const Mood = ({ navigation }) => {
   }
 
   // console.log(persistentItem);
-
-  const { done, setDone } = useContext(dailyContext);
   const todayItem = retrieveItem();
   if (todayItem !== null) {
     const formatted = dateFn.lightFormat(todayDate, "yyyy-MM-dd");
     const formattedCurr = dateFn.lightFormat(date, "yyyy-MM-dd");
     if (todayItem.img !== "mood_empty") {
       if (!done && x === 1) {
-        Alert.alert(
-          "Recorded",
-          "Today's mood has been recorded. You have earned 1 Noodal!"
-        );
+        // change to modulo 3 next time
+        if ((streak + 1) % 3 === 0) {
+          Alert.alert(
+            "Recorded",
+            "Today's mood has been recorded. You have earned an additional Noodal!"
+          );
+        } else {
+          Alert.alert(
+            "Recorded",
+            "Today's mood has been recorded. You have earned 1 Noodal!"
+          );
+        }
+        // Increase/reset streak
+        // When user starts up for the very first time and has not recorded anything yet.
+        if (lastLoginDay === -1) {
+          setStreak(1);
+        } else {
+          const diff = dateFn.differenceInCalendarDays(todayDate, lastLoginDay);
+          if (diff === 1) {
+            setStreak(streak++);
+          } else {
+            setStreak(1);
+          }
+          // after setting the streak, change lastLoginDay to today's date
+          setLastLoginDay(new Date());
+        }
         x++;
       }
 
@@ -406,16 +436,19 @@ const Mood = ({ navigation }) => {
       setDone(false);
     }
   }
-
   const handleRetrieval = () => {
     const year_difference = todayDate.getFullYear() - date.getFullYear();
     const month_difference = todayDate.getMonth() - date.getMonth();
     if (month_difference === 0 && year_difference === 0) {
-      navigation.navigate("MoodSelector", { item: persistentItem });
+      navigation.navigate("MoodSelector", {
+        item: persistentItem,
+        streak: streak + 1, // assume user WILL add the mood, so we increase streak first to ensure they get additional points on every 3rd day, rather than after every 3rd day
+      });
     } else {
       changeMonth(12 * year_difference + month_difference);
       navigation.navigate("MoodSelector", {
         item: persistentItem,
+        streak: streak + 1,
       });
     }
   };
