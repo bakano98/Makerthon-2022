@@ -15,6 +15,7 @@ export { default as Panic } from "./Resources/Panic";
 export { default as PanicRecovering } from "./Resources/PanicRecovering";
 export { default as Breathing } from "./Resources/Breathing";
 export { default as Burnout } from "./Resources/Burnout";
+export { default as Healthy } from "./Resources/Healthy";
 
 // Things that goes with Settings
 export { default as Settings } from "./Settings/Settings";

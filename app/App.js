@@ -34,6 +34,7 @@ import {
   Burnout,
   Panic,
   PanicRecovering,
+  Healthy,
   Services,
   Helplines,
   Callback,
@@ -136,6 +137,11 @@ const Resources = () => {
       <Stack.Screen
         component={Burnout}
         name="Burnout"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Healthy}
+        name="Healthy"
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

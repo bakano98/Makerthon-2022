@@ -83,6 +83,16 @@ const icons = {
   panic_symptoms: require("./resources/panic_symptoms.png"),
   breathing_attack: require("./resources/breathing.jpg"),
   panic_recovering: require("./resources/panic_recovering.png"),
+  sleep: require("./resources/7h_sleep.png"),
+  balanced: require("./resources/balanced.png"),
+  balanceText: require("./resources/balanceText.png"),
+  connect: require("./resources/connect.png"),
+  engage: require("./resources/engage.png"),
+  exercise: require("./resources/exercise.png"),
+  help: require("./resources/help.png"),
+  positive: require("./resources/positive.png"),
+  there: require("./resources/there.png"),
+  time: require("./resources/time.png"),
 };
 
 module.exports = icons;

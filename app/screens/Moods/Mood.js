@@ -58,9 +58,7 @@ const Mood = ({ navigation }) => {
     try {
       await AsyncStorage.setItem(PROMPT_KEY, JSON.stringify(lastPromptedDay));
       await AsyncStorage.setItem(LOGIN_KEY, JSON.stringify(lastLoginDay));
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   const readLastPromptedDay = async () => {
@@ -73,9 +71,7 @@ const Mood = ({ navigation }) => {
       if (res2 !== null) {
         setLastLoginDay(JSON.parse(res2));
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
     setLoading(false);
   };
 
@@ -236,7 +232,6 @@ const Mood = ({ navigation }) => {
 
   // update matrix before each re-render
   updateMatrix(addedMoods, matrix);
-  // console.log(addedMoods);
   const declineHandler = (submit) => {
     Alert.alert(
       "Declined", // title
@@ -258,7 +253,7 @@ const Mood = ({ navigation }) => {
         : dateFn.differenceInCalendarDays(todayDate, lastPromptedDay);
     // console.log(dateFn.differenceInCalendarDays(todayDate, lastPromptedDay));
     // console.log(todayDate);
-    console.log("Last: " + lastPromptedDay);
+    // console.log("Last: " + lastPromptedDay);
     // console.log(differenceInDays);
     if (
       differenceInDays >= 3 // so if the last prompt was at least 3 days ago, then prompt again
@@ -358,7 +353,6 @@ const Mood = ({ navigation }) => {
       dateFn.lightFormat(curr, "yyyy-MM-dd") >
       dateFn.lightFormat(comparator, "yyyy-MM-dd")
     ) {
-      console.log("Nice try");
       return;
     }
     setDate(curr);
@@ -383,7 +377,6 @@ const Mood = ({ navigation }) => {
     x++;
   }
 
-  // console.log(persistentItem);
   const todayItem = retrieveItem();
   if (todayItem !== null) {
     const formatted = dateFn.lightFormat(todayDate, "yyyy-MM-dd");
@@ -425,18 +418,16 @@ const Mood = ({ navigation }) => {
       // Prompter logic can be improved upon next time.
       setTimeout(() => {
         if (!loading && done) {
-          console.log(shouldPrompt);
           if (shouldPrompt) {
             prompter();
           }
         }
       }, 1500);
     } else if (formatted === formattedCurr && todayItem.img === "mood_empty") {
-      // console.log("Mood for today not put in yet.");
       setDone(false);
     }
   }
-  console.log(lastLoginDay);
+
   const handleRetrieval = () => {
     const year_difference = todayDate.getFullYear() - date.getFullYear();
     const month_difference = todayDate.getMonth() - date.getMonth();

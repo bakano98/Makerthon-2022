@@ -61,7 +61,13 @@ const Dashboard = () => {
       "mood_angry",
     ];
     const result = mood.map((x) => {
-      return <Image style={{ width: 24, height: 30 }} source={icons[x]} />;
+      return (
+        <Image
+          style={{ width: 24, height: 30 }}
+          source={icons[x]}
+          key={mood[x]}
+        />
+      );
     });
     return <View style={styles.legendContainer}>{result}</View>;
   };

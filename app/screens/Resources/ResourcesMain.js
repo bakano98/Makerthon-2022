@@ -37,15 +37,9 @@ const ResourcesMain = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.touchableContainer}
-        onPress={() => navigation.navigate("")}
+        onPress={() => navigation.navigate("Healthy")}
       >
-        <Text style={styles.text}>Placeholder</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.touchableContainer}
-        onPress={() => navigation.navigate("")}
-      >
-        <Text style={styles.text}>Placeholder</Text>
+        <Text style={styles.text}>Staying Healthy</Text>
       </TouchableOpacity>
     </ImageBackground>
   );

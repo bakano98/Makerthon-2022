@@ -37,7 +37,7 @@ const SetNotifications = () => {
   const [toggle, setToggle] = useState(false);
 
   // Getting dailyContext
-  // We use dailyContext in order to tell whether we should disable the notifications for today 
+  // We use dailyContext in order to tell whether we should disable the notifications for today
   // as we do not want to prompt the user to track their mood if it has already been tracked.
   const { done } = useContext(dailyContext);
 
@@ -88,9 +88,7 @@ const SetNotifications = () => {
   const saveTime = async () => {
     try {
       await AsyncStorage.setItem(TIME_KEY, JSON.stringify(time));
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   // Retrieving time
@@ -102,16 +100,13 @@ const SetNotifications = () => {
       }
     } catch (e) {
       // error reading value
-      console.log(e);
     }
   };
 
   const saveToggle = async () => {
     try {
       await AsyncStorage.setItem(NOTIFS_SWITCH_KEY, JSON.stringify(toggle));
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   const readToggle = async () => {
@@ -120,22 +115,8 @@ const SetNotifications = () => {
       if (getToggle !== null) {
         setToggle(JSON.parse(getToggle));
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
-
-  // Clearing the AsyncStorage. Will be useful for next time when we have to use ONE key to manage an ARRAY OF OBJECTS
-  // Not super useful for our context, but keeping it here for now
-  /*
-  const clearTime = async () => {
-    try {
-      await AsyncStorage.clear();
-      alert("Storage cleared successfully");
-    } catch (e) {
-      alert("Failed to clear local storage");
-    }
-  };*/
 
   // <------------------------------------ AsyncStorage stuff end ------------------------------------->
 
@@ -192,15 +173,11 @@ const SetNotifications = () => {
     });
   };
 
-
   // If today's tracking has been done, then cancel all notifications.
   if (done) {
-    console.log("Done, should not receive notifs");
     Notifications.cancelAllScheduledNotificationsAsync();
   }
 
-  // remove comment if you want to do some debugging
-  // console.log(time);
   return (
     <SafeAreaView>
       <SafeAreaView style={styles.touchableContainer}>
