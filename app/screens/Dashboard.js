@@ -187,9 +187,7 @@ const styles = StyleSheet.create({
   moodContainer: {
     flexDirection: "column",
     justifyContent: "space-around",
-    marginTop: 70,
     marginStart: 20,
-    height: 0,
   },
   pieContainer: {
     backgroundColor: "#f5f5f5",

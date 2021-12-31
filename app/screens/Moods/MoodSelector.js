@@ -151,7 +151,7 @@ const MoodSelector = ({ navigation, route }) => {
         moodValue: moodValue,
         item: item,
         moodName: moodName,
-        additionalPoints: (streak % 3 === 0  && streak !== 0) ? 1 : 0 // change to 3 next time. Every 
+        additionalPoints: streak % 3 === 0 && streak !== 0 ? 1 : 0, // change to 3 next time. Every
       },
     });
   const modifyMoods = (mood, moodValue, moodName) => {
@@ -317,33 +317,6 @@ const MoodSelector = ({ navigation, route }) => {
     );
   };
 
-  // Uncomment only if we want user to see PV of the skins before deciding to unlock
-  // Logic for a locked theme
-  // const LockedItem = ({ imageSrc, moodName }) => {
-  //   const _onPress = () => {
-  //     customAlert(
-  //       "Sorry!",
-  //       `You do not have access to the ${selectedValue} series yet. Would you like to unlock it for ${themeObject.cost} points?`,
-  //       () => unlockSkin(themeObject), // logic on accept. In the form of () => ....
-  //       () => console.log("User declined") // logic on decline. In the form of () => ... || For this purpose, we can just do nothing if user does not want to unlock it.
-  //     );
-  //   };
-
-  //   return (
-  //     <TouchableOpacity
-  //       style={{
-  //         marginTop: 10,
-  //         alignItems: "center",
-  //         justifyContent: "center",
-  //       }}
-  //       onPress={() => _onPress()}
-  //     >
-  //       <Image style={styles.imageStyle} source={imageSrc} />
-  //       <Text style={[styles.itemText]}>{moodName}</Text>
-  //     </TouchableOpacity>
-  //   );
-  // };
-
   // The actual rendering of each item
   const renderItem = ({ item }) => {
     return (
@@ -354,18 +327,6 @@ const MoodSelector = ({ navigation, route }) => {
       />
     );
   };
-
-  // Uncomment only if we want users to see the PV before deciding whether they want to unlock the skin
-  // // The actual rendering of each locked item
-  // const renderLockedItem = ({ item }) => {
-  //   return (
-  //     <LockedItem
-  //       imageSrc={icons[item.src]}
-  //       moodName={item.title}
-  //       moodSrc={item.src}
-  //     />
-  //   );
-  // };
 
   // when adding themes, add to here (2)
   // We have to retrieve the correct object from all_themes, based on the selected theme.
@@ -390,15 +351,6 @@ const MoodSelector = ({ navigation, route }) => {
       themeObject = all_themes[0];
       break;
   }
-
-  // console.log(themeObject);
-
-  // Logs to check whether a user has access to a particular theme.
-  /*if (content.some((x) => x === selectedValue)) {
-    console.log("User has access to " + selectedValue);
-  } else {
-    console.log("User does not have access to " + selectedValue);
-  }*/
 
   return (
     <ImageBackground style={styles.container} source={icons["BG_pic"]}>
@@ -426,13 +378,7 @@ const MoodSelector = ({ navigation, route }) => {
           contentContainerStyle={styles.flatListStyle}
           data={themeObject.theme}
           numColumns={4} // Render only 4 columns per row
-          renderItem={
-            // Uncomment only if we want to allow users to click on locked skins and see a preview
-            // content.some((x) => x === selectedValue)
-            //   ? renderItem
-            //   : renderLockedItem
-            renderItem
-          }
+          renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
       </SafeAreaView>
