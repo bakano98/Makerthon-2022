@@ -23,9 +23,11 @@ You can provide feedback via the app, or you can email me at: bakainochi@gmail.c
 
 
 # Future plans
-As it is, I think the app might be a little sluggish. I blame Expo and using React Native, so if I wanted to improve performance, I might learn Flutter and port the app over to Flutter.
-However, the most feasible thing right now would be to optimise the code more -- as much as I possibly can. Most of the things have already been refactored to the best of my current abilities, so...
 We also hope to be able to incentivise people to use the app more, not just through in-app rewards, but possibly tangible rewards. So if we could manage to get some sort of sponsors, then we would be able to incentivise people by giving out E-vouchers!
+
+On the more technical aspect, we hope to be able to integrate with actual hospitals in order to leverage on their booking system, so we can have an actual, working flow. This way, more people can have access to mental health resources and also be able to book for appointments easily, and gain anonymous resources for help.
+
+Furthermore, possible upgrades could also include slight gamification such as having Soul Characters that would encourage the user in one way or another. With Soul Characters, we can also set up an in-app chat system where people can talk to each other about their worries anonymously.
 
 # Credits
 Credits to @jerome-neo for doing up the dashboard and helping out with the styling.
