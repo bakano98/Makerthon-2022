@@ -88,6 +88,7 @@ function PieChartMonth(dictionary) {
             spacing={0}
             outerRadius={'95%'}
         >
+            
         </PieChart>
     )
 }

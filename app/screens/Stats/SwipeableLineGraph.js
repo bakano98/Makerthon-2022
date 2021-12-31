@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Itim",
-    fontSize: 18
+    fontSize: 18,
+    padding: 10,
   },
 });
 

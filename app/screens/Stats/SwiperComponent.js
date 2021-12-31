@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 18,
     fontFamily: "Itim",
+    padding: 10,
   },
 });
 

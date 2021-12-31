@@ -19,10 +19,17 @@ function  slidingWindow(array, size) {
         for (let j = 0; j < size; j++) {
             sum += array[i + j];
         }
-        result.push(Math.round((sum / size) * 10) / 10);
+        result.push(decimalPlace(sum / size, 1));
     }
     return result;
 }
+
+function decimalPlace(value, n) {
+    if (n === 0) {return Math.round(value)};
+    let dp = n * 10;
+    return Math.round(value * dp) / dp
+}
+
 
 function LineGraph(array, size, period) {
     // assumes that array is already sorted in chronological order.
@@ -55,20 +62,28 @@ function LineGraph(array, size, period) {
     }
     // console.log(data.length)
     */
-    let data = filteredArray.length < size ? [0,] : [];
+    let data = [0,] // filteredArray.length < size ? [0,] : [];
     data.push(...slidingWindow(filteredArray.map((x) => score[x.moodValue - 1]), size));
 
     // console.log('data', data)
-    let color;
-    const netChange = data[data.length - 1] - data[0];
-    //console.log('netchange',netChange)
-    if (netChange > 0) {
-        color = ['rgb(172,236,108)','rgba(172,236,108, 0.2)'];
-      } else if (netChange < 0) {
-        color = ['rgb(255,154,160)','rgba(255,154,160, 0.2)'];
-      } else {
-        color = ['rgb(255,191,0)','rgba(255,191,0, 0.2)'];
-      }
+    const variableColor = (bool) => {
+        if (bool) {
+            const netChange = data[data.length - 1] - data[0];
+            //console.log('netchange',netChange)
+            if (netChange > 0) {
+                return ['rgb(172,236,108)','rgba(172,236,108, 0.2)'];
+            } else if (netChange < 0) {
+                return ['rgb(255,154,160)','rgba(255,154,160, 0.2)'];
+            } else {
+                return ['rgb(255,191,0)','rgba(255,191,0, 0.2)'];
+            }
+        } else {
+            return ['rgb(255,191,0)','rgba(255,191,0, 0.2)'];
+        }
+    }
+
+    const color = variableColor(false);
+    
     
 
     const Line = ({ line }) => (
@@ -80,7 +95,7 @@ function LineGraph(array, size, period) {
         />
     )
 
-    const contentInset = { top: 20, bottom: 20 }
+    const contentInset = { top: 25, bottom: 25 }
 
     return (
         <View style={ {
@@ -88,28 +103,24 @@ function LineGraph(array, size, period) {
             flexDirection: 'row',
             }}>
         <YAxis
-         data={[-1.0,
-                -0.8,
-                -0.6,
-                -0.4,
-                -0.2,
-                0.0,
-                0.2,
-                0.4,
-                0.6,
-                0.8,
-                1.0]}
+         data={data}
          contentInset={ contentInset }
          svg={{
            fill: 'grey',
            fontSize: 10,
          }}
-         formatLabel={ value => (value > 0 ? `+${value}` : `${value}`) }
+         //formatLabel={ value => renderOnlyOneDP(value) !== -1 ? (value > 0 ? `+${renderOnlyOneDP(value,2)}` : `${renderOnlyOneDP(value, 2)}`) : ''}
+         formatLabel={ value => 
+            value === data[data.length - 1] 
+            || value === Math.min(...data)
+            || value === Math.max(...data)
+            || value === data[0] 
+            || value === 0 ? (value > 0 ? `+${value}` : `${value}`) : ''}
         />
         <AreaChart
             style={{height: 200, width: 250}}
             data={data}
-            contentInset={{ top: 45, bottom: 45 }}
+            contentInset={{ top: 25, bottom: 25 }}
             curve={shape.curveNatural}
             svg={{ fill: color[1] }}
         >   

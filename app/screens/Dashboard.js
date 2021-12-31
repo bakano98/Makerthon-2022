@@ -44,8 +44,8 @@ const Dashboard = () => {
 
   const logPoints = moodState.logPoints;
 
-  console.log(streak);
-  //parse data into a dictionary
+  // console.log(streak);
+  // parse data into a dictionary
   const dict = toDict(moodsData);
   const icons = require("../icons/icons");
   const progress = getProgressAsFraction(dict);
@@ -102,10 +102,9 @@ const Dashboard = () => {
           <Text style={styles.progressHeaderText}>This month's progress</Text>
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             {ProgressBar(dict)}
-            <Text style={styles.pieText}>
+            <Text style={styles.progressBarText}>
               {progress[0]} / {progress[1]} days
-            </Text>
-            <Text style={styles.pieText}>
+              {'\n'}
               {Math.ceil(getProgress(dict) * 100)}%
             </Text>
           </View>
@@ -125,7 +124,7 @@ const Dashboard = () => {
 
         <View style={styles.pieContainer}>
           <Text style={styles.subheader}>Overview</Text>
-          {legend()}
+            {legend()}
           <View style={{ height: 300, width: 330 }}>
             {SwiperComponent(dict)}
           </View>
@@ -138,7 +137,7 @@ const Dashboard = () => {
               {"\n\n"}A graphical representation of your change in mood
             </Text>
           </Text>
-          <View style={{ height: 300 }}>{SwipeableLineGraph(moodsData)}</View>
+          <View style={{ height: 340 }}>{SwipeableLineGraph(moodsData)}</View>
         </View>
 
         <View style={styles.subcontainer}>
@@ -168,11 +167,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
     padding: 10,
     flexDirection: "row",
-    marginTop: 10,
+    marginTop: 0,
     marginBottom: 10,
   },
   subheader: {
-    fontSize: 20,
+    fontSize: 28,
     fontFamily: "Itim",
     color: "black",
     marginStart: 10,
@@ -220,6 +219,15 @@ const styles = StyleSheet.create({
     color: "black",
     height: 30,
     marginStart: 10,
+  },
+  progressBarText: {
+    fontSize: 18,
+    fontFamily: "Itim",
+    color: "black",
+    height: 60,
+    marginStart: 10,
+    textAlign:'center',
+    padding: 10,
   },
   pieText: {
     fontFamily: "Itim",
