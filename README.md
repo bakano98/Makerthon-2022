@@ -31,7 +31,9 @@ Furthermore, possible upgrades could also include slight gamification such as ha
 
 # Credits
 Credits to @jerome-neo for doing up the dashboard and helping out with the styling.
+
 Credits to Shaun for coming up with the medical resources
-Credits to Rachelle for doing up the art, and coming up with the overall UI design for the app.
+
+Credits to Rachelle for doing up the art (all the Moodals!), and coming up with the overall UI design for the app.
 
 Also special thanks to Flaticon (https://www.flaticon.com/), where we used some of their icons for our bottom tabs.
