@@ -21,6 +21,9 @@ export { default as Healthy } from "./Resources/Healthy";
 export { default as Settings } from "./Settings/Settings";
 export { default as About } from "./Settings/About";
 
+// Intro screen
+export { default as Intro } from "./Intro";
+
 // the hidden screens
 export { default as Questionnaire } from "./hidden/Questionnaire";
 export { default as FormDetails } from "./hidden/FormDetails";

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Image, Text, LogBox } from "react-native";
+import { Image, Text, SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
-
-LogBox.ignoreAllLogs(true); // enable this when debugging
 
 // Navigation stuff
 import {
@@ -42,6 +40,7 @@ import {
   Questionnaire,
   FormDetails,
   PFAScreen,
+  Intro,
 } from "./screens";
 
 const icons = require("./icons/icons.js"); // use icons['name'] to get the icon!
@@ -181,9 +180,6 @@ const Bottoms = () => {
   const [done, setDone] = useState(false);
   const [streak, setStreak] = useState(0);
   const [loading, setLoading] = useState(true);
-  let [fontsLoaded] = useFonts({
-    Itim: require("./assets/fonts/Itim.ttf"),
-  });
 
   const saveDone = async () => {
     try {
@@ -215,10 +211,6 @@ const Bottoms = () => {
     saveDone();
   }, [done, streak]);
 
-  // console.log("From app: " + done);
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
   if (loading) {
     // just a dummy. Set a loading screen so that nothing is rendered while fetching from AsyncStorage
     // This step can take quite long depending on the user's device (I guess), so best to have a loading page.
@@ -282,50 +274,97 @@ const PFAStack = () => {
   );
 };
 
+const INTRO_KEY = "@intro_key";
 // Render the entire thing
 // QuestionnaireStack and About should not have bottom tabs. So for anything that should not have bottom tabs, add to here.
 const App = () => {
-  return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator
-          barStyle={{ backgroundColor: "#694fad" }}
-          screenOptions={{ headerShown: false, animationEnabled: false }}
-        >
-          <Stack.Screen
-            component={Bottoms}
-            name="Bottoms"
-            options={({ route }) => ({
-              title: setNameFromRouteName(route),
-              headerShown: false,
-            })}
-          />
-          <Stack.Screen
-            component={Questionnaire}
-            name="Questionnaire"
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            component={About}
-            name="About"
-            options={{ headerShown: true, title: "About Us" }}
-          />
-          <Stack.Screen
-            component={FormDetails}
-            name="FormDetails"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            component={PFAStack}
-            name="PFAStack"
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
-  );
+  const [introDone, setIntroDone] = useState(false);
+  const [loading, setLoading] = useState(true);
+  let [fontsLoaded] = useFonts({
+    Itim: require("./assets/fonts/Itim.ttf"),
+  });
+  const setDone = (done) => {
+    setIntroDone(done);
+  };
+
+  const saveIntro = async () => {
+    try {
+      await AsyncStorage.setItem(INTRO_KEY, JSON.stringify(introDone));
+    } catch (e) {}
+  };
+
+  const readIntro = async () => {
+    try {
+      const res = await AsyncStorage.getItem(INTRO_KEY);
+      if (res !== null) {
+        setIntroDone(JSON.parse(res));
+      }
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    readIntro();
+  }, []);
+
+  useEffect(() => {
+    saveIntro();
+    if (introDone) {
+      setLoading(false);
+    }
+  }, [introDone]);
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
+  if (!introDone) {
+    return <Intro setDone={setDone} />;
+  } else {
+    if (loading) {
+      return <AppLoading />;
+    }
+    return (
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator
+            barStyle={{ backgroundColor: "#694fad" }}
+            screenOptions={{ headerShown: false, animationEnabled: false }}
+          >
+            <Stack.Screen
+              component={Bottoms}
+              name="Bottoms"
+              options={({ route }) => ({
+                title: setNameFromRouteName(route),
+                headerShown: false,
+              })}
+            />
+            <Stack.Screen
+              component={Questionnaire}
+              name="Questionnaire"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              component={About}
+              name="About"
+              options={{ headerShown: true, title: "About Us" }}
+            />
+            <Stack.Screen
+              component={FormDetails}
+              name="FormDetails"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              component={PFAStack}
+              name="PFAStack"
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    );
+  }
 };
 
 // all the screen styles' options

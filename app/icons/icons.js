@@ -93,6 +93,13 @@ const icons = {
   positive: require("./resources/positive.png"),
   there: require("./resources/there.png"),
   time: require("./resources/time.png"),
+
+  // for the tutorial screen
+  tut1: require("./Tutorial/Tut1.png"),
+  tut2: require("./Tutorial/Tut2.png"),
+  tut3: require("./Tutorial/Tut3.png"),
+  tut4: require("./Tutorial/Tut4.png"),
+  tut5: require("./Tutorial/Tut5.png"),
 };
 
 module.exports = icons;
