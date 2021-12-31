@@ -26,3 +26,10 @@ You can provide feedback via the app, or you can email me at: bakainochi@gmail.c
 As it is, I think the app might be a little sluggish. I blame Expo and using React Native, so if I wanted to improve performance, I might learn Flutter and port the app over to Flutter.
 However, the most feasible thing right now would be to optimise the code more -- as much as I possibly can. Most of the things have already been refactored to the best of my current abilities, so...
 We also hope to be able to incentivise people to use the app more, not just through in-app rewards, but possibly tangible rewards. So if we could manage to get some sort of sponsors, then we would be able to incentivise people by giving out E-vouchers!
+
+# Credits
+Credits to @jerome-neo for doing up the dashboard and helping out with the styling.
+Credits to Shaun for coming up with the medical resources
+Credits to Rachelle for doing up the art, and coming up with the overall UI design for the app.
+
+Also special thanks to Flaticon (https://www.flaticon.com/), where we used some of their icons for our bottom tabs.
