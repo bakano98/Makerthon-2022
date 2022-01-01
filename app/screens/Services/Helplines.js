@@ -2,7 +2,6 @@ import React from "react";
 import {
   ImageBackground,
   TouchableOpacity,
-  Image,
   StyleSheet,
   SafeAreaView,
   Linking,
@@ -36,7 +35,7 @@ const data = [
     linking_number: "1800221444",
   },
   {
-    name: "Institue of Mental Health",
+    name: "Institute of Mental Health",
     number: "6389 2222",
     desc: "National hospital for mental health",
     linking_number: "63892222",

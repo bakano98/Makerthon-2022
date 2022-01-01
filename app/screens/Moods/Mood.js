@@ -205,26 +205,47 @@ const Mood = ({ navigation }) => {
   if (addedMoods.length >= 7) {
     // Get the last 7 items in the array
     const temp = addedMoods.slice(addedMoods.length - 7);
+    // console.log(temp);
     temp.forEach((moodObject) => {
+      const monthDiff = todayDate.getMonth() - moodObject.month;
+      const yearDiff = todayDate.getFullYear() - moodObject.year;
       if (moodObject.moodValue >= 4) {
         if (
-          todayDate.getMonth() === moodObject.month &&
-          todayDate.getFullYear() === moodObject.year &&
+          monthDiff === 0 &&
+          yearDiff === 0 &&
           todayDate.getDate() - moodObject.day < 7
         ) {
           moodyDays++;
+        } else if (monthDiff !== 0) {
+          const days = nDays[moodObject.month];
+          if (
+            moodObject.day > days - 7 ||
+            moodObject.day < todayDate.getDate()
+          ) {
+            moodyDays++;
+          }
         }
       }
     });
   } else {
     addedMoods.forEach((moodObject) => {
+      const monthDiff = todayDate.getMonth() - moodObject.month;
+      const yearDiff = todayDate.getFullYear() - moodObject.year;
       if (moodObject.moodValue >= 4) {
         if (
-          todayDate.getMonth() === moodObject.month &&
-          todayDate.getFullYear() === moodObject.year &&
+          monthDiff === 0 &&
+          yearDiff === 0 &&
           todayDate.getDate() - moodObject.day < 7
         ) {
           moodyDays++;
+        } else if (monthDiff !== 0) {
+          const days = nDays[moodObject.month];
+          if (
+            moodObject.day > days - 7 ||
+            moodObject.day < todayDate.getDate()
+          ) {
+            moodyDays++;
+          }
         }
       }
     });
@@ -309,7 +330,7 @@ const Mood = ({ navigation }) => {
             fontSize: 18,
           }}
           onPress={() =>
-            rowIndex === 0 || item.day === -1 || item.day > todayDate.getDate() // since we already don't allow forward navigation
+            rowIndex === 0 || item.day === -1 // since we already don't allow forward navigation
               ? console.log("Haha nothing") // Change to "" before sending for test
               : navigation.navigate("MoodSelector", {
                   item: item,
@@ -419,6 +440,7 @@ const Mood = ({ navigation }) => {
       setTimeout(() => {
         if (!loading && done) {
           if (shouldPrompt) {
+            console.log("aaaa");
             prompter();
           }
         }

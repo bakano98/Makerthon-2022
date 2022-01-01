@@ -23,7 +23,7 @@ const questions = [
   ["Did you feel so nervous that\nnothing could calm you down?", 2],
   ["Did you feel hopeless?", 3],
   ["Did you feel restless or fidgety?", 4],
-  ["Did you feel so restless that you could not sit still?", 5],
+  ["Did you feel so restless that you\ncould not sit still?", 5],
   ["Did you feel depressed?", 6],
   ["Did you feel that everything was\nan effort?", 7],
   ["Did you feel so sad that nothing\ncould cheer you up?", 8],
@@ -203,26 +203,6 @@ const Questionnaire = ({ navigation }) => {
 
   // the message to be shown to the user
   const msg = (recommended) => {
-    // if (recommended === "PFA") {
-    //   three_alert(
-    //     "Results",
-    //     "You seem to be in slight psychological distress across the last month.\nWe recommend talking anonymously to a Counsellor, but you can choose either.",
-    //     "PFA"
-    //   );
-    // } else if (recommended === "Counsel") {
-    //   three_alert(
-    //     "Results",
-    //     "You seem to be in slight psychological distress across the last month.\nWe recommend talking anonymously to a Counsellor, but you can choose either.",
-    //     "Counsel"
-    //   );
-    // } else {
-    //   three_alert(
-    //     "Results",
-    //     "You seem to be in a high level of psychological distress across the last month.\nWe recommend booking an appointment with UHC.",
-    //     "Counsel"
-    //   );
-    // }
-
     if (recommended === "PFA") {
       three_alert(
         "Results",
