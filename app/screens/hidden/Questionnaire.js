@@ -70,12 +70,6 @@ const getConsent = (accept, decline) => {
   );
 };
 
-// not sure if this is necessary now.
-const referToCounsel = (action) => {
-  alert("Referring to counselling...");
-  action();
-};
-
 const referToPsych = (accept, decline) => {
   getConsent(accept, decline);
 };
@@ -109,15 +103,13 @@ const handleSubmit = (state, call) => {
     alert("Please fill in all questions");
   } else {
     // the scoring tiers are based off actual scientific data. We used those tiers as a guideline as to what resource to recommend
-    if (score <= 20) {
+    if (score < 26) {
       navigator = "Resources";
-    } else if (score >= 21 && score < 25) {
-      navigator = "PFA";
-    } else if (score >= 25 && score <= 28) {
-      navigator = "Counsel";
+    } else if (score >= 26 && score <= 29) {
+      // score >= 26
+      navigator = "moderateHelp";
     } else {
-      // score >= 29
-      navigator = "Psych";
+      navigator = "highHelp";
     }
   }
   console.log(score);
@@ -151,7 +143,7 @@ const Questionnaire = ({ navigation }) => {
     return () => backHandler.remove();
   }, []);
 
-  const three_alert = (title, msg, choice) => {
+  const three_alert = (title, msg) => {
     Alert.alert(title, msg, [
       {
         text: "I do not want help",
@@ -187,24 +179,16 @@ const Questionnaire = ({ navigation }) => {
   };
 
   // the message to be shown to the user
-  const msg = (recommended) => {
-    if (recommended === "PFA") {
+  const msg = (level) => {
+    if (level === "moderate") {
       three_alert(
         "Results",
-        'You seem to be in slight psychological distress across the last month.\nWe recommend seeking help (anonymously) via "Quick Appointment", but you can choose either.',
-        "PFA"
+        `You seem to be in moderate psychological distress across the last month.\nIf you require urgent help, you can do so (anonymously) via "Quick Appointment".\nYou can also choose to book an appointment with UHC.`
       );
-    } else if (recommended === "Counsel") {
+    } else if (level === "high") {
       three_alert(
         "Results",
-        'You seem to be in slight psychological distress across the last month.\nWe recommend seeking help (anonymously) via "Quick Appointment", but you can choose either.',
-        "Counsel"
-      );
-    } else {
-      three_alert(
-        "Results",
-        "You seem to be in a high level of psychological distress across the last month.\nWe recommend booking an appointment with UHC.",
-        "Counsel"
+        `You seem to be in high psychological distress across the last month.\nIf you require urgent help, you can do so (anonymously) via "Quick Appointment".\nYou can also choose to book an appointment with UHC.`
       );
     }
   };
@@ -221,25 +205,14 @@ const Questionnaire = ({ navigation }) => {
             style={styles.touchableContainer}
             onPress={() => {
               handleSubmit(state, reset);
-              switch (navigator) {
-                case "Resources":
-                  console.log(navigator);
-                  giveResources(() => navigation.navigate("Resources"));
-                  break;
-                case "PFA":
-                  console.log(navigator);
-                  msg("PFA");
-                  break;
-                case "Counsel":
-                  console.log(navigator);
-                  msg("Counsel");
-                  break;
-                case "Psych":
-                  console.log(navigator);
-                  msg("Psych");
-                  break;
-                default:
-                  break;
+              console.log(user_score);
+              if (navigator === "Resources") {
+                giveResources(() => navigation.navigate("Resources"));
+              } else if (navigator === "moderateHelp") {
+                msg("moderate");
+              } else if (navigator === "highHelp") {
+                msg("high");
+              } else {
               }
               navigator = ""; // ensure proper resetting
             }}

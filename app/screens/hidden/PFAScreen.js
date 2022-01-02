@@ -8,11 +8,35 @@ import {
   Alert,
 } from "react-native";
 
+const customAlert = (title, msg, accept, decline) => {
+  Alert.alert(title, msg, [
+    {
+      text: "Decline",
+      onPress: decline,
+      style: "cancel",
+    },
+    {
+      text: "Accept",
+      onPress: accept,
+      style: "default",
+    },
+  ]);
+};
+
 const declineHandler = (submit) => {
   Alert.alert(
     "Declined", // title
     "We still strongly recommend you to seek help. Meanwhile, here's a list of resources you can use", // message
     submit // on accept
+  );
+};
+
+const getConsent = (accept, decline) => {
+  customAlert(
+    "Consent",
+    "By consenting, you agree to allow us to use your details for making an appointment with a PFA",
+    accept,
+    decline
   );
 };
 
@@ -52,10 +76,14 @@ const PFAScreen = ({ navigation, route }) => {
         <TouchableOpacity
           style={styles.touchableContainer}
           onPress={() =>
-            navigation.navigate("FormDetails", {
-              K_SCORE: K_SCORE, // Pass down their K_SCORE if they want to go ahead and do a Zoom call with the PFA.
-              directedFrom: "PFA",
-            })
+            getConsent(
+              () =>
+                navigation.navigate("FormDetails", {
+                  K_SCORE: K_SCORE, // Pass down their K_SCORE if they want to go ahead and do a Zoom call with the PFA.
+                  directedFrom: "PFA",
+                }),
+              () => {}
+            )
           }
         >
           <SafeAreaView style={[styles.nestedContainer, { bottom: 20 }]}>
