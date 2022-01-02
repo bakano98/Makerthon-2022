@@ -31,7 +31,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mk15.moodal",
+      "bundleIdentifier": "com.bakano.moodal",
       "buildNumber": "1.0.0"
     },
     "android": {
@@ -41,7 +41,7 @@
       },
       "permissions": [],
       "versionCode": 5,
-      "package": "com.mk15.moodal"
+      "package": "com.bakano.moodal"
     },
     "web": {
       "favicon": "./assets/appicon2.png"
