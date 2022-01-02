@@ -5,7 +5,7 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/logo.png",
+          "icon": "./assets/appicon2.png",
           "color": "#fff5cb",
           "sounds": [
             "./local/assets/notification-sound.wav",
@@ -15,9 +15,9 @@
       ]
     ],
     "slug": "Moodal",
-    "version": "1.1.0",
+    "version": "1.5.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/appicon2.png",
     "splash": {
       "image": "./assets/loading_screen.png",
       "resizeMode": "contain",
@@ -36,15 +36,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo.png",
+        "foregroundImage": "./assets/appicon2.png",
         "backgroundColor": "#fff5cb"
       },
       "permissions": [],
-      "versionCode": 3,
+      "versionCode": 5,
       "package": "com.mk15.moodal"
     },
     "web": {
-      "favicon": "./assets/logo.png"
+      "favicon": "./assets/appicon2.png"
     }
   }
 }
