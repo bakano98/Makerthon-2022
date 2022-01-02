@@ -34,13 +34,6 @@ const qnsList = questions.map((qns) => {
   return <QuestionnaireBox question={qns[0]} qNum={qns[1]} key={qns[1]} />;
 });
 
-// to access the score of each component:
-// x.props.store.getState().currScore
-
-// get total score:
-// console.log(qnsList.map(x => x.props.store.getState().currScore).reduce((x,y) => x + y))
-
-// create store in here, and pass it to the next component, which is our QuestionnaireBox
 let score = 0;
 
 // toNav is a function. Pass it in the form of "() => navigation.navigate(...)". Must be lazy, otherwise it'll do the navigation onPress.
@@ -59,20 +52,13 @@ const customAlert = (title, msg, accept, decline) => {
   ]);
 };
 
-// we'll need navigation screens here as well :)
 // confirm is a function. Specifically, it's the navigation function
 const giveResources = (confirm) => {
   Alert.alert(
     "Results",
     "Based on the survey, you're just having a bad time these few days.\nHere's some resources to help you!"
-    // "You do not seem to be distressed much across the last month!\nContinue to check-in on your mental health through our mood app!\nHere's some resources to keep up your mental hygiene!"
   );
   confirm();
-};
-
-const referToPFA = (action) => {
-  alert("Referring to PFA...");
-  action();
 };
 
 const getConsent = (accept, decline) => {
@@ -169,7 +155,10 @@ const Questionnaire = ({ navigation }) => {
     Alert.alert(title, msg, [
       {
         text: "I do not want help",
-        onPress: () => declineHandler(navigation.navigate("ResourcesMain")),
+        onPress: () =>
+          declineHandler(
+            navigation.navigate("Resources", { screen: "ResourcesMain" })
+          ),
         style: "cancel",
       },
       {
@@ -179,10 +168,6 @@ const Questionnaire = ({ navigation }) => {
             screen: "PFAScreen",
             params: { K_SCORE: user_score },
           }),
-        // onPress: () =>
-        //   choice === "PFA"
-        //     ? referToPFA(() => navigation.goBack()) // takes an action
-        //     : referToCounsel(() => navigation.goBack()), // takes an action
         style: "default",
       },
       {
