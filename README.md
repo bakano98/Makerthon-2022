@@ -1,6 +1,6 @@
 # Moodal
 
-This app was created during NUS' Makerthon 2022. The theme was "Mental Wellbeing within the Community".
+This app was created during NUS' Makerthon 2022. The theme was "Wellbeing & Community", with a focus on Mental Health.
 
 With this in mind, my team and I decided to create a mood tracking app with tele-medicine capabilities. Essentially, this meant that we had to set up some kind of flow in order to connect students with the University's Counselling Services.
 
