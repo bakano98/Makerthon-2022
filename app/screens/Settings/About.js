@@ -31,10 +31,10 @@ const About = () => {
       </SafeAreaView>
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.text}>
-          The Moodal Masters are 4 students from 4 different faculties of NUS
-          who came together for the NUS Makerthon 2022. We made Moodal in the
-          winter break of AY21/22 in hopes of helping students get barrier-free
-          access to mental health services.
+          We are a group of 4 students from 4 different faculties of NUS who
+          came together for the NUS Makerthon 2022. We made Moodal in the winter
+          break of AY21/22 in hopes of helping students get barrier-free access
+          to mental health services.
         </Text>
       </SafeAreaView>
     </ImageBackground>
