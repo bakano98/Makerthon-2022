@@ -100,6 +100,9 @@ const icons = {
   tut3: require("./Tutorial/Tut3.png"),
   tut4: require("./Tutorial/Tut4.png"),
   tut5: require("./Tutorial/Tut5.png"),
+
+  // about us
+  group_pic: require("./group.jpg"),
 };
 
 module.exports = icons;

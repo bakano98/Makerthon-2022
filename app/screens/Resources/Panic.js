@@ -120,13 +120,10 @@ const Panic = ({ navigation }) => {
               how to manage panic attacks. You may also
             </Text>
             <Text
-              style={styles.panicBoldText}
+              style={[styles.panicBoldText, { color: "blue" }]}
               onPress={() =>
-                navigation.navigate("PFAStack", {
-                  screen: "PFAScreen",
-                  params: {
-                    K_SCORE: "not taken, was directed from Resources",
-                  },
+                navigation.navigate("ServicesStack", {
+                  screen: "Callback",
                 })
               }
             >

@@ -104,7 +104,7 @@ const Dashboard = () => {
             {ProgressBar(dict)}
             <Text style={styles.progressBarText}>
               {progress[0]} / {progress[1]} days
-              {'\n'}
+              {"\n"}
               {Math.ceil(getProgress(dict) * 100)}%
             </Text>
           </View>
@@ -124,7 +124,7 @@ const Dashboard = () => {
 
         <View style={styles.pieContainer}>
           <Text style={styles.subheader}>Overview</Text>
-            {legend()}
+          {legend()}
           <View style={{ height: 300, width: 330 }}>
             {SwiperComponent(dict)}
           </View>
@@ -151,8 +151,6 @@ const Dashboard = () => {
             <Text style={styles.moodDescriptionText}>{renderText()}</Text>
           </View>
         </View>
-
-        <Button title="Clear storage" onPress={() => clearAll()} />
       </ScrollView>
     </ImageBackground>
   );
@@ -226,7 +224,7 @@ const styles = StyleSheet.create({
     color: "black",
     height: 60,
     marginStart: 10,
-    textAlign:'center',
+    textAlign: "center",
     padding: 10,
   },
   pieText: {
