@@ -267,6 +267,8 @@ const Mood = ({ navigation }) => {
 
   // <-------------------------------- Prompt Handling Stuff --------------------------------->
   const shouldPrompt = moodyDays >= 5;
+
+  // may need to review the logic
   const prompter = () => {
     const differenceInDays =
       lastPromptedDay === -1 // edge case, because when user starts for the very first time, lastPromptedDay === new Date(1970, 1, 0, 0, 0, 0), we have to do this until they have been prompted at least once throughout the app's lifetime
@@ -330,7 +332,10 @@ const Mood = ({ navigation }) => {
             fontSize: 18,
           }}
           onPress={() =>
-            rowIndex === 0 || item.day === -1 // since we already don't allow forward navigation
+            rowIndex === 0 ||
+            (item.day === -1 && item.year) ||
+            (item.day > todayDate.getDate() &&
+              item.year === todayDate.getFullYear()) // since we already don't allow forward navigation
               ? console.log("Haha nothing") // Change to "" before sending for test
               : navigation.navigate("MoodSelector", {
                   item: item,
@@ -421,15 +426,16 @@ const Mood = ({ navigation }) => {
         if (lastLoginDay === -1) {
           setStreak(1);
         } else {
-          const diff = dateFn.differenceInCalendarDays(todayDate, lastLoginDay);
+          const diff = todayDate.getDate() - lastLoginDay;
           if (diff === 1) {
-            setStreak(streak++);
+            setStreak(streak + 1);
           } else {
             setStreak(1);
           }
         }
         // after setting the streak, change lastLoginDay to today's date
-        setLastLoginDay(new Date());
+        console.log("Setting last login");
+        setLastLoginDay(todayDate.getDate());
         x++;
       }
 
@@ -440,7 +446,6 @@ const Mood = ({ navigation }) => {
       setTimeout(() => {
         if (!loading && done) {
           if (shouldPrompt) {
-            console.log("aaaa");
             prompter();
           }
         }

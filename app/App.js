@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Image, Text, SafeAreaView } from "react-native";
+import { Image, Text, SafeAreaView, LogBox } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
+LogBox.ignoreAllLogs();
 
 // Navigation stuff
 import {

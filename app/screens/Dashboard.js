@@ -151,6 +151,7 @@ const Dashboard = () => {
             <Text style={styles.moodDescriptionText}>{renderText()}</Text>
           </View>
         </View>
+        <Button title="Clear" onPress={() => clearAll()} />
       </ScrollView>
     </ImageBackground>
   );

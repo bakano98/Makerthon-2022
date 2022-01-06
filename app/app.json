@@ -15,7 +15,7 @@
       ]
     ],
     "slug": "Moodal",
-    "version": "1.7.0",
+    "version": "1.9.0",
     "orientation": "portrait",
     "icon": "./assets/appicon2.png",
     "splash": {
@@ -40,7 +40,7 @@
         "backgroundColor": "#fff5cb"
       },
       "permissions": [],
-      "versionCode": 7,
+      "versionCode": 8,
       "package": "com.bakano.moodal"
     },
     "web": {
