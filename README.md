@@ -30,10 +30,9 @@ On the more technical aspect, we hope to be able to integrate with actual hospit
 Furthermore, possible upgrades could also include slight gamification such as having Soul Characters that would encourage the user in one way or another. With Soul Characters, we can also set up an in-app chat system where people can talk to each other about their worries anonymously.
 
 # Credits
-Credits to @jerome-neo for doing up the dashboard and helping out with the styling.
-
-Credits to Shaun for coming up with the medical resources
-
-Credits to Rachelle for doing up the art (all the Moodals!), and coming up with the overall UI design for the app.
+- Credits to [Wei Jie](https://github.com/bakano98) for the majority of the development in the app.
+- Credits to [Jerome](https://github.com/jerome-neo) for doing up the dashboard and helping out with the styling.
+- Credits to Shaun for coming up with the medical resources, and providing a proper workflow.
+- Credits to Rachelle for doing up the art (all the Moodals!), and coming up with the overall UI design for the app.
 
 Also special thanks to Flaticon (https://www.flaticon.com/), where we used some of their icons for our bottom tabs.
