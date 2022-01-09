@@ -41,6 +41,6 @@ Furthermore, possible upgrades could also include slight gamification such as ha
 - Credits to [Wei Jie](https://github.com/bakano98) for the majority of the development in the app.
 - Credits to [Jerome](https://github.com/jerome-neo) for doing up the dashboard and helping out with the styling.
 - Credits to Shaun for coming up with the medical resources, and providing a proper workflow.
-- Credits to Rachelle for doing up the art (all the Moodals!), and coming up with the overall UI design for the app.
+- Credits to [Rachelle](https://www.instagram.com/sansandandan/) for doing up the art (all the Moodals!), and coming up with the overall UI design for the app.
 
-Also special thanks to Flaticon (https://www.flaticon.com/), where we used some of their icons for our bottom tabs.
+Also special thanks to [Flaticon](https://www.flaticon.com/), where we used some of their icons for our bottom tabs.
