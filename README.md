@@ -29,6 +29,9 @@ On the more technical aspect, we hope to be able to integrate with actual hospit
 
 Furthermore, possible upgrades could also include slight gamification such as having Soul Characters that would encourage the user in one way or another. With Soul Characters, we can also set up an in-app chat system where people can talk to each other about their worries anonymously.
 
+# Screenshots
+![appt](https://play-lh.googleusercontent.com/cmN8Kau355Fr8PJeCOWzCLQQODSDUDHi9VnVmZW9aQOwiTnU_mAUkK5MmPI2DCAqFfbs=w720-h310-rw "PFA Appointment")
+
 # Credits
 - Credits to [Wei Jie](https://github.com/bakano98) for the majority of the development in the app.
 - Credits to [Jerome](https://github.com/jerome-neo) for doing up the dashboard and helping out with the styling.
