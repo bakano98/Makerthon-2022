@@ -31,11 +31,11 @@ Furthermore, possible upgrades could also include slight gamification such as ha
 
 # Screenshots
 ![track](https://play-lh.googleusercontent.com/fSNnBYp5uk69izqg0EUF1xaeC9Tb75hASOiOKQujyfZRO34ZyHC3RpElJqk_HoMOa6M=w720-h310-rw "Mood Tracker")
-![add](https://play-lh.googleusercontent.com/OO9KSTA5aFCxUJflMvoY0--B0C3hNTewzhCqD06XyCHs4AqGCivWoouPQM0aVxXr73J8=w1536-h722-rw "Mood Adding")
-![dashboard](https://play-lh.googleusercontent.com/r7MIqZUhsQSZzJoDsQ-ArudhGFhC86JWjNnRaPp7cnMjWJs9xdK_iV8R5Ell3AMyLQ=w1536-h722-rw "Dashboard")
+![add](https://play-lh.googleusercontent.com/OO9KSTA5aFCxUJflMvoY0--B0C3hNTewzhCqD06XyCHs4AqGCivWoouPQM0aVxXr73J8=w720-h310-rw "Mood Adding")
+![dashboard](https://play-lh.googleusercontent.com/r7MIqZUhsQSZzJoDsQ-ArudhGFhC86JWjNnRaPp7cnMjWJs9xdK_iV8R5Ell3AMyLQ=w720-h310-rw "Dashboard")
 ![appt](https://play-lh.googleusercontent.com/cmN8Kau355Fr8PJeCOWzCLQQODSDUDHi9VnVmZW9aQOwiTnU_mAUkK5MmPI2DCAqFfbs=w720-h310-rw "PFA Appointment")
 ![services](https://play-lh.googleusercontent.com/VStTnHPMuG-u2_yYaPRpdv13Z5HUsV5qUyWxAfk-UJNjUnxKM1cmrtIgzvOneLXc608=w720-h310-rw "Services")
-![settings](https://play-lh.googleusercontent.com/xGXoDDr9H2SLa5jxUVRFxJJlWFujhlQjoRDtyYv0C3dW9Xri3CnCCbIhrZj3QuAwwQ=w1536-h722-rw "Settings")
+![settings](https://play-lh.googleusercontent.com/xGXoDDr9H2SLa5jxUVRFxJJlWFujhlQjoRDtyYv0C3dW9Xri3CnCCbIhrZj3QuAwwQ=w720-h310-rw "Settings")
 
 # Credits
 - Credits to [Wei Jie](https://github.com/bakano98) for the majority of the development in the app.
