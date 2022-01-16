@@ -28,7 +28,7 @@ Functionalities:
 6. Saving + Fetching on local storage with AsyncStorage
 7. Services
 8. Settings screen is done (except for About Us)
-9. Questionnaire
+9. Questionnair
 10. Forms. Mostly completed, just need to link up to the correct resources eventually (Psychologist, Counsellor?).
 11. Retrieving state from local storage done. Now, we only need to wait for the mood tracking and then save that, and it's fully complete.
 
