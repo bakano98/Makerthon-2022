@@ -23,11 +23,14 @@ You can provide feedback via the app, or you can email me at: bakainochi@gmail.c
 
 
 # Future plans
-We also hope to be able to incentivise people to use the app more, not just through in-app rewards, but possibly tangible rewards. So if we could manage to get some sort of sponsors, then we would be able to incentivise people by giving out E-vouchers!
+~~We also hope to be able to incentivise people to use the app more, not just through in-app rewards, but possibly tangible rewards. So if we could manage to get some sort of sponsors, then we would be able to incentivise people by giving out E-vouchers!
 
-On the more technical aspect, we hope to be able to integrate with actual hospitals in order to leverage on their booking system, so we can have an actual, working flow. This way, more people can have access to mental health resources and also be able to book for appointments easily, and gain anonymous resources for help.
+~~On the more technical aspect, we hope to be able to integrate with actual hospitals in order to leverage on their booking system, so we can have an actual, working flow. This way, more people can have access to mental health resources and also be able to book for appointments easily, and gain anonymous resources for help.
 
-Furthermore, possible upgrades could also include slight gamification such as having Soul Characters that would encourage the user in one way or another. With Soul Characters, we can also set up an in-app chat system where people can talk to each other about their worries anonymously.
+~~Furthermore, possible upgrades could also include slight gamification such as having Soul Characters that would encourage the user in one way or another. With Soul Characters, we can also set up an in-app chat system where people can talk to each other about their worries anonymously.
+
+For now, there are no more plans to continue this project. This is because there are no longer any plans for collaboration. However, if you're an organisation and see potential in our idea, do contact me through my [email](mailto:98lawweijie@gmail.com).
+  However, if you are actively using this app and notice any bugs, please do not hesitate to send a bug report!
 
 # Screenshots
 ![track](https://play-lh.googleusercontent.com/fSNnBYp5uk69izqg0EUF1xaeC9Tb75hASOiOKQujyfZRO34ZyHC3RpElJqk_HoMOa6M=w720-h310-rw "Mood Tracker")
