@@ -4,7 +4,7 @@ This app was created during NUS' Makerthon 2022. The theme was "Wellbeing & Comm
 
 With this in mind, my team and I decided to create a mood tracking app with tele-medicine capabilities. Essentially, this meant that we had to set up some kind of flow in order to connect students with the University's Counselling Services.
 
-The app is 100% functional, with possible improvements in the future (such as having an actual backend for booking appointments). To see the full journey, you can visit my documentation page (not exactly super clean) at: https://docs.google.com/document/d/11EyrSwwzp7EY-izEtZHcKszqCkYjeB1RwRSXcGyDVDw/edit?usp=sharing
+The app is 100% functional, with possible improvements in the future (such as having an actual backend for booking appointments). To see the full journey, you can visit my documentation page (not exactly super clean) [here](https://docs.google.com/document/d/11EyrSwwzp7EY-izEtZHcKszqCkYjeB1RwRSXcGyDVDw/edit?usp=sharing)
 
 
 # Description
